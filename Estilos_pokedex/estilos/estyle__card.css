@@ -12,6 +12,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 .pokedex-grid {
     display: grid;
     grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
@@ -80,4 +81,87 @@ body {
 .pokemon-image {
     width: 80px;
     height: 80px;
+}
+
+/*Va el estilo de la tarjeta*/
+
+.tarjeta {
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    position: fixed;
+    height: 600px;
+    width: 370px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Asegura que la tarjeta esté por encima de otros elementos */
+    max-width: 80%;    
+    overflow: hidden; 
+}
+
+
+.iconos__legendaria__pk{
+    height: 50px;
+    display: flex;
+    padding: 20px;
+    gap: 270px;
+
+}
+
+.informacion__legendaria__pk{
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+}
+
+.infor{
+    width: 200px;
+    padding: 15px;
+    color: white;
+}
+
+.mostrando__poke__id h2{
+    font-size: 15px;
+    color: white;
+    margin-left: 105px;
+    margin-top: 40px;
+}
+
+.mostrando__poke__id{
+   display: flex;
+}
+
+
+.poke__img{
+    display: flex;
+    justify-content: center;
+}
+.poke__data__segundaria{
+    background-color: white;
+    max-width: 100%;
+    overflow: visible;
+    height: 320px;
+}
+
+.poke__data__principal{
+    max-width: 100%; 
+    overflow: visible; /* Oculta el contenido que se desborde */
+    white-space: nowrap; /* Evita que el contenido haga saltos de línea */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    
+}
+
+.poke__data__segundaria{
+    border-radius: 20px;
+    margin-top: 130px;
+}
+
+.poke__img img {
+    margin-top: 100px;
+    position: absolute; /* Permite que la imagen se salga del contenedor */
+    top: 70px; /* Ajusta la posición verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Ajusta el centrado horizontal */
 }
