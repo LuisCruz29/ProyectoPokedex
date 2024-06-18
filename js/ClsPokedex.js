@@ -140,22 +140,7 @@ export class Pokedex
         const evoluciones = this.#getEvoluciones(evolucion.chain);
 
         // obtenemos la url de la imagen del pokemon
-        const imagen =
-        {
-            backDefault: dato.sprites.back_default,
-            backShiny: dato.sprites.back_shiny,
-            frontDefault: dato.sprites.front_default,
-            frontShiny: dato.sprites.front_shiny,
-            otroDW: dato.sprites.other.dream_world.front_default,
-            otroHomeFD: dato.sprites.other.home.front_default,
-            otroHomeFS: dato.sprites.other.home.front_shiny,
-            otroOficialArtworkFD: dato.sprites.other['official-artwork'].front_default,
-            otroOficialArtworkFS: dato.sprites.other['official-artwork'].front_shiny,
-            otroShowdownBD: dato.sprites.other.showdown.back_default,
-            otroShowdownBS: dato.sprites.other.showdown.back_shiny,
-            otroShowdownFD: dato.sprites.other.showdown.front_default,
-            otroShowdownFS: dato.sprites.other.showdown.front_shiny
-        };
+        const imagen = dato.sprites.front_default;
 
         // creamos un objeto de pokemon con la informacion obtenida
         const pk = new Pokemon(id, nombre, tipos, Estadisticas_Base, evoluciones, sobrePk, imagen);
@@ -203,84 +188,61 @@ export class Pokedex
     }
 
     //creamos un metodo privado para dibujar el pokemon
-    #dibujarPk(elemento_html, pokemon)
-    {
-        // creamos un div para la tarjeta de nuestro pokemon
-        const tarjetaPk = document.createElement('div');
-        tarjetaPk.classList.add('pokemon-card'); // agrega la clase pokemon-card al div 
-        
-        // crea un elemento img para la imagen del pokemon
+    #dibujarPk(elemento_html, pokemon) {
+        // Creamos un ID único para la tarjeta basado en el ID del Pokémon
+        const idUnico = `pk-${pokemon.id}`;
+    
+        // Creamos el contenedor principal
+        const contenedorPrincipal = document.createElement('div');
+        contenedorPrincipal.classList.add('contenedor');
+        contenedorPrincipal.id = idUnico; // Asignamos el ID único al contenedor principal
+    
+        // Creamos el contenedor pk__container_Principal dentro del contenedor principal
+        const pkContainerPrincipal = document.createElement('div');
+        pkContainerPrincipal.classList.add('pk__container_Principal', `pk__container_${pokemon.tipos[0]}`, 'principalContainer');
+    
+        // Creamos el contenedor pk__complementario
+        const pkComplementario = document.createElement('div');
+        pkComplementario.classList.add('pk__complementario');
+    
+        // Creamos el título h3 dentro de pk__complementario (Nombre del Pokémon)
+        const tituloPk = document.createElement('h3');
+        tituloPk.textContent = pokemon.nombre; // Asignamos el nombre del Pokémon al título
+        pkComplementario.appendChild(tituloPk);
+    
+        // Creamos la imagen del Pokémon dentro de pk__complementario
         const imgPk = document.createElement('img');
-        imgPk.src = pokemon.imagen.otroShowdownFS; 
+        imgPk.src = pokemon.imagen;
         imgPk.alt = pokemon.nombre;
-
-        //creamos un h3 para el nombre del pokemon
-        const nombrePk = document.createElement('h3');
-        nombrePk.textContent = pokemon.nombre; // asigna el nombre del pokemon
-
-        // crea un p para los tipos de pokemon
-        const tiposPk = document.createElement('p');
-        tiposPk.textContent = `Tipos: ${pokemon.tipos.join(',')}`;
-
-        // creamos un div para sus estadisticas base del pk
-        //objeto.entries convierte el objeto en una matriz de parez [clave, valor]
-        const estadisticasPk = document.createElement('div');
-        estadisticasPk.classList.add('pokemon-stats');
-
-        Object.entries(pokemon.Estadisticas_Base).forEach(([clave, valor])=>
-        {
-            //crea un elemento p para cada estadistica base del pokemon
-            const estadistica = document.createElement('p');
-            estadistica.textContent = `${clave}: ${valor}`; // asigna la clave y el valor de la estadistica
-            estadisticasPk.appendChild(estadistica);
+        imgPk.classList.add('pokemon-image');
+        pkComplementario.appendChild(imgPk);
+    
+        // Creamos el ID del Pokémon
+        const idPk = document.createElement('h4');
+        idPk.textContent = `#${pokemon.id}`;
+        pkComplementario.appendChild(idPk);
+    
+        // Creamos el contenedor pk__descripcion
+        const pkDescripcion = document.createElement('div');
+        pkDescripcion.classList.add('pk__descripcion');
+    
+        // Creamos los tipos del Pokémon dentro de pk__descripcion
+        pokemon.tipos.forEach(tipo => {
+            const spanTipo = document.createElement('span');
+            spanTipo.textContent = tipo;
+            spanTipo.classList.add('badges');
+            spanTipo.classList.add(`pk__container_${tipo}`);
+            pkDescripcion.appendChild(spanTipo);
         });
-
-        // crea un div para informacion sobre el pokemon
-        // charat(0) obtiene el primer caracter  de la cadena
-        // touppercase convierte mayuscula
-        //slice(1) una nueva cadena que comienza del segundo caracter
-        const sobrePk = document.createElement('div');
-        sobrePk.classList.add('pokemon-about');
-        Object.entries(pokemon.sobrePk).forEach(([clave, valor]) => {
-            if (typeof valor === 'object') {
-                Object.entries(valor).forEach(([subclave, subvalor]) => {
-                    const elementoPk = document.createElement('p');
-                    elementoPk.textContent = `${subclave.charAt(0).toUpperCase() + subclave.slice(1)}: ${subvalor}`;
-                    sobrePk.appendChild(elementoPk);
-                });
-            } else {
-                const elementoPk = document.createElement('p');
-                elementoPk.textContent = `${clave.charAt(0).toUpperCase() + clave.slice(1)}: ${valor}`;
-                sobrePk.appendChild(elementoPk);
-            }
-        });
-
-        // crear un div para las evoluciones  del pokemon
-        const evolucionesPk = document.createElement('div');
-        evolucionesPk.classList.add('pokemon-evolutions');
-
-        const evolucion_titulo = document.createElement('p');
-        evolucion_titulo.textContent = "Evoluciones: " // titulo para las evoluciones del pokemon
-        evolucionesPk.appendChild(evolucion_titulo);
-
-        pokemon.evoluciones.forEach(e =>
-            {
-                // crea un p para cada evolucion del pokemon y agregarlo a evolucionesPk
-                const elemento_evo = document.createElement('p');
-                elemento_evo.textContent = e;
-                evolucionesPk.appendChild(elemento_evo);
-            }
-        );
-
-        // agrega todos los elementos creados al div tarjetapk 
-        tarjetaPk.appendChild(imgPk);
-        tarjetaPk.appendChild(nombrePk);
-        tarjetaPk.appendChild(tiposPk);
-        tarjetaPk.appendChild(estadisticasPk);
-        tarjetaPk.appendChild(sobrePk);
-        tarjetaPk.appendChild(evolucionesPk);
-
-        // agrega la tarjeta pokemon al elemento contendor pokedex
-        elemento_html.appendChild(tarjetaPk);
+    
+        // Agregamos pkComplementario y pkDescripcion a pkContainerPrincipal
+        pkContainerPrincipal.appendChild(pkComplementario);
+        pkContainerPrincipal.appendChild(pkDescripcion);
+    
+        // Agregamos pkContainerPrincipal al contenedor principal (contenedorPrincipal)
+        contenedorPrincipal.appendChild(pkContainerPrincipal);
+    
+        // Finalmente, agregamos contenedorPrincipal al elemento HTML proporcionado (elemento_html)
+        elemento_html.appendChild(contenedorPrincipal);
     }
 }

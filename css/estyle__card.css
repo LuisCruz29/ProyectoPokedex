@@ -1,0 +1,185 @@
+/* Estilos para el nav */
+nav {
+    width: 100%;
+    background-color: #FF0000; /* Rojo para el fondo del nav bar */
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Para asegurar que el nav esté sobre otros elementos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav img {
+    height: 50px; /* Ajusta la altura según tus necesidades */
+    margin-right: auto; /* Esto moverá la imagen a la izquierda */
+}
+
+nav a {
+    color: #FFFFFF; /* Blanco para el texto de los enlaces */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: 3px solid transparent; /* Añade un borde transparente para mantener el tamaño del enlace */
+    transition: border-color 0.3s; /* Añade una transición suave para el borde */
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: transparent; /* Fondo transparente para los enlaces en hover */
+    color: #FFFFFF; /* Blanco para el texto de los enlaces en hover */
+    border-color: #FFCB05; /* Borde amarillo */
+}
+
+/* Estilos generales del body */
+body {
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos del contenedor principal de tarjetas de Pokémon */
+.container2 {
+    padding: 60px 30px 30px 30px; /* Ajuste de espaciado */
+    margin-top: 100px; /* Espacio superior para evitar que el nav cubra las tarjetas */
+    box-shadow: 0 2px 16px rgba(0,0,0,.1);
+}
+
+/* Estilos para el contenedor flex donde se mostrarán las tarjetas */
+#pokedex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Estilos para cada tarjeta de Pokémon */
+.pk__container_Principal {
+    display: inline-block;
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    width: 190px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+/* Colores para diferentes tipos de Pokémon */
+.pk__container_plant {
+    background-color: #78c850; /* Tipo Planta */
+}
+
+.pk__container_fire {
+    background-color: #f08030; /* Tipo Fuego */
+}
+
+.pk__container_water {
+    background-color: #6890f0; /* Tipo Agua */
+}
+
+.pk__container_electric {
+    background-color: #f8d030; /* Tipo Eléctrico */
+}
+
+.pk__container_ground {
+    background-color: #e0c068; /* Tipo Tierra */
+}
+
+.pk__container_normal {
+    background-color: #a8a878; /* Tipo Normal */
+}
+
+.pk__container_fighting {
+    background-color: #c03028; /* Tipo Lucha */
+}
+
+.pk__container_flying {
+    background-color: #a890f0; /* Tipo Volador */
+}
+
+.pk__container_poison {
+    background-color: #a040a0; /* Tipo Veneno */
+}
+
+.pk__container_rock {
+    background-color: #b8a038; /* Tipo Roca */
+}
+
+.pk__container_bug {
+    background-color: #a8b820; /* Tipo Bicho */
+}
+
+.pk__container_ghost {
+    background-color: #705898; /* Tipo Fantasma */
+}
+
+.pk__container_steel {
+    background-color: #b8b8d0; /* Tipo Acero */
+}
+
+.pk__container_ice {
+    background-color: #98d8d8; /* Tipo Hielo */
+}
+
+.pk__container_dragon {
+    background-color: #7038f8; /* Tipo Dragón */
+}
+
+.pk__container_dark {
+    background-color: #705848; /* Tipo Siniestro */
+}
+
+.pk__container_fairy {
+    background-color: #ee99ac; /* Tipo Hada */
+}
+
+/* Nuevos colores añadidos */
+.pk__container_grass {
+    background-color: #78c850; /* Tipo Grass */
+}
+
+.pk__container_psychic {
+    background-color: #f85888; /* Tipo Psychic */
+}
+
+/* Estilos para el título del Pokémon */
+.pk__complementario h3 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+/* Estilos para los tipos de Pokémon */
+.badges {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 10px;
+    margin: 2px;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+/* Estilos para el nombre del Pokémon */
+.pk__descripcion h3 {
+    margin: 10px 0;
+    font-size: 20px;
+    color: white;
+}
+
+/* Estilos para la imagen del Pokémon */
+.pokemon-image {
+    width: 100px; /* Ancho fijo para las imágenes */
+    height: 100px; /* Altura fija para las imágenes */
+    object-fit: cover; /* Mantiene la relación de aspecto de la imagen */
+}
