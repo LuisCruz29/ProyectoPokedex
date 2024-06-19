@@ -85,7 +85,6 @@ body {
 }
 
 /*Va el estilo de la tarjeta*/
-
 .tarjeta {
     display: none;
     border: 1px solid #ccc;
@@ -95,7 +94,7 @@ body {
     width: 370px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /*esto es lo que hace que el contenido se muestre en medio de la panatalla */
     z-index: 1000; /* Asegura que la tarjeta esté por encima de otros elementos */
     max-width: 80%;    
     overflow: hidden; 
@@ -139,13 +138,15 @@ body {
     display: flex;
     justify-content: center;
 }
+
 .poke__data__segundaria{
     background-color: white;
     max-width: 100%;
-    overflow: visible;
+    overflow: visible; /* Oculta el contenido que se desborde */
     height: 360px;
 }
-
+ 
+/*aqui eh validado que la informacion no se salga del contenedor es decir qu no se expanda*/
 .poke__data__principal{
     max-width: 100%; 
     overflow: visible; /* Oculta el contenido que se desborde */
@@ -160,6 +161,7 @@ body {
     margin-top: 130px;
 }
 
+/*aqui eh validado que la image se muestre por encima de todo */
 .poke__img img {
     margin-top: 100px;
     position: absolute; /* Permite que la imagen se salga del contenedor */
@@ -224,4 +226,23 @@ body {
 
 .content_box .content.active{
    display: block; 
+}
+
+.container h2 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 5px;
+}
+.container p {
+    margin: 10px 0;
+    font-size: 0.9em;
+    color: #555;
+}
+.container .title {
+    font-weight: bold;
+    color: #333;
+    display: inline-block;
+    width: 100px;
 }

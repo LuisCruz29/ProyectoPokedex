@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obtén todos los contenedores principales por su clase
     var containers = document.querySelectorAll('.pk__container_Principal');
     var card = document.getElementById('pika__card'); // Obtén la tarjeta
-
+    //aqui lo que podes hacer es obtener el id para que no te cueste cargar las cosas 
     // Itera sobre cada contenedor principal
     containers.forEach(function(container) {
         // Agrega un evento click a cada contenedor principal
