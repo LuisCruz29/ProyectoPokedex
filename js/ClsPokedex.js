@@ -335,9 +335,34 @@ export class Pokedex
         contentbox.appendChild(aboutContent);
         tarjeta.appendChild(pokeDataSecundaria);
         elemento_html.appendChild(tarjeta);
-        
+        this.poke_evetento_click(contenedorPrincipal,tarjeta);
+        this.poke_nav_movimiento(tarjeta);
+    }
+
+    poke_evetento_click(contenedorPrincipal,tarjeta){
         contenedorPrincipal.addEventListener('click', function () {
             tarjeta.style.display = 'block'; // Mostrar la tarjeta correspondiente al hacer clic
+        });
+    }
+
+    poke_nav_movimiento(tarjeta){
+        const tabs = tarjeta.querySelectorAll(".tab_btn");
+        const all_content = tarjeta.querySelectorAll(".content");
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', (e) => {
+                tabs.forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                tab.classList.add('active');
+                var line = tarjeta.querySelector('.line');
+                line.style.width = e.target.offsetWidth + "px";
+                line.style.left = e.target.offsetLeft + "px";
+    
+                all_content.forEach(content => {
+                    content.classList.remove('active');
+                });
+                all_content[index].classList.add('active');
+            });
         });
     }
 }
