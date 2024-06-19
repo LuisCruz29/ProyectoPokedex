@@ -189,6 +189,7 @@ export class Pokedex
 
     //creamos un metodo privado para dibujar el pokemon
     #dibujarPk(elemento_html, pokemon) {
+        elemento_html = document.querySelector('body');
         // Creamos un ID único para la tarjeta basado en el ID del Pokémon
         const idUnico = `pk-${pokemon.id}`;
     
@@ -217,11 +218,12 @@ export class Pokedex
         imgPk.classList.add('pokemon-image');
         pkComplementario.appendChild(imgPk);
     
-        // Creamos el ID del Pokémon
-        const idPk = document.createElement('h4');
+        // Creamos el ID del Pokémon dentro de pk__descripcion
+        const idPk = document.createElement('h3');
+        idPk.classList.add('pk__descripcion__id');
         idPk.textContent = `#${pokemon.id}`;
         pkComplementario.appendChild(idPk);
-    
+
         // Creamos el contenedor pk__descripcion
         const pkDescripcion = document.createElement('div');
         pkDescripcion.classList.add('pk__descripcion');

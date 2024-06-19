@@ -1,53 +1,3 @@
-/* Estilos para el nav */
-nav {
-    width: 100%;
-    background-color: #FF0000; /* Rojo para el fondo del nav bar */
-    display: flex;
-    justify-content: flex-end;
-    padding: 14px 16px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000; /* Para asegurar que el nav esté sobre otros elementos */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-nav img {
-    height: 50px; /* Ajusta la altura según tus necesidades */
-    margin-right: auto; /* Esto moverá la imagen a la izquierda */
-}
-
-nav a {
-    color: #FFFFFF; /* Blanco para el texto de los enlaces */
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    border: 3px solid transparent; /* Añade un borde transparente para mantener el tamaño del enlace */
-    transition: border-color 0.3s; /* Añade una transición suave para el borde */
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    background-color: transparent; /* Fondo transparente para los enlaces en hover */
-    color: #FFFFFF; /* Blanco para el texto de los enlaces en hover */
-    border-color: #FFCB05; /* Borde amarillo */
-}
-
-/* Estilos generales del body */
-body {
-    margin: 0;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-}
-
-/* Estilos del contenedor principal de tarjetas de Pokémon */
-.container2 {
-    padding: 60px 30px 30px 30px; /* Ajuste de espaciado */
-    margin-top: 100px; /* Espacio superior para evitar que el nav cubra las tarjetas */
-    box-shadow: 0 2px 16px rgba(0,0,0,.1);
-}
-
 /* Estilos para el contenedor flex donde se mostrarán las tarjetas */
 #pokedex {
     display: flex;
@@ -146,15 +96,67 @@ body {
 .pk__container_psychic {
     background-color: #f85888; /* Tipo Psychic */
 }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
 
-/* Estilos para el título del Pokémon */
+.contenedor{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pokedex-grid {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.pk__container_Principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    width: 190px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+.pk__container_plant {
+    background-color: #a8d5e2;
+}
+
+.pk__container_fire {
+    background-color: #f8a1a4;
+}
+
+.pk__container_water {
+    background-color: #9ad2f0;
+}
+
+.pk__container_electric {
+    background-color: #f9e79f;
+}
+
+.pk__container_ground {
+    background-color: #e5c19b;
+}
+
 .pk__complementario h3 {
     margin: 0;
     font-size: 24px;
     color: white;
 }
 
-/* Estilos para los tipos de Pokémon */
 .badges {
     display: inline-block;
     padding: 0.25em 0.6em;
@@ -170,16 +172,174 @@ body {
     color: #343a40;
 }
 
-/* Estilos para el nombre del Pokémon */
 .pk__descripcion h3 {
     margin: 10px 0;
     font-size: 20px;
     color: white;
 }
 
-/* Estilos para la imagen del Pokémon */
 .pokemon-image {
-    width: 100px; /* Ancho fijo para las imágenes */
-    height: 100px; /* Altura fija para las imágenes */
-    object-fit: cover; /* Mantiene la relación de aspecto de la imagen */
+    width: 80px;
+    height: 80px;
+}
+
+/*Va el estilo de la tarjeta*/
+.tarjeta {
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    position: fixed;
+    height: 620px;
+    width: 370px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /*esto es lo que hace que el contenido se muestre en medio de la panatalla */
+    z-index: 1000; /* Asegura que la tarjeta esté por encima de otros elementos */
+    max-width: 80%;    
+    overflow: hidden; 
+}
+
+.iconos__legendaria__pk{
+    height: 50px;
+    display: flex;
+    padding: 20px;
+    gap: 270px;
+
+}
+
+.informacion__legendaria__pk{
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    top: 20px;
+}
+
+.infor{
+    width: 200px;
+    padding: 15px;
+    color: white;
+}
+
+.mostrando__poke__id h2{
+    font-size: 15px;
+    color: white;
+    margin-left: 105px;
+    margin-top: 40px;
+}
+
+.mostrando__poke__id{
+   display: flex;
+}
+
+.poke__img{
+    display: flex;
+    justify-content: center;
+}
+
+.poke__data__segundaria{
+    background-color: white;
+    max-width: 100%;
+    overflow: visible; /* Oculta el contenido que se desborde */
+    height: 360px;
+}
+ 
+/*aqui eh validado que la informacion no se salga del contenedor es decir qu no se expanda*/
+.poke__data__principal{
+    max-width: 100%; 
+    overflow: visible; /* Oculta el contenido que se desborde */
+    white-space: nowrap; /* Evita que el contenido haga saltos de línea */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    
+}
+
+.poke__data__segundaria{
+    border-radius: 20px;
+    margin-top: 130px;
+}
+
+/*aqui eh validado que la image se muestre por encima de todo */
+.poke__img img {
+    margin-top: 100px;
+    position: absolute; /* Permite que la imagen se salga del contenedor */
+    top: 50px; /* Ajusta la posición verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Ajusta el centrado horizontal */
+}
+
+/*********************************************************/
+.container{
+    padding: 30px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.1);
+}
+
+.tab_box{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px solid rgba(229, 229, 229);
+    position: relative;
+    top: -20px;
+}
+
+.tab_box .tab_btn{
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #919191;
+    background: none;
+    border: none;
+    padding: 18px;
+    cursor: pointer;
+}
+
+.tab_box .tab_btn.active{
+    color: #7360ff;
+
+}
+.content_box{
+   padding: 5px;  
+   position: relative;
+   bottom: 20px;
+}
+
+.content_box .content{
+    display: none;
+}
+.content_box .content h2{
+    margin-bottom: 10px;
+}
+
+.line{
+    position: absolute;
+    top: 54px;
+    left: 0px;
+    width: 90px;
+    height: 5px;
+    background-color: #7360ff;
+    border-radius: 10px;
+    transition: all .3s ease-in-out;
+}
+
+.content_box .content.active{
+   display: block; 
+}
+
+.container h2 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 5px;
+}
+.container p {
+    margin: 10px 0;
+    font-size: 0.9em;
+    color: #555;
+}
+.container .title {
+    font-weight: bold;
+    color: #333;
+    display: inline-block;
+    width: 100px;
 }
