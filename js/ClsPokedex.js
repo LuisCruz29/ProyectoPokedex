@@ -245,6 +245,99 @@ export class Pokedex
         contenedorPrincipal.appendChild(pkContainerPrincipal);
     
         // Finalmente, agregamos contenedorPrincipal al elemento HTML proporcionado (elemento_html)
-        elemento_html.appendChild(contenedorPrincipal);
+        elemento_html.appendChild(contenedorPrincipal);  
+
+        //dibujando la targetas
+        const tarjeta = document.createElement('div');
+        tarjeta.classList.add('tarjeta', `pk__container_${pokemon.tipos[0]}`);
+        tarjeta.id = `pk-${pokemon.id}`;
+
+        //aqui va la parte pricipal de los datos 
+        const pokeDataPrincipal = document.createElement('div');
+        pokeDataPrincipal.classList.add('poke__data__principal');
+
+        //iconos para las navegacion y accion que realizara
+        const iconos = document.createElement('div');
+        iconos.classList.add('iconos__legendaria__pk');
+        iconos.innerHTML = `
+            <a href="http://127.0.0.1:5500/html/pokemones.html"><img src="/img/flecha-derecha.png" height="20px" width="30px"></a>
+            <a href="#"><img src="/img/corazn.png" height="20px" width="30px"></a>
+        `;
+
+        pokeDataPrincipal.appendChild(iconos);
+
+        //ahora para la informacion basica de los pokemones 
+        const  info = document.createElement('div');
+        info.classList.add('informacion__legendaria__pk');
+
+        info.innerHTML = `
+            <div class="infor">
+                <h3 class="Nombre">${pokemon.nombre}</h3>
+                <div>
+                    ${pokemon.tipos.map(tipo => `<span class="badges">${tipo}</span>`).join('')}
+                </div>
+            </div>
+            <div class="mostrando__poke__id">
+                <h2 class="id_pokemon">#${pokemon.id}</h2>
+            </div>
+        `;
+
+        pokeDataPrincipal.appendChild(info);
+
+        //ahora para que nuestro contendor contenga la imagen
+        const pokeImg = document.createElement('div');
+        pokeImg.classList.add('poke__img');
+        const img = document.createElement('img');
+        img.classList.add('poke__img_mostrar');
+        img.src = pokemon.imagen;
+        img.alt = pokemon.nombre;
+        img.height = 130;
+        pokeImg.appendChild(img);
+        pokeDataPrincipal.appendChild(pokeImg);
+        //agregandolo a la targeta
+        tarjeta.appendChild(pokeDataPrincipal);
+
+
+        // Parte secundaria de datos del Pokémon
+        const pokeDataSecundaria = document.createElement('div');
+        pokeDataSecundaria.classList.add('poke__data__segundaria', 'container');
+        //ahora crearemos la parte segundaria de nuestro tarjeta
+        const tabBox = document.createElement('div');
+        tabBox.classList.add('tab_box');
+        //esto son las secciones que lleva el nav
+        tabBox.innerHTML = `
+            <button type="button" class="tab_btn">About</button>
+            <button type="button" class="tab_btn">Base Stats</button>
+            <button type="button" class="tab_btn">Moves</button>
+            <div class="line"></div>
+        `; 
+
+        pokeDataSecundaria.appendChild(tabBox);
+        
+        //donde ira el contenido del nav bar
+        const contentbox = document.createElement('div');
+        contentbox.classList.add('content_box');
+
+        //primer pestaña about 
+        const aboutContent = document.createElement('div');
+        aboutContent.classList.add('content', 'active');
+
+        aboutContent.innerHTML = `
+            <p class="Species"><span class="title">Species</span> ${pokemon.sobrePk.generacion}</p>
+            <p class="Height"><span class="title">Height</span> ${pokemon.sobrePk.altura} m</p>
+            <p class="Weight"><span class="title">Weight</span> ${pokemon.sobrePk.peso} kg</p>
+            <p class="Abilities"><span class="title">Abilities</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
+            <h2>Breeding</h2>
+            <p class="Gender"><span class="title">Gender</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
+            <p class="Egg Groups"><span class="title">Egg Groups</span> ${pokemon.sobrePk.habitat}</p>
+            <p class="Egg Cycle"><span class="title">Egg Cycle</span> ${pokemon.sobrePk.forma}</p>
+        `;
+        contentbox.appendChild(aboutContent);
+        tarjeta.appendChild(pokeDataSecundaria);
+        elemento_html.appendChild(tarjeta);
+        
+        contenedorPrincipal.addEventListener('click', function () {
+            tarjeta.style.display = 'block'; // Mostrar la tarjeta correspondiente al hacer clic
+        });
     }
 }
