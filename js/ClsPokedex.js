@@ -334,6 +334,7 @@ export class Pokedex
             <br>
             <br>
         `;
+        /*por cada contenedor que crees debe ir esto*/
         contentbox.appendChild(aboutContent);
         pokeDataSecundaria.appendChild(contentbox);
         tarjeta.appendChild(pokeDataSecundaria);
@@ -362,6 +363,8 @@ export class Pokedex
                                         </div>
                                     </div>
                                 `;
+                                /* esto ultimo que esta comentariado va despues de sp. Atk  lo quite por que sobrepasa los limite 
+                                esto se debe arreglar caballo*/
                                 /* esto que comentareo va de ultimo
                                     <p>Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
                                         <div class="progress">
@@ -377,23 +380,30 @@ export class Pokedex
         
         contentbox.appendChild(baseStatsContent);
 
-        // Asegúrate de que contentbox esté añadido a pokeDataSecundaria y luego a tarjeta
+        // Asegúrate de que contentbox esté añadido a pokeDataSecundaria y luego a tarjeta tene en cuenta esto por que muchas veces ahi me dio error
         pokeDataSecundaria.appendChild(contentbox);
         tarjeta.appendChild(pokeDataSecundaria);
 
-        // Asegúrate de que contenedorPrincipal esté añadido a elemento_html
+        // Asegúrate de que contenedorPrincipal esté añadido a elemento_html igual aqui debes de tomar en cuenta esto
         elemento_html.appendChild(contenedorPrincipal);
 
+        //aqui iria el codigo para que crees la honda de los ataques 
+
+        //bueno ya cuando creee el ultimo contenedor donde iran los atakes que tiene el pokemos esto siempre Asegúrate que debe ir de ultimo para que funcione 
         this.poke_evetento_click(contenedorPrincipal, tarjeta);
         this.poke_nav_movimiento(tarjeta);
+
+        /*bueno ya de ultimo diria podemos poner las para te de codigos en diferentes metodos*/
     }
 
+    /*este metodo lo que ase es que funcione el evento click*/
     poke_evetento_click(contenedorPrincipal,tarjeta){
         contenedorPrincipal.addEventListener('click', function () {
             tarjeta.style.display = 'block'; // Mostrar la tarjeta correspondiente al hacer clic
         });
     }
 
+    /*este otro lo que hhace que funcione lo que es el nav bar de la targeta*/
     poke_nav_movimiento(tarjeta){
         const tabs = tarjeta.querySelectorAll(".tab_btn");
         const all_content = tarjeta.querySelectorAll(".content");
@@ -415,3 +425,6 @@ export class Pokedex
         });
     }
 }
+
+/*tambien faltaria en el diseño ponerle lo que seria el coraxon blanco y la flecha tambien
+,tambien toma en cuenta que fata calcular el total content_stats ahi le das un diseño xd*/
