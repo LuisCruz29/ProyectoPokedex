@@ -331,13 +331,61 @@ export class Pokedex
             <p class="Gender"><span class="title">Gender</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
             <p class="Egg Groups"><span class="title">Egg Groups</span> ${pokemon.sobrePk.habitat}</p>
             <p class="Egg Cycle"><span class="title">Egg Cycle</span> ${pokemon.sobrePk.forma}</p>
+            <br>
+            <br>
         `;
         contentbox.appendChild(aboutContent);
         pokeDataSecundaria.appendChild(contentbox);
         tarjeta.appendChild(pokeDataSecundaria);
         elemento_html.appendChild(tarjeta);
-        this.poke_evetento_click(contenedorPrincipal,tarjeta);
-        this.poke_nav_movimiento(tarjeta); 
+        
+        /*inicia base stap*/
+        const baseStatsContent = document.createElement('div');
+        baseStatsContent.classList.add('content_stats');
+        baseStatsContent.innerHTML = `
+                                    <div class="stats">
+                                        <p>HP: ${pokemon.Estadisticas_Base.vida}</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.vida}%;" aria-valuenow="${pokemon.Estadisticas_Base.vida}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.vida}%</div>
+                                        </div>
+                                        <p>Attack: ${pokemon.Estadisticas_Base.ataque}</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.ataque}%;" aria-valuenow="${pokemon.Estadisticas_Base.ataque}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.ataque}%</div>
+                                        </div>
+                                        <p>Defense: ${pokemon.Estadisticas_Base.defensa}</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.defensa}%;" aria-valuenow="${pokemon.Estadisticas_Base.defensa}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.defensa}%</div>
+                                        </div>
+                                        <p>Sp. Atk: ${pokemon.Estadisticas_Base.Ataque_Especial}</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.Ataque_Especial}%;" aria-valuenow="${pokemon.Estadisticas_Base.Ataque_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Ataque_Especial}%</div>
+                                        </div>
+                                    </div>
+                                `;
+                                /* esto que comentareo va de ultimo
+                                    <p>Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width:  ${pokemon.Estadisticas_Base.Defensa_Especial}%;" aria-valuenow=" ${pokemon.Estadisticas_Base.Defensa_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Defensa_Especial}%</div>
+                                        <p>Speed:  ${pokemon.Estadisticas_Base.velocidad}</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.velocidad}%;" aria-valuenow="${pokemon.Estadisticas_Base.velocidad}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.velocidad}%</div>
+                                        </div>
+                                        <p>Total: sin calcular</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: 52.83%;" aria-valuenow="317" aria-valuemin="0" aria-valuemax="600">52.83%</div>
+                                        </div>?*/
+        
+        contentbox.appendChild(baseStatsContent);
+
+        // Asegúrate de que contentbox esté añadido a pokeDataSecundaria y luego a tarjeta
+        pokeDataSecundaria.appendChild(contentbox);
+        tarjeta.appendChild(pokeDataSecundaria);
+
+        // Asegúrate de que contenedorPrincipal esté añadido a elemento_html
+        elemento_html.appendChild(contenedorPrincipal);
+
+        this.poke_evetento_click(contenedorPrincipal, tarjeta);
+        this.poke_nav_movimiento(tarjeta);
     }
 
     poke_evetento_click(contenedorPrincipal,tarjeta){
