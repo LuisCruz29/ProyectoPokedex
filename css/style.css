@@ -1,3 +1,12 @@
+/*Estilos generales para el body*/
+body {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    gap: 10px; /* Espacio entre los elementos */
+    padding: 10px; /* Añade padding alrededor */
+    margin: 0; 
+}
 /* Estilos para el nav */
 nav {
     width: 100%;

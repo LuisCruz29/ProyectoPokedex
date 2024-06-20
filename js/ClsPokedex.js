@@ -260,7 +260,7 @@ export class Pokedex
         const iconos = document.createElement('div');
         iconos.classList.add('iconos__legendaria__pk');
         iconos.innerHTML = `
-            <a href="http://127.0.0.1:5500/html/pokemones.html"><img src="/img/flecha-derecha.png" height="20px" width="30px"></a>
+            <a href="/html/pokemones.html"><img src="/img/flecha-derecha.png" height="20px" width="30px"></a>
             <a href="#"><img src="/img/corazn.png" height="20px" width="30px"></a>
         `;
 
@@ -333,10 +333,11 @@ export class Pokedex
             <p class="Egg Cycle"><span class="title">Egg Cycle</span> ${pokemon.sobrePk.forma}</p>
         `;
         contentbox.appendChild(aboutContent);
+        pokeDataSecundaria.appendChild(contentbox);
         tarjeta.appendChild(pokeDataSecundaria);
         elemento_html.appendChild(tarjeta);
         this.poke_evetento_click(contenedorPrincipal,tarjeta);
-        this.poke_nav_movimiento(tarjeta);
+        this.poke_nav_movimiento(tarjeta); 
     }
 
     poke_evetento_click(contenedorPrincipal,tarjeta){
