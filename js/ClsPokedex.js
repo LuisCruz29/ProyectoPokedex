@@ -140,7 +140,22 @@ export class Pokedex
         const evoluciones = this.#getEvoluciones(evolucion.chain);
 
         // obtenemos la url de la imagen del pokemon
-        const imagen = dato.sprites.front_default;
+        const imagen =
+        {
+            backDefault: dato.sprites.back_default,
+            backShiny: dato.sprites.back_shiny,
+            frontDefault: dato.sprites.front_default,
+            frontShiny: dato.sprites.front_shiny,
+            otroDW: dato.sprites.other.dream_world.front_default,
+            otroHomeFD: dato.sprites.other.home.front_default,
+            otroHomeFS: dato.sprites.other.home.front_shiny,
+            otroOficialArtworkFD: dato.sprites.other['official-artwork'].front_default,
+            otroOficialArtworkFS: dato.sprites.other['official-artwork'].front_shiny,
+            otroShowdownBD: dato.sprites.other.showdown.back_default,
+            otroShowdownBS: dato.sprites.other.showdown.back_shiny,
+            otroShowdownFD: dato.sprites.other.showdown.front_default,
+            otroShowdownFS: dato.sprites.other.showdown.front_shiny
+        };
 
         // creamos un objeto de pokemon con la informacion obtenida
         const pk = new Pokemon(id, nombre, tipos, Estadisticas_Base, evoluciones, sobrePk, imagen);
@@ -213,7 +228,7 @@ export class Pokedex
     
         // Creamos la imagen del Pokémon dentro de pk__complementario
         const imgPk = document.createElement('img');
-        imgPk.src = pokemon.imagen;
+        imgPk.src = pokemon.imagen.otroShowdownFS;
         imgPk.alt = pokemon.nombre;
         imgPk.classList.add('pokemon-image');
         pkComplementario.appendChild(imgPk);
