@@ -196,7 +196,6 @@ export class Pokedex
         console.log(this.listaPokemon[1]);
         //obtenemos el id del elemento html donde crearemos la pokedex 
         const Elemento_pokedex = document.getElementById('pokedex');
-
         // vamos a iterar sobre la lista de pokemon y dibujar cada elemento en la pokedex
         this.listaPokemon.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
        

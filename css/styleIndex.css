@@ -1,0 +1,123 @@
+body {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 10px; 
+    padding: 10px; 
+    margin: 0; 
+}
+
+/* Estilos para el nav */
+nav {
+    width: 100%;
+    background-color: #FF0000; 
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav img {
+    height: 50px; 
+    margin-right: auto; 
+}
+
+nav a {
+    color: #FFFFFF; 
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: 3px solid transparent; 
+    transition: border-color 0.3s; 
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: transparent;
+    color: #FFFFFF; 
+    border-color: #FFCB05; 
+}
+
+.container {
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre columnas */
+}
+
+.column {
+    flex: 1;
+    min-width: 300px; /* Ancho mínimo para las columnas */
+}
+
+.description, .categories {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #FF0000; /* Rojo para los títulos */
+}
+
+p {
+    color: #333; /* Gris oscuro para el texto */
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.categories ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.categories li {
+    background-color: #FFCB05; /* Amarillo para las categorías */
+    color: #000; /* Negro para el texto */
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.pokemon {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pokemon-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.pokemon-item {
+    text-align: center;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokemon-item img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.pokemon-item p {
+    background-color: #FFCB05; /* Amarillo para el fondo del nombre del Pokémon */
+    color: #000; /* Negro para el texto */
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
