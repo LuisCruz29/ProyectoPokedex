@@ -1,10 +1,5 @@
 /* Estilos para el contenedor flex donde se mostrarán las tarjetas */
-#pokedex {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-}
+
 
 /* Estilos para cada tarjeta de Pokémon */
 .pk__container_Principal {
@@ -96,21 +91,7 @@
 .pk__container_psychic {
     background-color: #f85888; /* Tipo Psychic */
 }
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-}
 
-.contenedor{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
 
 .pokedex-grid {
     display: grid;

@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFF8E1; 
+}
+
+nav {
+    background-color: #FF0000; 
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 16px;
+}
+
+nav img {
+    height: 50px; 
+    margin-right: auto; 
+}
+
+nav a {
+    color: #FFFFFF; 
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: 3px solid transparent; 
+    transition: border-color 0.3s; 
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: transparent; 
+    color: #FFFFFF; 
+    border-color: #FFCB05; 
+}
+
+#pokedex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
