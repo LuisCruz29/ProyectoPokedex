@@ -56,13 +56,12 @@ export class Pokedex
             Defensa_Especial: dato.stats.find(estadistica => estadistica.stat.name === "special-defense").base_stat,
             velocidad: dato.stats.find(estadistica => estadistica.stat.name === "speed").base_stat
         };
-
         //calcula el porcentaje de machos 
         const macho = especie.gender_rate === 0 ? 0:
                       especie.gender_rate === 8 ? 100:
                       especie.gender_rate * 12.5;
 
-        //calcula el porcentaje de machos 
+        //calcula el porcentaje de hembra 
         const hembra = especie.gender_rate === 0 ? 0:
                       especie.gender_rate === 8 ? 100:
                       (8 - especie.gender_rate) * 12.5;
@@ -93,7 +92,7 @@ export class Pokedex
 
             // obtiene las habilidades de un pokemon 
             habilidades: dato.abilities ? dato.abilities.map(h => h.ability.name) : [],
-
+           
             // obtiene el genero del pokemon  y su porcentaje (si esta disponible)
             genero:
             {
@@ -102,6 +101,8 @@ export class Pokedex
             }
         }
 
+        
+       
         // obtiene la cadena de evoluciones del pokemon utilizando el metodo obtener evoluciones 
         const evoluciones = this.#getEvoluciones(evolucion.chain);
 
@@ -255,7 +256,6 @@ export class Pokedex
     /*este otro lo que hhace que funcione lo que es el nav bar de la targeta*/
     poke_nav_movimiento(tarjeta){
         const tabs = tarjeta.querySelectorAll(".tab_btn");
-        const all_content = tarjeta.querySelectorAll(".content");
         tabs.forEach((tab, index) => {
             tab.addEventListener('click', (e) => {
                 tabs.forEach(tab => {
@@ -265,11 +265,6 @@ export class Pokedex
                 var line = tarjeta.querySelector('.line');
                 line.style.width = e.target.offsetWidth + "px";
                 line.style.left = e.target.offsetLeft + "px";
-    
-                all_content.forEach(content => {
-                    content.classList.remove('active');
-                });
-                all_content[index].classList.add('active');
             });
         });
     }
@@ -277,6 +272,7 @@ export class Pokedex
     #crearCardPokemon(idPokemon){
         const elemento_html=document.getElementById('pokedex');
         const pokemon=this.listaPokemon[idPokemon-1];
+
         //dibujando la targetas
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('tarjeta', `pk__container_${pokemon.tipos[0]}`);
@@ -290,8 +286,8 @@ export class Pokedex
         const iconos = document.createElement('div');
         iconos.classList.add('iconos__legendaria__pk');
         iconos.innerHTML = `
-            <a href="/html/pokemones.html"><img src="/img/flecha-derecha.png" height="20px" width="30px"></a>
-            <a href="#"><img src="/img/corazn.png" height="20px" width="30px"></a>
+            <a href="/html/pokemones.html"><i class="bi bi-arrow-left fs-3 arrow" "></i></a>
+            <a href="#"><i class="bi bi-heart-fill fs-5 heart"></i></a>
         `;
 
         pokeDataPrincipal.appendChild(iconos);
@@ -336,9 +332,10 @@ export class Pokedex
         tabBox.classList.add('tab_box');
         //esto son las secciones que lleva el nav
         tabBox.innerHTML = `
-            <button type="button" class="tab_btn">About</button>
-            <button type="button" class="tab_btn">Base Stats</button>
-            <button type="button" class="tab_btn">Moves</button>
+            <button id="about" class="tab_btn">About</button>
+            <button id="base_stats" class="tab_btn">Base Stats</button>
+            <button id="relaciones_danio" class="tab_btn">Relaciones Daño</button>
+            <button id="extras" class="tab_btn">Extras</button>
             <div class="line"></div>
         `; 
 
@@ -347,29 +344,69 @@ export class Pokedex
         //donde ira el contenido del nav bar
         const contentbox = document.createElement('div');
         contentbox.classList.add('content_box');
+        contentbox.setAttribute('id','contenedor-info');
 
-        //primer pestaña about 
-        const aboutContent = document.createElement('div');
-        aboutContent.classList.add('content', 'active');
+        const divAtajo=document.createElement('div');
+        contentbox.appendChild(divAtajo);
 
-        aboutContent.innerHTML = `
-            <p class="Species"><span class="title">Species</span> ${pokemon.sobrePk.generacion}</p>
-            <p class="Height"><span class="title">Height</span> ${pokemon.sobrePk.altura} m</p>
-            <p class="Weight"><span class="title">Weight</span> ${pokemon.sobrePk.peso} kg</p>
-            <p class="Abilities"><span class="title">Abilities</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
-            <h2>Breeding</h2>
-            <p class="Gender"><span class="title">Gender</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
-            <p class="Egg Groups"><span class="title">Egg Groups</span> ${pokemon.sobrePk.habitat}</p>
-            <p class="Egg Cycle"><span class="title">Egg Cycle</span> ${pokemon.sobrePk.forma}</p>
-            <br>
-            <br>
-        `;
-        /*por cada contenedor que crees debe ir esto*/
-        contentbox.appendChild(aboutContent);
         pokeDataSecundaria.appendChild(contentbox);
         tarjeta.appendChild(pokeDataSecundaria);
         elemento_html.appendChild(tarjeta);
-        
+        let about=document.getElementById('about');
+        let base_stats=document.getElementById('base_stats');
+        let relaciones_danio=document.getElementById('relaciones_danio');
+        let extras=document.getElementById('extras');
+
+        about.addEventListener('click', (e)=>{
+            this.#cardAbout(pokemon);
+        });
+
+        base_stats.addEventListener('click', (e)=>{
+            this.#cardBaseStats(pokemon);
+        });
+
+        relaciones_danio.addEventListener('click', (e)=>{
+            this.#cardRelacionesDanio(pokemon);
+        });
+
+        extras.addEventListener('click', (e)=>{
+            this.#cardExtras(pokemon);
+        });
+
+       
+        this.poke_nav_movimiento(tarjeta);
+        this.#cardAbout(pokemon);
+    }
+
+    #cardAbout(pokemon){
+
+        let contentbox=document.getElementById('contenedor-info');
+        let elementoHIjo=contentbox.firstChild;
+        contentbox.removeChild(elementoHIjo);
+         //primer pestaña about 
+         const aboutContent = document.createElement('div');
+         aboutContent.classList.add('content', 'active');
+ 
+         aboutContent.innerHTML = `
+             <p class="Species"><span class="title">Species</span> ${pokemon.sobrePk.generacion}</p>
+             <p class="Height"><span class="title">Height</span> ${pokemon.sobrePk.altura} m</p>
+             <p class="Weight"><span class="title">Weight</span> ${pokemon.sobrePk.peso} kg</p>
+             <p class="Abilities"><span class="title">Abilities</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
+             <h2>Breeding</h2>
+             <p class="Gender"><span class="title">Gender</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
+             <p class="Egg Groups"><span class="title">Egg Groups</span> ${pokemon.sobrePk.habitat}</p>
+             <p class="Egg Cycle"><span class="title">Egg Cycle</span> ${pokemon.sobrePk.forma}</p>
+             <br>
+             <br>
+         `;
+         /*por cada contenedor que crees debe ir esto*/
+         contentbox.appendChild(aboutContent);
+    }
+
+    #cardBaseStats(pokemon){
+        let contentbox=document.getElementById('contenedor-info');
+        let elementoHIjo=contentbox.firstChild;
+        contentbox.removeChild(elementoHIjo);
         /*inicia base stap*/
         const baseStatsContent = document.createElement('div');
         baseStatsContent.classList.add('content_stats');
@@ -391,12 +428,7 @@ export class Pokedex
                                         <div class="progress">
                                             <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.Ataque_Especial}%;" aria-valuenow="${pokemon.Estadisticas_Base.Ataque_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Ataque_Especial}%</div>
                                         </div>
-                                    </div>
-                                `;
-                                /* esto ultimo que esta comentariado va despues de sp. Atk  lo quite por que sobrepasa los limite 
-                                esto se debe arreglar caballo*/
-                                /* esto que comentareo va de ultimo
-                                    <p>Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
+                                        <p>Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
                                         <div class="progress">
                                             <div class="progress-bar" role="progressbar" style="width:  ${pokemon.Estadisticas_Base.Defensa_Especial}%;" aria-valuenow=" ${pokemon.Estadisticas_Base.Defensa_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Defensa_Especial}%</div>
                                         <p>Speed:  ${pokemon.Estadisticas_Base.velocidad}</p>
@@ -406,24 +438,22 @@ export class Pokedex
                                         <p>Total: sin calcular</p>
                                         <div class="progress">
                                             <div class="progress-bar" role="progressbar" style="width: 52.83%;" aria-valuenow="317" aria-valuemin="0" aria-valuemax="600">52.83%</div>
-                                        </div>?*/
+                                        </div>
+                                    </div>
+                                `;
+                               
+                                
+                                        
         
         contentbox.appendChild(baseStatsContent);
+    }
 
-        // Asegúrate de que contentbox esté añadido a pokeDataSecundaria y luego a tarjeta tene en cuenta esto por que muchas veces ahi me dio error
-        pokeDataSecundaria.appendChild(contentbox);
-        tarjeta.appendChild(pokeDataSecundaria);
+    #cardRelacionesDanio(pokemon){
 
-        // Asegúrate de que contenedorPrincipal esté añadido a elemento_html igual aqui debes de tomar en cuenta esto
-        elemento_html.appendChild(tarjeta);
+    }
 
-        //aqui iria el codigo para que crees la honda de los ataques 
+    #cardExtras(pokemon){
 
-        //bueno ya cuando creee el ultimo contenedor donde iran los atakes que tiene el pokemos esto siempre Asegúrate que debe ir de ultimo para que funcione 
-        
-        this.poke_nav_movimiento(tarjeta);
-
-        // /*bueno ya de ultimo diria podemos poner las para te de codigos en diferentes metodos*/
     }
 }
 

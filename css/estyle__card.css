@@ -68,7 +68,6 @@
     background-color: #ee99ac; /* Tipo Hada */
 }
 
-/* Nuevos colores añadidos */
 .pk__container_grass {
     background-color: #78c850; /* Tipo Grass */
 }
@@ -76,37 +75,6 @@
 .pk__container_psychic {
     background-color: #f85888; /* Tipo Psychic */
 }
-
-
-.pokedex-grid {
-    display: grid;
-    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-}
-
-
-
-.pk__container_plant {
-    background-color: #a8d5e2;
-}
-
-.pk__container_fire {
-    background-color: #f8a1a4;
-}
-
-.pk__container_water {
-    background-color: #9ad2f0;
-}
-
-.pk__container_electric {
-    background-color: #f9e79f;
-}
-
-.pk__container_ground {
-    background-color: #e5c19b;
-}
-
-
 
 /*Va el estilo de la tarjeta*/
 .tarjeta {
@@ -123,12 +91,31 @@
     overflow: hidden; 
 }
 
+.poke__data__principal{
+    max-width: 100%; 
+    overflow: visible; /* Oculta el contenido que se desborde */
+    white-space: nowrap; /* Evita que el contenido haga saltos de línea */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    
+}
+
+
 .iconos__legendaria__pk{
     height: 50px;
     display: flex;
     padding: 20px;
-    gap: 270px;
+    justify-content: space-between;
+    align-items: center;
 
+}
+
+.arrow,.heart{
+    color: #fff;
+}
+
+.heart:hover{
+    color:#ff0410;
 }
 
 .informacion__legendaria__pk{
@@ -167,15 +154,7 @@
     height: 360px;
 }
  
-/*aqui eh validado que la informacion no se salga del contenedor es decir qu no se expanda*/
-.poke__data__principal{
-    max-width: 100%; 
-    overflow: visible; /* Oculta el contenido que se desborde */
-    white-space: nowrap; /* Evita que el contenido haga saltos de línea */
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    
-}
+
 
 .poke__data__segundaria{
     border-radius: 20px;
@@ -267,3 +246,4 @@
     display: inline-block;
     width: 100px;
 }
+
