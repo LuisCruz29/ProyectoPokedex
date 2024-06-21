@@ -36,7 +36,7 @@ export class Pokedex
     // creamos un metodo privado para crear un objeto pokemon y poderlo agregarlo a la lista
     #crearPk(dato, especie, evolucion,danios)
     {
-        
+     
         //obtenemos el id del pokemon
         const id = dato.id;
 
@@ -123,8 +123,19 @@ export class Pokedex
             otroShowdownFS: dato.sprites.other.showdown.front_shiny
         };
 
+       
+        const relaciones_danio={
+            double_danio_from:danios.damage_relations.double_damage_from.length!==0 ? danios.damage_relations.double_damage_from.map(d=>d.name):['Ninguno'],
+            double_danio_to:danios.damage_relations.double_damage_to.length!==0 ? danios.damage_relations.double_damage_to.map(d=>d.name):['Ninguno'],
+            half_damage_from:danios.damage_relations.half_damage_from.length!==0 ? danios.damage_relations.half_damage_from.map(d=>d.name):['Ninguno'],
+            half_damage_to:danios.damage_relations.half_damage_to.length!==0 ? danios.damage_relations.half_damage_to.map(d=>d.name):['Ninguno'],
+            no_damage_from:danios.damage_relations.no_damage_from.length!==0 ? danios.damage_relations.no_damage_from.map(d=>d.name):['Ninguno'],
+            no_damage_to:danios.damage_relations.no_damage_to.length!==0 ? danios.damage_relations.no_damage_to.map(d=>d.name):['Ninguno'],
+        }
+
+       
         // creamos un objeto de pokemon con la informacion obtenida
-        const pk = new Pokemon(id, nombre, tipos, Estadisticas_Base, evoluciones, sobrePk, imagen);
+        const pk = new Pokemon(id, nombre, tipos, Estadisticas_Base, evoluciones, sobrePk, imagen,relaciones_danio);
 
         // agrega el objeto nuevo pokemon a la lista pokemon
         this.listaPokemon.push(pk);

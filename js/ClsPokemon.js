@@ -2,7 +2,7 @@
 export class Pokemon 
 {
     // creamos un constructor de la clase pokemon 
-    constructor(id, nombre, tipos,Estadistica_Base, evoluciones, sobrepk, imagen)
+    constructor(id, nombre, tipos,Estadistica_Base, evoluciones, sobrepk, imagen,relaciones_danio)
     {
         this.id = id;
         this.nombre = nombre;
@@ -11,5 +11,6 @@ export class Pokemon
         this.evoluciones = evoluciones;
         this.sobrePk = sobrepk;
         this.imagen = imagen;
+        this.relaciones_danio=relaciones_danio;
     }
 }
