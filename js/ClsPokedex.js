@@ -126,8 +126,8 @@ export class Pokedex
 
        
         const relaciones_danio={
-            double_danio_from:danios.damage_relations.double_damage_from.length!==0 ? danios.damage_relations.double_damage_from.map(d=>d.name):['Ninguno'],
-            double_danio_to:danios.damage_relations.double_damage_to.length!==0 ? danios.damage_relations.double_damage_to.map(d=>d.name):['Ninguno'],
+            double_damage_from:danios.damage_relations.double_damage_from.length!==0 ? danios.damage_relations.double_damage_from.map(d=>d.name):['Ninguno'],
+            double_damage_to:danios.damage_relations.double_damage_to.length!==0 ? danios.damage_relations.double_damage_to.map(d=>d.name):['Ninguno'],
             half_damage_from:danios.damage_relations.half_damage_from.length!==0 ? danios.damage_relations.half_damage_from.map(d=>d.name):['Ninguno'],
             half_damage_to:danios.damage_relations.half_damage_to.length!==0 ? danios.damage_relations.half_damage_to.map(d=>d.name):['Ninguno'],
             no_damage_from:danios.damage_relations.no_damage_from.length!==0 ? danios.damage_relations.no_damage_from.map(d=>d.name):['Ninguno'],
@@ -286,8 +286,8 @@ export class Pokedex
         const iconos = document.createElement('div');
         iconos.classList.add('iconos__legendaria__pk');
         iconos.innerHTML = `
-            <a href="/html/pokemones.html"><i class="bi bi-arrow-left fs-3 arrow" "></i></a>
-            <a href="#"><i class="bi bi-heart-fill fs-5 heart"></i></a>
+            <a href="#" id='cerrarCard'><i class="bi bi-arrow-left fs-3 arrow" "></i></a>
+            <a href="#" id="addPokemon"><i class="bi bi-heart-fill fs-5 heart"></i></a>
         `;
 
         pokeDataPrincipal.appendChild(iconos);
@@ -335,7 +335,6 @@ export class Pokedex
             <button id="about" class="tab_btn">About</button>
             <button id="base_stats" class="tab_btn">Base Stats</button>
             <button id="relaciones_danio" class="tab_btn">Relaciones Daño</button>
-            <button id="extras" class="tab_btn">Extras</button>
             <div class="line"></div>
         `; 
 
@@ -355,8 +354,7 @@ export class Pokedex
         let about=document.getElementById('about');
         let base_stats=document.getElementById('base_stats');
         let relaciones_danio=document.getElementById('relaciones_danio');
-        let extras=document.getElementById('extras');
-
+       
         about.addEventListener('click', (e)=>{
             this.#cardAbout(pokemon);
         });
@@ -368,12 +366,7 @@ export class Pokedex
         relaciones_danio.addEventListener('click', (e)=>{
             this.#cardRelacionesDanio(pokemon);
         });
-
-        extras.addEventListener('click', (e)=>{
-            this.#cardExtras(pokemon);
-        });
-
-       
+           
         this.poke_nav_movimiento(tarjeta);
         this.#cardAbout(pokemon);
     }
@@ -385,17 +378,17 @@ export class Pokedex
         contentbox.removeChild(elementoHIjo);
          //primer pestaña about 
          const aboutContent = document.createElement('div');
-         aboutContent.classList.add('content', 'active');
+         aboutContent.classList.add('content');
  
          aboutContent.innerHTML = `
-             <p class="Species"><span class="title">Species</span> ${pokemon.sobrePk.generacion}</p>
-             <p class="Height"><span class="title">Height</span> ${pokemon.sobrePk.altura} m</p>
-             <p class="Weight"><span class="title">Weight</span> ${pokemon.sobrePk.peso} kg</p>
-             <p class="Abilities"><span class="title">Abilities</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
-             <h2>Breeding</h2>
-             <p class="Gender"><span class="title">Gender</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
-             <p class="Egg Groups"><span class="title">Egg Groups</span> ${pokemon.sobrePk.habitat}</p>
-             <p class="Egg Cycle"><span class="title">Egg Cycle</span> ${pokemon.sobrePk.forma}</p>
+             <p><span class="title">Descripcion</span> ${pokemon.sobrePk.descripcion}</p>
+             <p><span class="title">Altura</span> ${pokemon.sobrePk.altura} m</p>
+             <p><span class="title">Peso</span> ${pokemon.sobrePk.peso} kg</p>
+             <p><span class="title">Habilidades</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
+             <p><span class="title">Genero</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
+             <p><span class="title">Habitat</span>  ${pokemon.sobrePk.habitat}</p>
+             <p><span class="title">Evolucion</span>  ${pokemon.evoluciones}</p>
+             <p><span class="title">Forma</span> ${pokemon.sobrePk.forma} </p>
              <br>
              <br>
          `;
@@ -411,36 +404,33 @@ export class Pokedex
         const baseStatsContent = document.createElement('div');
         baseStatsContent.classList.add('content_stats');
         baseStatsContent.innerHTML = `
-                                    <div class="stats">
-                                        <p>HP: ${pokemon.Estadisticas_Base.vida}</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.vida}%;" aria-valuenow="${pokemon.Estadisticas_Base.vida}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.vida}%</div>
-                                        </div>
-                                        <p>Attack: ${pokemon.Estadisticas_Base.ataque}</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.ataque}%;" aria-valuenow="${pokemon.Estadisticas_Base.ataque}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.ataque}%</div>
-                                        </div>
-                                        <p>Defense: ${pokemon.Estadisticas_Base.defensa}</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.defensa}%;" aria-valuenow="${pokemon.Estadisticas_Base.defensa}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.defensa}%</div>
-                                        </div>
-                                        <p>Sp. Atk: ${pokemon.Estadisticas_Base.Ataque_Especial}</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.Ataque_Especial}%;" aria-valuenow="${pokemon.Estadisticas_Base.Ataque_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Ataque_Especial}%</div>
-                                        </div>
-                                        <p>Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width:  ${pokemon.Estadisticas_Base.Defensa_Especial}%;" aria-valuenow=" ${pokemon.Estadisticas_Base.Defensa_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Defensa_Especial}%</div>
-                                        <p>Speed:  ${pokemon.Estadisticas_Base.velocidad}</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.velocidad}%;" aria-valuenow="${pokemon.Estadisticas_Base.velocidad}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.velocidad}%</div>
-                                        </div>
-                                        <p>Total: sin calcular</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 52.83%;" aria-valuenow="317" aria-valuemin="0" aria-valuemax="600">52.83%</div>
-                                        </div>
-                                    </div>
-                                `;
+        
+            <p class="title">HP: ${pokemon.Estadisticas_Base.vida}</p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.vida}%;" aria-valuenow="${pokemon.Estadisticas_Base.vida}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.vida}%</div>
+            </div>
+            <p class="title">Attack: ${pokemon.Estadisticas_Base.ataque}</p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.ataque}%;" aria-valuenow="${pokemon.Estadisticas_Base.ataque}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.ataque}%</div>
+            </div>
+            <p class="title">Defense: ${pokemon.Estadisticas_Base.defensa}</p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.defensa}%;" aria-valuenow="${pokemon.Estadisticas_Base.defensa}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.defensa}%</div>
+            </div>
+            <p class="title">Sp. Atk: ${pokemon.Estadisticas_Base.Ataque_Especial}</p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.Ataque_Especial}%;" aria-valuenow="${pokemon.Estadisticas_Base.Ataque_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Ataque_Especial}%</div>
+            </div>
+            <p class="title">Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width:  ${pokemon.Estadisticas_Base.Defensa_Especial}%;" aria-valuenow=" ${pokemon.Estadisticas_Base.Defensa_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Defensa_Especial}%</div>
+            </div>
+            <p class="title">Speed:  ${pokemon.Estadisticas_Base.velocidad}</p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.velocidad}%;" aria-valuenow="${pokemon.Estadisticas_Base.velocidad}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.velocidad}%</div>
+            </div>
+                                  
+        `;
                                
                                 
                                         
@@ -449,12 +439,28 @@ export class Pokedex
     }
 
     #cardRelacionesDanio(pokemon){
-
+        let contentbox=document.getElementById('contenedor-info');
+        let elementoHIjo=contentbox.firstChild;
+        contentbox.removeChild(elementoHIjo);
+         //primer pestaña about 
+         const aboutContent = document.createElement('div');
+         aboutContent.classList.add('content');
+ 
+         aboutContent.innerHTML = `
+            <p><span class="title">Recibe doble daño de:</span> ${pokemon.relaciones_danio.double_damage_from}</p>
+            <p><span class="title">Realiza doble daño a:</span> ${pokemon.relaciones_danio.double_damage_to} m</p>
+            <p><span class="title">Recibe medio daño de:</span> ${pokemon.relaciones_danio.half_damage_from} kg</p>
+            <p><span class="title">Realiza medio daño a:</span> ${pokemon.relaciones_danio.half_damage_to}</p>
+            <p><span class="title">NO recibe daño de:</span> ${pokemon.relaciones_danio.no_damage_from} </p>
+            <p><span class="title">NO realiza daño a:</span> ${pokemon.relaciones_danio.no_damage_to}</p>
+            <br>
+            <br>
+         `;
+         /*por cada contenedor que crees debe ir esto*/
+         contentbox.appendChild(aboutContent);
     }
 
-    #cardExtras(pokemon){
-
-    }
+   
 }
 
 /*tambien faltaria en el diseño ponerle lo que seria el coraxon blanco y la flecha tambien

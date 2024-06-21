@@ -81,7 +81,7 @@
     border: 1px solid #ccc;
     border-radius: 20px;
     position: fixed;
-    height: 620px;
+    height: 650px;
     width: 370px;
     top: 50%;
     left: 50%;
@@ -102,9 +102,9 @@
 
 
 .iconos__legendaria__pk{
-    height: 50px;
+    height: 40px;
     display: flex;
-    padding: 20px;
+    padding: 15px;
     justify-content: space-between;
     align-items: center;
 
@@ -121,21 +121,21 @@
 .informacion__legendaria__pk{
     display: flex;
     flex-direction: row;
-    height: 80px;
+    height: 70px;
     top: 20px;
 }
 
 .infor{
     width: 200px;
-    padding: 15px;
+    padding: 10px;
     color: white;
 }
 
 .mostrando__poke__id h2{
-    font-size: 15px;
+    font-size: 25px;
     color: white;
-    margin-left: 105px;
-    margin-top: 40px;
+    margin-left: 100px;
+    margin-top: 20px;
 }
 
 .mostrando__poke__id{
@@ -151,19 +151,19 @@
     background-color: white;
     max-width: 100%;
     overflow: visible; /* Oculta el contenido que se desborde */
-    height: 360px;
+    height: 440px;
 }
  
 
 
 .poke__data__segundaria{
     border-radius: 20px;
-    margin-top: 130px;
+    margin-top: 110px;
 }
 
 /*aqui eh validado que la image se muestre por encima de todo */
 .poke__img img {
-    margin-top: 100px;
+    margin-top: 55px;
     position: absolute; /* Permite que la imagen se salga del contenedor */
     top: 50px; /* Ajusta la posición verticalmente */
     left: 50%; /* Centra horizontalmente */
@@ -192,7 +192,7 @@
     color: #919191;
     background: none;
     border: none;
-    padding: 18px;
+    padding: 15px;
     cursor: pointer;
 }
 
@@ -206,19 +206,14 @@
    bottom: 20px;
 }
 
-.content_box .content{
-    display: none;
-}
-.content_box .content h2{
-    margin-bottom: 10px;
-}
+
 
 .line{
     position: absolute;
-    top: 54px;
+    top: 40px;
     left: 0px;
     width: 90px;
-    height: 5px;
+    height: 3px;
     background-color: #7360ff;
     border-radius: 10px;
     transition: all .3s ease-in-out;
@@ -236,7 +231,7 @@
     padding-bottom: 5px;
 }
 .container p {
-    margin: 10px 0;
+    margin: 7px 0;
     font-size: 0.9em;
     color: #555;
 }
@@ -246,4 +241,16 @@
     display: inline-block;
     width: 100px;
 }
+
+.content_stats{
+    height: 340px;
+    padding: 0 5px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+}
+
+
 
