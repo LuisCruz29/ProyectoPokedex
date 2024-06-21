@@ -19,46 +19,12 @@ export class Pokedex
             try 
             {
                 //realizamos una peticion a nuestra api para obtener los datos correspondientes al pk con el id actual
-                const peticion = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-
-                //verificamos si la respuesta es existosa
-                if (peticion.ok) 
-                {
-                    //convertimos nuestra respuesta de la peticion en un objeto JSON
-                    const dato = await peticion.json();
-
-                    // //realizamos una peticion para obtener datos adicionales del pokemon (especies)
-                    // const peticion_Especie = await fetch(dato.species.url);
-                    // const dato_Especie = await peticion_Especie.json();
-                    
-                    // //realizamos una peticion para obtener la cadena de evolucion de un pokemon
-                    // const peticion_Evolucion = await fetch(dato.evolution_chain.url);
-                    // const dato_Evolucion = await peticion_Evolucion.json();
-
-                    //Verificamos si `species` existe antes de intentar acceder a `species.url`
-                    
-                    const peticion_Especie = await fetch(dato.species.url);
-                    let dato_Especie=null;
-                    let dato_Evolucion = null;
-                    if (peticion_Especie.ok) {
-                        dato_Especie = await peticion_Especie.json();
-
-                        // Verificamos si `evolution_chain` existe antes de intentar acceder a `evolution_chain.url`
-                        let evolutionChainUrl = dato_Especie.evolution_chain ? dato_Especie.evolution_chain.url : null;
-                       
-                        if (evolutionChainUrl) {
-                            
-                            const peticion_Evolucion = await fetch(evolutionChainUrl);
-                            if (peticion_Evolucion.ok) {
-                                dato_Evolucion = await peticion_Evolucion.json();
-                            }
-                        }
-                    }
+                let peticionDatos = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`).then(data=>data.json());
+                let dato_Especie = await fetch(peticionDatos.species.url).then(data=>data.json()); 
+                let dato_Evolucion = await fetch(dato_Especie.evolution_chain.url ).then(data=>data.json());
+                let danios= await fetch(peticionDatos.types[0].type.url).then(datos=>datos.json());
+                this.#crearPk(peticionDatos, dato_Especie, dato_Evolucion,danios);
                 
-
-                    // llamamos al metodo crear un objeto pokemon y agreamos los datos a la lista
-                    this.#crearPk(dato, dato_Especie, dato_Evolucion);
-                }
             }
             catch (error) {
                 console.error(`Error en el fetch para el Pokemon ID ${i}:`, error);
@@ -68,7 +34,7 @@ export class Pokedex
     }
 
     // creamos un metodo privado para crear un objeto pokemon y poderlo agregarlo a la lista
-    #crearPk(dato, especie, evolucion)
+    #crearPk(dato, especie, evolucion,danios)
     {
         
         //obtenemos el id del pokemon
@@ -224,7 +190,7 @@ export class Pokedex
     
         // Creamos la imagen del Pokémon dentro de pk__complementario
         const imgPk = document.createElement('img');
-        imgPk.src = pokemon.imagen.otroDW;
+        imgPk.src = pokemon.imagen.otroShowdownFD;
         imgPk.alt = pokemon.nombre;
         imgPk.classList.add('pokemon-image');
         pkComplementario.appendChild(imgPk);
@@ -342,7 +308,7 @@ export class Pokedex
         pokeImg.classList.add('poke__img');
         const img = document.createElement('img');
         img.classList.add('poke__img_mostrar');
-        img.src = pokemon.imagen.otroShowdownFD;
+        img.src = pokemon.imagen.otroDW;
         img.alt = pokemon.nombre;
         img.height = 130;
         pokeImg.appendChild(img);
