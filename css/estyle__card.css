@@ -1,18 +1,3 @@
-/* Estilos para el contenedor flex donde se mostrarán las tarjetas */
-
-
-/* Estilos para cada tarjeta de Pokémon */
-.pk__container_Principal {
-    display: inline-block;
-    align-items: center;
-    border-radius: 10px;
-    padding: 20px;
-    width: 190px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    margin: 10px;
-    margin-top: 20px;
-}
 
 /* Colores para diferentes tipos de Pokémon */
 .pk__container_plant {
@@ -99,18 +84,7 @@
     gap: 10px;
 }
 
-.pk__container_Principal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 10px;
-    padding: 20px;
-    width: 190px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    margin: 10px;
-    margin-top: 20px;
-}
+
 
 .pk__container_plant {
     background-color: #a8d5e2;
@@ -132,41 +106,10 @@
     background-color: #e5c19b;
 }
 
-.pk__complementario h3 {
-    margin: 0;
-    font-size: 24px;
-    color: white;
-}
 
-.badges {
-    display: inline-block;
-    padding: 0.25em 0.6em;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 10px;
-    margin: 2px;
-    background-color: #f8f9fa;
-    color: #343a40;
-}
-
-.pk__descripcion h3 {
-    margin: 10px 0;
-    font-size: 20px;
-    color: white;
-}
-
-.pokemon-image {
-    width: 80px;
-    height: 80px;
-}
 
 /*Va el estilo de la tarjeta*/
 .tarjeta {
-    display: none;
     border: 1px solid #ccc;
     border-radius: 20px;
     position: fixed;

@@ -46,4 +46,47 @@ nav a:hover {
     flex-wrap: wrap;
 }
 
+.pk__container_Principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    width: 190px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 10px;
+    margin-top: 20px;
+}
 
+.pk__complementario h3 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+.badges {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 10px;
+    margin: 2px;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+.pk__descripcion h3 {
+    margin: 10px 0;
+    font-size: 20px;
+    color: white;
+}
+
+.pokemon-image {
+    width: 100px;
+    height: 100px;
+}
