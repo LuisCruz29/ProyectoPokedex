@@ -351,6 +351,7 @@ export class Pokedex
         pokeDataSecundaria.appendChild(contentbox);
         tarjeta.appendChild(pokeDataSecundaria);
         elemento_html.appendChild(tarjeta);
+
         let about=document.getElementById('about');
         let base_stats=document.getElementById('base_stats');
         let relaciones_danio=document.getElementById('relaciones_danio');
@@ -369,6 +370,12 @@ export class Pokedex
            
         this.poke_nav_movimiento(tarjeta);
         this.#cardAbout(pokemon);
+
+        let cerrarTarjeta=document.getElementById('cerrarCard');
+        cerrarTarjeta.addEventListener('click',(e)=>{
+            let tarjetaCerrar=elemento_html.lastChild;
+            elemento_html.removeChild(tarjetaCerrar);
+        });
     }
 
     #cardAbout(pokemon){
