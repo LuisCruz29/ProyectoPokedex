@@ -78,7 +78,7 @@
 
 /*Va el estilo de la tarjeta*/
 .tarjeta {
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
     border-radius: 20px;
     position: fixed;
     height: 650px;
@@ -90,7 +90,11 @@
     max-width: 80%;    
     overflow: hidden; 
     box-shadow: 100px 0 1000px 1000px  rgba(255,255,255,0.8);
-}
+    /*
+    cursor: default;
+    pointer-events: auto;*/
+} 
+
 
 .poke__data__principal{
     max-width: 100%; 
@@ -156,8 +160,6 @@
     height: 440px;
 }
  
-
-
 .poke__data__segundaria{
     border-radius: 20px;
     margin-top: 110px;
@@ -171,7 +173,6 @@
     left: 50%; /* Centra horizontalmente */
     transform: translateX(-50%); /* Ajusta el centrado horizontal */
 }
-
 /*********************************************************/
 .container{
     padding: 30px;
@@ -183,7 +184,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom: 2px solid rgba(229, 229, 229);
+    border-bottom: 3px solid rgba(229, 229, 229);
     position: relative;
     top: -20px;
 }
@@ -200,8 +201,7 @@
 
 .tab_box .tab_btn.active{
     color: #7360ff;
-
-}
+} 
 .content_box{
    padding: 5px;  
    position: relative;
@@ -212,9 +212,9 @@
 
 .line{
     position: absolute;
-    top: 40px;
-    left: 0px;
-    width: 90px;
+    top: 50px;
+    left: 0;
+    width: 100px;
     height: 3px;
     background-color: #7360ff;
     border-radius: 10px;

@@ -38,6 +38,7 @@ nav a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    background-color: white;
 }
 
 .contenedor{
@@ -57,8 +58,16 @@ nav a:hover {
     text-align: center;
     margin: 10px;
     margin-top: 20px;
+    box-shadow: 2px 2px 2px #343a40;
+    transition: transform 0.8s ease; /*una transicion suave*/
 }
 
+.pk__container_Principal:hover{
+    cursor: pointer;
+    transform: translateY(-12px);
+    box-shadow: 5px 2px 2px ,inset 5px -2px -2px;
+    transition: all .5s;
+}
 .pk__complementario h3 {
     margin: 0;
     font-size: 24px;
@@ -90,13 +99,15 @@ nav a:hover {
     width: 80px;
     height: 80px;
 }
-
+.poke__img_mostrar{
+    transition: all .9s;
+}
+.poke__img_mostrar:hover{
+    transform: translateX(-10px) scale(0.8);
+}
 .buttons{
     margin-top: 2px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
-
-
-
