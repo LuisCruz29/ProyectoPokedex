@@ -226,17 +226,25 @@ export class Pokedex
             pkDescripcion.appendChild(spanTipo);
         });
 
-        const pkVerStats=document.createElement('div');
-        const btnStast=document.createElement('button');
-        btnStast.innerText='Ver Stats';
-        btnStast.classList.add('btn','btn-outline-secondary','mt-2','text-white');
-        btnStast.setAttribute('id',idUnico);
-        pkVerStats.appendChild(btnStast);
+        const pkButtons=document.createElement('div');
+        pkButtons.classList.add('w-100','buttons');
+
+        const iconoStats=document.createElement('i');
+        iconoStats.classList.add('bi','bi-list','list','fs-3');
+        iconoStats.setAttribute('id',idUnico);
+
+        
+        const iconoAgregar=document.createElement('i');
+        iconoAgregar.classList.add('bi','bi-heart-fill','heart','fs-4');
+        
+
+        pkButtons.appendChild(iconoStats);
+        pkButtons.appendChild(iconoAgregar);
     
         // Agregamos pkComplementario y pkDescripcion a pkContainerPrincipal
         pkContainerPrincipal.appendChild(pkComplementario);
         pkContainerPrincipal.appendChild(pkDescripcion);
-        pkContainerPrincipal.appendChild(pkVerStats);
+        pkContainerPrincipal.appendChild(pkButtons);
     
         // Agregamos pkContainerPrincipal al contenedor principal (contenedorPrincipal)
         contenedorPrincipal.appendChild(pkContainerPrincipal);
@@ -244,7 +252,8 @@ export class Pokedex
         // Finalmente, agregamos contenedorPrincipal al elemento HTML proporcionado (elemento_html)
         elemento_html.appendChild(contenedorPrincipal);  
 
-        btnStast.addEventListener('click', (e)=>{
+        iconoStats.addEventListener('click', (e)=>{
+            e.preventDefault();
             let id=e.target.getAttribute('id');
             this.#crearCardPokemon(id);
         })

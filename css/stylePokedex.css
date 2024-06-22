@@ -91,4 +91,12 @@ nav a:hover {
     height: 80px;
 }
 
+.buttons{
+    margin-top: 2px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
 
