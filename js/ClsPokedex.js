@@ -1,6 +1,7 @@
 // Importa la clase Pokemon del archivo ClsPokemon.js.
 import { Pokemon } from "./ClsPokemon.js";
 import {Toast} from "./alertas.js";
+import { crearCuadro } from "./plantillas.js";
 export class Pokedex
 {
     //constructor de la clase pokedex
@@ -193,83 +194,18 @@ export class Pokedex
 
     //creamos un metodo privado para dibujar el pokemon
     #dibujarPk(elemento_html, pokemon) {
-       
-        const idUnico = `${pokemon.id}`;
-    
-        // Creamos el contenedor principal
-        const contenedorPrincipal = document.createElement('div');
-        contenedorPrincipal.classList.add('contenedor');
-    
-        // Creamos el contenedor pk__container_Principal dentro del contenedor principal
-        const pkContainerPrincipal = document.createElement('div');
-        pkContainerPrincipal.classList.add('pk__container_Principal', `pk__container_${pokemon.tipos[0]}`);
-    
-        // Creamos el contenedor pk__complementario
-        const pkComplementario = document.createElement('div');
-        pkComplementario.classList.add('pk__complementario');
-    
-        // Creamos el título h3 dentro de pk__complementario (Nombre del Pokémon)
-        const tituloPk = document.createElement('h3');
-        tituloPk.textContent = pokemon.nombre; // Asignamos el nombre del Pokémon al título
-        pkComplementario.appendChild(tituloPk);
-    
-        // Creamos la imagen del Pokémon dentro de pk__complementario
-        const imgPk = document.createElement('img');
-        imgPk.src = pokemon.imagen.otroShowdownFD;
-        imgPk.alt = pokemon.nombre;
-        imgPk.classList.add('pokemon-image');
-        pkComplementario.appendChild(imgPk);
-    
-        // Creamos el ID del Pokémon dentro de pk__descripcion
-        const idPk = document.createElement('h3');
-        idPk.classList.add('pk__descripcion__id');
-        idPk.textContent = `#${pokemon.id}`;
-        pkComplementario.appendChild(idPk);
-
-        // Creamos el contenedor pk__descripcion
-        const pkDescripcion = document.createElement('div');
-        pkDescripcion.classList.add('pk__descripcion');
-    
-        // Creamos los tipos del Pokémon dentro de pk__descripcion
-        pokemon.tipos.forEach(tipo => {
-            const spanTipo = document.createElement('span');
-            spanTipo.textContent = tipo;
-            spanTipo.classList.add('badges');
-            spanTipo.classList.add(`pk__container_${tipo}`);
-            pkDescripcion.appendChild(spanTipo);
-        });
-
-        const pkButtons=document.createElement('div');
-        pkButtons.classList.add('w-100','buttons');
-
-        const iconoStats=document.createElement('i');
-        iconoStats.classList.add('bi','bi-list','list','fs-3');
-        iconoStats.setAttribute('id',idUnico);
-
+        let cuadro=crearCuadro(pokemon);
+        // agregamos contenedorPrincipal al elemento HTML proporcionado (elemento_html)
+        elemento_html.appendChild(cuadro);  
         
-        const iconoAgregar=document.createElement('i');
-        iconoAgregar.classList.add('bi','bi-heart-fill','heart','fs-4');
-        
-
-        pkButtons.appendChild(iconoStats);
-        pkButtons.appendChild(iconoAgregar);
-    
-        // Agregamos pkComplementario y pkDescripcion a pkContainerPrincipal
-        pkContainerPrincipal.appendChild(pkComplementario);
-        pkContainerPrincipal.appendChild(pkDescripcion);
-        pkContainerPrincipal.appendChild(pkButtons);
-    
-        // Agregamos pkContainerPrincipal al contenedor principal (contenedorPrincipal)
-        contenedorPrincipal.appendChild(pkContainerPrincipal);
-    
-        // Finalmente, agregamos contenedorPrincipal al elemento HTML proporcionado (elemento_html)
-        elemento_html.appendChild(contenedorPrincipal);  
-
-        iconoStats.addEventListener('click', (e)=>{
+        let id=`icono-card_${pokemon.id}`;
+        let mostrarCard=document.getElementById(id);
+        mostrarCard.addEventListener('click', (e)=>{
             e.preventDefault();
-            let id=e.target.getAttribute('id');
+            let id=e.target.parentElement.getAttribute('id');
             this.#crearCardPokemon(id);
-        })
+        });
+        
     }
 
     /*este metodo lo que ase es que funcione el evento click*/
