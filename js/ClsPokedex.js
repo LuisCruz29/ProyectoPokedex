@@ -183,6 +183,7 @@ export class Pokedex
         // anadimos los eventos listeners para los  botones
         document.getElementById('filtrar-id').addEventListener('click', () => this.#filtroPorId());
         document.getElementById('filtrar-tipo').addEventListener('click', () => this.#filtroPorTipo());
+        document.getElementById('filtrar-nombre').addEventListener('click',()=>this.#filtroNombre());
         document.getElementById('limpiar-filtro').addEventListener('click', () => this.#limpiarFiltro());
 
         //dibujar cada pokemon
@@ -485,6 +486,33 @@ export class Pokedex
          contentbox.appendChild(aboutContent);
     }
 
+
+    #filtroNombre(){
+        const filtro=document.getElementById('filtro-input').value;
+        if (!filtro) {
+            Toast.fire({
+                icon: "error",
+                title: "Por favor, rellene el campo",
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+
+        this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.nombre.includes(filtro));
+        if (this.listaPokemonsFiltro.length === 0) {
+            Toast.fire({
+                icon: "error",
+                title: "No se econtró pokemon con el nombre "+ filtro,
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+        document.getElementById('filtro-input').value='';
+        this.actualizarPokedex();
+    }
+
     //metodo para filtrar pokemon por id
     #filtroPorId()
     {
@@ -549,6 +577,7 @@ export class Pokedex
             document.getElementById('filtro-input').value='';
             return;
         }
+        document.getElementById('filtro-input').value='';
         this.actualizarPokedex();
     }
 
@@ -566,11 +595,6 @@ export class Pokedex
     actualizarPokedex() {
         const Elemento_pokedex = document.getElementById('pokedex');
         Elemento_pokedex.innerHTML = '';
-
-        // Añadir event listeners para los botones
-        document.getElementById('filtrar-id').addEventListener('click', () => this.#filtroPorId());
-        document.getElementById('filtrar-tipo').addEventListener('click', () => this.#filtroPorTipo());
-        document.getElementById('limpiar-filtro').addEventListener('click', () => this.#limpiarFiltro());
 
         // Dibujar cada Pokémon
         if (Array.isArray(this.listaPokemonsFiltro)) {
