@@ -1,6 +1,6 @@
 // Importa la clase Pokemon del archivo ClsPokemon.js.
 import { Pokemon } from "./ClsPokemon.js";
-
+import {Toast} from "./alertas.js";
 export class Pokedex
 {
     //constructor de la clase pokedex
@@ -176,11 +176,9 @@ export class Pokedex
     {
        
         await this.#getDatosPk();
-        console.log(this.listaPokemon[1]);
+       
         //obtenemos el id del elemento html donde crearemos la pokedex 
         const Elemento_pokedex = document.getElementById('pokedex');
-
-        
 
         // anadimos los eventos listeners para los  botones
         document.getElementById('filtrar-id').addEventListener('click', () => this.#filtroPorId());
@@ -189,7 +187,7 @@ export class Pokedex
 
         //dibujar cada pokemon
        
-        this.listaPokemonsFiltro.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
+        this.listaPokemon.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
     }
 
     //creamos un metodo privado para dibujar el pokemon
@@ -462,9 +460,6 @@ export class Pokedex
                                   
         `;
                                
-                                
-                                        
-        
         contentbox.appendChild(baseStatsContent);
     }
 
@@ -494,56 +489,84 @@ export class Pokedex
     #filtroPorId()
     {
         const filtro_entrada = document.getElementById('filtro-input').value;
-        const mensaje_error = document.getElementById('mensaje-error');
-        mensaje_error.style.display = 'none'; // ocultar mensaje de error inicialmente
-
-        if (!filtro_entrada || isNaN(filtro_entrada)) {
-            mensaje_error.textContent = 'Por favor, ingrese un ID válido.';
-            mensaje_error.style.display = 'block';
+      
+        if (!filtro_entrada) {
+            Toast.fire({
+                icon: "error",
+                title: "Por favor, rellene el campo",
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
             return;
         }
-
-        this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.id == filtro_entrada);
+        else if(isNaN(filtro_entrada)){
+            Toast.fire({
+                icon: "error",
+                title: "Solo puede ingresar numeros",
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+        else if(filtro_entrada>150 || filtro_entrada<1){
+            Toast.fire({
+                icon: "error",
+                title: `El ID ${filtro_entrada} no existe`,
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+        else{
+            document.getElementById('filtro-input').value='';
+            this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.id == filtro_entrada);
+        }
+        
         this.actualizarPokedex();
     }
 
     // Método para filtrar Pokémon por tipo
-#filtroPorTipo()
-{
-    const filtro_entrada = document.getElementById('filtro-input').value.toLowerCase();
-    const mensaje_error = document.getElementById('mensaje-error');
-    mensaje_error.style.display = 'none'; // Ocultar mensaje de error inicialmente
+    #filtroPorTipo()
+    {
+        const filtro_entrada = document.getElementById('filtro-input').value.toLowerCase();
 
-    if (!filtro_entrada) {
-        mensaje_error.textContent = 'Por favor, ingrese un tipo válido.';
-        mensaje_error.style.display = 'block';
-        return;
+        if (!filtro_entrada) {
+            Toast.fire({
+                icon: "error",
+                title: "Por favor, rellene el campo",
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            return;
+        }
+
+        this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.tipos.includes(filtro_entrada));
+        if (this.listaPokemonsFiltro.length === 0) {
+            Toast.fire({
+                icon: "error",
+                title: "No se econtraron pokemons del tipo "+ filtro_entrada,
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+        this.actualizarPokedex();
     }
 
-    this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.tipos.includes(filtro_entrada));
-    if (this.listaPokemonsFiltro.length === 0) {
-        mensaje_error.textContent = 'No se encontró ningún Pokémon con ese tipo.';
-        mensaje_error.style.display = 'block';
-        return;
+    // Método para limpiar filtros
+    #limpiarFiltro()
+    {
+        this.listaPokemonsFiltro = [...this.listaPokemon]; // Restablecer lista de filtrados a la lista completa
+        const limpiar = document.getElementById('filtro-input');
+        limpiar.value = '';
+        this.actualizarPokedex();
+
     }
-    this.actualizarPokedex();
-}
 
-// Método para limpiar filtros
-#limpiarFiltro()
-{
-    this.listaPokemonsFiltro = [...this.listaPokemon]; // Restablecer lista de filtrados a la lista completa
-    const limpiar = document.getElementById('filtro-input');
-    limpiar.value = '';
-    this.actualizarPokedex();
-
-}
-
-       // Método para actualizar la Pokedex
-       actualizarPokedex() {
+        // Método para actualizar la Pokedex
+    actualizarPokedex() {
         const Elemento_pokedex = document.getElementById('pokedex');
         Elemento_pokedex.innerHTML = '';
-        
+
         // Añadir event listeners para los botones
         document.getElementById('filtrar-id').addEventListener('click', () => this.#filtroPorId());
         document.getElementById('filtrar-tipo').addEventListener('click', () => this.#filtroPorTipo());
@@ -555,10 +578,7 @@ export class Pokedex
         } else {
             console.error('listaPokemonsFiltro no es un array');
         }   
-     }
+    }
 
-   
 }
 
-/*tambien faltaria en el diseño ponerle lo que seria el coraxon blanco y la flecha tambien
-,tambien toma en cuenta que fata calcular el total content_stats ahi le das un diseño xd*/
