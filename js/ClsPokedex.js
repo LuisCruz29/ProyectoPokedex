@@ -1,7 +1,7 @@
 // Importa la clase Pokemon del archivo ClsPokemon.js.
 import { Pokemon } from "./ClsPokemon.js";
 import {Toast} from "./alertas.js";
-import { crearCuadro } from "./plantillas.js";
+import { crearCuadro,crearCard,cardAbout,cardStats,cardDanio } from "./plantillas.js";
 export class Pokedex
 {
     //constructor de la clase pokedex
@@ -231,7 +231,7 @@ export class Pokedex
         const elemento_html=document.getElementById('pokedex');
         const pokemon=this.listaPokemon[idPokemon-1];
 
-        //dibujando la targetas
+        // // //dibujando la targetas
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('tarjeta', `pk__container_${pokemon.tipos[0]}`);
         tarjeta.id = `pk-${pokemon.id}`;
@@ -275,7 +275,6 @@ export class Pokedex
         img.classList.add('poke__img_mostrar');
         img.src = pokemon.imagen.otroDW;
         img.alt = pokemon.nombre;
-        img.height = 130;
         pokeImg.appendChild(img);
         pokeDataPrincipal.appendChild(pokeImg);
         //agregandolo a la targeta
@@ -308,6 +307,7 @@ export class Pokedex
 
         pokeDataSecundaria.appendChild(contentbox);
         tarjeta.appendChild(pokeDataSecundaria);
+        //const tarjeta2=crearCard(pokemon);
         elemento_html.appendChild(tarjeta);
 
         let about=document.getElementById('about');
@@ -315,111 +315,27 @@ export class Pokedex
         let relaciones_danio=document.getElementById('relaciones_danio');
        
         about.addEventListener('click', (e)=>{
-            this.#cardAbout(pokemon);
+            cardAbout(pokemon);
+
         });
 
         base_stats.addEventListener('click', (e)=>{
-            this.#cardBaseStats(pokemon);
+            cardStats(pokemon);
         });
 
         relaciones_danio.addEventListener('click', (e)=>{
-            this.#cardRelacionesDanio(pokemon);
+            cardDanio(pokemon);
         });
-           
+        
+       
         this.poke_nav_movimiento(tarjeta);
-        this.#cardAbout(pokemon);
+        cardAbout(pokemon);
 
         let cerrarTarjeta=document.getElementById('cerrarCard');
         cerrarTarjeta.addEventListener('click',(e)=>{
             let tarjetaCerrar=elemento_html.lastChild;
             elemento_html.removeChild(tarjetaCerrar);
         });
-    }
-
-    #cardAbout(pokemon){
-
-        let contentbox=document.getElementById('contenedor-info');
-        let elementoHIjo=contentbox.firstChild;
-        contentbox.removeChild(elementoHIjo);
-         //primer pestaña about 
-         const aboutContent = document.createElement('div');
-         aboutContent.classList.add('content');
- 
-         aboutContent.innerHTML = `
-             <p><span class="title">Descripcion</span> ${pokemon.sobrePk.descripcion}</p>
-             <p><span class="title">Altura</span> ${pokemon.sobrePk.altura} m</p>
-             <p><span class="title">Peso</span> ${pokemon.sobrePk.peso} kg</p>
-             <p><span class="title">Habilidades</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
-             <p><span class="title">Genero</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
-             <p><span class="title">Habitat</span>  ${pokemon.sobrePk.habitat}</p>
-             <p><span class="title">Evolucion</span>  ${pokemon.evoluciones}</p>
-             <p><span class="title">Forma</span> ${pokemon.sobrePk.forma} </p>
-             <br>
-             <br>
-         `;
-         /*por cada contenedor que crees debe ir esto*/
-         contentbox.appendChild(aboutContent);
-    }
-
-    #cardBaseStats(pokemon){
-        let contentbox=document.getElementById('contenedor-info');
-        let elementoHIjo=contentbox.firstChild;
-        contentbox.removeChild(elementoHIjo);
-        /*inicia base stap*/
-        const baseStatsContent = document.createElement('div');
-        baseStatsContent.classList.add('content_stats');
-        baseStatsContent.innerHTML = `
-        
-            <p class="title">HP: ${pokemon.Estadisticas_Base.vida}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.vida}%;" aria-valuenow="${pokemon.Estadisticas_Base.vida}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.vida}%</div>
-            </div>
-            <p class="title">Attack: ${pokemon.Estadisticas_Base.ataque}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.ataque}%;" aria-valuenow="${pokemon.Estadisticas_Base.ataque}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.ataque}%</div>
-            </div>
-            <p class="title">Defense: ${pokemon.Estadisticas_Base.defensa}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.defensa}%;" aria-valuenow="${pokemon.Estadisticas_Base.defensa}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.defensa}%</div>
-            </div>
-            <p class="title">Sp. Atk: ${pokemon.Estadisticas_Base.Ataque_Especial}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.Ataque_Especial}%;" aria-valuenow="${pokemon.Estadisticas_Base.Ataque_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Ataque_Especial}%</div>
-            </div>
-            <p class="title">Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width:  ${pokemon.Estadisticas_Base.Defensa_Especial}%;" aria-valuenow=" ${pokemon.Estadisticas_Base.Defensa_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Defensa_Especial}%</div>
-            </div>
-            <p class="title">Speed:  ${pokemon.Estadisticas_Base.velocidad}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.velocidad}%;" aria-valuenow="${pokemon.Estadisticas_Base.velocidad}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.velocidad}%</div>
-            </div>
-                                  
-        `;
-                               
-        contentbox.appendChild(baseStatsContent);
-    }
-
-    #cardRelacionesDanio(pokemon){
-        let contentbox=document.getElementById('contenedor-info');
-        let elementoHIjo=contentbox.firstChild;
-        contentbox.removeChild(elementoHIjo);
-         //primer pestaña about 
-         const aboutContent = document.createElement('div');
-         aboutContent.classList.add('content');
- 
-         aboutContent.innerHTML = `
-            <p><span class="title">Recibe doble daño de:</span> ${pokemon.relaciones_danio.double_damage_from}</p>
-            <p><span class="title">Realiza doble daño a:</span> ${pokemon.relaciones_danio.double_damage_to} m</p>
-            <p><span class="title">Recibe medio daño de:</span> ${pokemon.relaciones_danio.half_damage_from} kg</p>
-            <p><span class="title">Realiza medio daño a:</span> ${pokemon.relaciones_danio.half_damage_to}</p>
-            <p><span class="title">NO recibe daño de:</span> ${pokemon.relaciones_danio.no_damage_from} </p>
-            <p><span class="title">NO realiza daño a:</span> ${pokemon.relaciones_danio.no_damage_to}</p>
-            <br>
-            <br>
-         `;
-         /*por cada contenedor que crees debe ir esto*/
-         contentbox.appendChild(aboutContent);
     }
 
 
