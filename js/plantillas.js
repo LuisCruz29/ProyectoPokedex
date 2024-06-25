@@ -6,9 +6,13 @@ function crearCuadro(pokemon) {
             <span class="badges pk_container_${tipo}">${tipo}</span>
         `;
     });
-
     const contenedorPrincipal=document.createElement('div');
     contenedorPrincipal.classList.add('contenedor');
+    //contenedorPrincipal.setAttribute("data-aos","fade-up");
+    //contenedorPrincipal.setAttribute("data-aos","fade-down")
+    contenedorPrincipal.setAttribute("data-aos","flip-left")
+    //aqui se le puede cambiar la duracion
+    contenedorPrincipal.setAttribute("data-aos-duration","2500");
     contenedorPrincipal.innerHTML=`
         <div class="pk__container_Principal pk__container_${pokemon.tipos[0]}">
             <div class="pk__complementario">
