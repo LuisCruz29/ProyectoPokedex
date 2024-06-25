@@ -1,6 +1,7 @@
 // Importa la clase Pokemon del archivo ClsPokemon.js.
 import { Pokemon } from "./ClsPokemon.js";
-
+import {Toast} from "./alertas.js";
+import { crearCuadro,crearCard,cardAbout,cardStats,cardDanio } from "./plantillas.js";
 export class Pokedex
 {
     //constructor de la clase pokedex
@@ -176,101 +177,35 @@ export class Pokedex
     {
        
         await this.#getDatosPk();
-        console.log(this.listaPokemon[1]);
+       
         //obtenemos el id del elemento html donde crearemos la pokedex 
         const Elemento_pokedex = document.getElementById('pokedex');
-
-        
 
         // anadimos los eventos listeners para los  botones
         document.getElementById('filtrar-id').addEventListener('click', () => this.#filtroPorId());
         document.getElementById('filtrar-tipo').addEventListener('click', () => this.#filtroPorTipo());
+        document.getElementById('filtrar-nombre').addEventListener('click',()=>this.#filtroNombre());
         document.getElementById('limpiar-filtro').addEventListener('click', () => this.#limpiarFiltro());
 
         //dibujar cada pokemon
        
-        this.listaPokemonsFiltro.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
+        this.listaPokemon.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
     }
 
     //creamos un metodo privado para dibujar el pokemon
     #dibujarPk(elemento_html, pokemon) {
-       
-        const idUnico = `${pokemon.id}`;
-    
-        // Creamos el contenedor principal
-        const contenedorPrincipal = document.createElement('div');
-        contenedorPrincipal.classList.add('contenedor');
-    
-        // Creamos el contenedor pk__container_Principal dentro del contenedor principal
-        const pkContainerPrincipal = document.createElement('div');
-        pkContainerPrincipal.classList.add('pk__container_Principal', `pk__container_${pokemon.tipos[0]}`);
-    
-        // Creamos el contenedor pk__complementario
-        const pkComplementario = document.createElement('div');
-        pkComplementario.classList.add('pk__complementario');
-    
-        // Creamos el título h3 dentro de pk__complementario (Nombre del Pokémon)
-        const tituloPk = document.createElement('h3');
-        tituloPk.textContent = pokemon.nombre; // Asignamos el nombre del Pokémon al título
-        pkComplementario.appendChild(tituloPk);
-    
-        // Creamos la imagen del Pokémon dentro de pk__complementario
-        const imgPk = document.createElement('img');
-        imgPk.src = pokemon.imagen.otroShowdownFD;
-        imgPk.alt = pokemon.nombre;
-        imgPk.classList.add('pokemon-image');
-        pkComplementario.appendChild(imgPk);
-    
-        // Creamos el ID del Pokémon dentro de pk__descripcion
-        const idPk = document.createElement('h3');
-        idPk.classList.add('pk__descripcion__id');
-        idPk.textContent = `#${pokemon.id}`;
-        pkComplementario.appendChild(idPk);
-
-        // Creamos el contenedor pk__descripcion
-        const pkDescripcion = document.createElement('div');
-        pkDescripcion.classList.add('pk__descripcion');
-    
-        // Creamos los tipos del Pokémon dentro de pk__descripcion
-        pokemon.tipos.forEach(tipo => {
-            const spanTipo = document.createElement('span');
-            spanTipo.textContent = tipo;
-            spanTipo.classList.add('badges');
-            spanTipo.classList.add(`pk__container_${tipo}`);
-            pkDescripcion.appendChild(spanTipo);
-        });
-
-        const pkButtons=document.createElement('div');
-        pkButtons.classList.add('w-100','buttons');
-
-        const iconoStats=document.createElement('i');
-        iconoStats.classList.add('bi','bi-list','list','fs-3');
-        iconoStats.setAttribute('id',idUnico);
-
+        let cuadro=crearCuadro(pokemon);
+        // agregamos contenedorPrincipal al elemento HTML proporcionado (elemento_html)
+        elemento_html.appendChild(cuadro);  
         
-        const iconoAgregar=document.createElement('i');
-        iconoAgregar.classList.add('bi','bi-heart-fill','heart','fs-4');
-        
-
-        pkButtons.appendChild(iconoStats);
-        pkButtons.appendChild(iconoAgregar);
-    
-        // Agregamos pkComplementario y pkDescripcion a pkContainerPrincipal
-        pkContainerPrincipal.appendChild(pkComplementario);
-        pkContainerPrincipal.appendChild(pkDescripcion);
-        pkContainerPrincipal.appendChild(pkButtons);
-    
-        // Agregamos pkContainerPrincipal al contenedor principal (contenedorPrincipal)
-        contenedorPrincipal.appendChild(pkContainerPrincipal);
-    
-        // Finalmente, agregamos contenedorPrincipal al elemento HTML proporcionado (elemento_html)
-        elemento_html.appendChild(contenedorPrincipal);  
-
-        iconoStats.addEventListener('click', (e)=>{
+        let id=`icono-card_${pokemon.id}`;
+        let mostrarCard=document.getElementById(id);
+        mostrarCard.addEventListener('click', (e)=>{
             e.preventDefault();
-            let id=e.target.getAttribute('id');
+            let id=e.target.parentElement.getAttribute('id');
             this.#crearCardPokemon(id);
-        })
+        });
+        
     }
 
     /*este metodo lo que ase es que funcione el evento click*/
@@ -296,7 +231,7 @@ export class Pokedex
         const elemento_html=document.getElementById('pokedex');
         const pokemon=this.listaPokemon[idPokemon-1];
 
-        //dibujando la targetas
+        // // //dibujando la targetas
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('tarjeta', `pk__container_${pokemon.tipos[0]}`);
         tarjeta.id = `pk-${pokemon.id}`;
@@ -340,7 +275,6 @@ export class Pokedex
         img.classList.add('poke__img_mostrar');
         img.src = pokemon.imagen.otroDW;
         img.alt = pokemon.nombre;
-        img.height = 130;
         pokeImg.appendChild(img);
         pokeDataPrincipal.appendChild(pokeImg);
         //agregandolo a la targeta
@@ -373,6 +307,7 @@ export class Pokedex
 
         pokeDataSecundaria.appendChild(contentbox);
         tarjeta.appendChild(pokeDataSecundaria);
+        //const tarjeta2=crearCard(pokemon);
         elemento_html.appendChild(tarjeta);
 
         let about=document.getElementById('about');
@@ -380,19 +315,21 @@ export class Pokedex
         let relaciones_danio=document.getElementById('relaciones_danio');
        
         about.addEventListener('click', (e)=>{
-            this.#cardAbout(pokemon);
+            cardAbout(pokemon);
+
         });
 
         base_stats.addEventListener('click', (e)=>{
-            this.#cardBaseStats(pokemon);
+            cardStats(pokemon);
         });
 
         relaciones_danio.addEventListener('click', (e)=>{
-            this.#cardRelacionesDanio(pokemon);
+            cardDanio(pokemon);
         });
-           
+        
+       
         this.poke_nav_movimiento(tarjeta);
-        this.#cardAbout(pokemon);
+        cardAbout(pokemon);
 
         let cerrarTarjeta=document.getElementById('cerrarCard');
         cerrarTarjeta.addEventListener('click',(e)=>{
@@ -401,153 +338,115 @@ export class Pokedex
         });
     }
 
-    #cardAbout(pokemon){
 
-        let contentbox=document.getElementById('contenedor-info');
-        let elementoHIjo=contentbox.firstChild;
-        contentbox.removeChild(elementoHIjo);
-         //primer pestaña about 
-         const aboutContent = document.createElement('div');
-         aboutContent.classList.add('content');
- 
-         aboutContent.innerHTML = `
-             <p><span class="title">Descripcion</span> ${pokemon.sobrePk.descripcion}</p>
-             <p><span class="title">Altura</span> ${pokemon.sobrePk.altura} m</p>
-             <p><span class="title">Peso</span> ${pokemon.sobrePk.peso} kg</p>
-             <p><span class="title">Habilidades</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
-             <p><span class="title">Genero</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
-             <p><span class="title">Habitat</span>  ${pokemon.sobrePk.habitat}</p>
-             <p><span class="title">Evolucion</span>  ${pokemon.evoluciones}</p>
-             <p><span class="title">Forma</span> ${pokemon.sobrePk.forma} </p>
-             <br>
-             <br>
-         `;
-         /*por cada contenedor que crees debe ir esto*/
-         contentbox.appendChild(aboutContent);
-    }
+    #filtroNombre(){
+        const filtro=document.getElementById('filtro-input').value;
+        if (!filtro) {
+            Toast.fire({
+                icon: "error",
+                title: "Por favor, rellene el campo",
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
 
-    #cardBaseStats(pokemon){
-        let contentbox=document.getElementById('contenedor-info');
-        let elementoHIjo=contentbox.firstChild;
-        contentbox.removeChild(elementoHIjo);
-        /*inicia base stap*/
-        const baseStatsContent = document.createElement('div');
-        baseStatsContent.classList.add('content_stats');
-        baseStatsContent.innerHTML = `
-        
-            <p class="title">HP: ${pokemon.Estadisticas_Base.vida}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.vida}%;" aria-valuenow="${pokemon.Estadisticas_Base.vida}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.vida}%</div>
-            </div>
-            <p class="title">Attack: ${pokemon.Estadisticas_Base.ataque}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.ataque}%;" aria-valuenow="${pokemon.Estadisticas_Base.ataque}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.ataque}%</div>
-            </div>
-            <p class="title">Defense: ${pokemon.Estadisticas_Base.defensa}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.defensa}%;" aria-valuenow="${pokemon.Estadisticas_Base.defensa}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.defensa}%</div>
-            </div>
-            <p class="title">Sp. Atk: ${pokemon.Estadisticas_Base.Ataque_Especial}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.Ataque_Especial}%;" aria-valuenow="${pokemon.Estadisticas_Base.Ataque_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Ataque_Especial}%</div>
-            </div>
-            <p class="title">Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width:  ${pokemon.Estadisticas_Base.Defensa_Especial}%;" aria-valuenow=" ${pokemon.Estadisticas_Base.Defensa_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Defensa_Especial}%</div>
-            </div>
-            <p class="title">Speed:  ${pokemon.Estadisticas_Base.velocidad}</p>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.velocidad}%;" aria-valuenow="${pokemon.Estadisticas_Base.velocidad}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.velocidad}%</div>
-            </div>
-                                  
-        `;
-                               
-                                
-                                        
-        
-        contentbox.appendChild(baseStatsContent);
-    }
-
-    #cardRelacionesDanio(pokemon){
-        let contentbox=document.getElementById('contenedor-info');
-        let elementoHIjo=contentbox.firstChild;
-        contentbox.removeChild(elementoHIjo);
-         //primer pestaña about 
-         const aboutContent = document.createElement('div');
-         aboutContent.classList.add('content');
- 
-         aboutContent.innerHTML = `
-            <p><span class="title">Recibe doble daño de:</span> ${pokemon.relaciones_danio.double_damage_from}</p>
-            <p><span class="title">Realiza doble daño a:</span> ${pokemon.relaciones_danio.double_damage_to} m</p>
-            <p><span class="title">Recibe medio daño de:</span> ${pokemon.relaciones_danio.half_damage_from} kg</p>
-            <p><span class="title">Realiza medio daño a:</span> ${pokemon.relaciones_danio.half_damage_to}</p>
-            <p><span class="title">NO recibe daño de:</span> ${pokemon.relaciones_danio.no_damage_from} </p>
-            <p><span class="title">NO realiza daño a:</span> ${pokemon.relaciones_danio.no_damage_to}</p>
-            <br>
-            <br>
-         `;
-         /*por cada contenedor que crees debe ir esto*/
-         contentbox.appendChild(aboutContent);
+        this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.nombre.includes(filtro));
+        if (this.listaPokemonsFiltro.length === 0) {
+            Toast.fire({
+                icon: "error",
+                title: "No se econtró pokemon con el nombre "+ filtro,
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+        document.getElementById('filtro-input').value='';
+        this.actualizarPokedex();
     }
 
     //metodo para filtrar pokemon por id
     #filtroPorId()
     {
         const filtro_entrada = document.getElementById('filtro-input').value;
-        const mensaje_error = document.getElementById('mensaje-error');
-        mensaje_error.style.display = 'none'; // ocultar mensaje de error inicialmente
-
-        if (!filtro_entrada || isNaN(filtro_entrada)) {
-            mensaje_error.textContent = 'Por favor, ingrese un ID válido.';
-            mensaje_error.style.display = 'block';
+      
+        if (!filtro_entrada) {
+            Toast.fire({
+                icon: "error",
+                title: "Por favor, rellene el campo",
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
             return;
         }
-
-        this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.id == filtro_entrada);
+        else if(isNaN(filtro_entrada)){
+            Toast.fire({
+                icon: "error",
+                title: "Solo puede ingresar numeros",
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+        else if(filtro_entrada>150 || filtro_entrada<1){
+            Toast.fire({
+                icon: "error",
+                title: `El ID ${filtro_entrada} no existe`,
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+        else{
+            document.getElementById('filtro-input').value='';
+            this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.id == filtro_entrada);
+        }
+        
         this.actualizarPokedex();
     }
 
     // Método para filtrar Pokémon por tipo
-#filtroPorTipo()
-{
-    const filtro_entrada = document.getElementById('filtro-input').value.toLowerCase();
-    const mensaje_error = document.getElementById('mensaje-error');
-    mensaje_error.style.display = 'none'; // Ocultar mensaje de error inicialmente
+    #filtroPorTipo()
+    {
+        const filtro_entrada = document.getElementById('filtro-input').value.toLowerCase();
 
-    if (!filtro_entrada) {
-        mensaje_error.textContent = 'Por favor, ingrese un tipo válido.';
-        mensaje_error.style.display = 'block';
-        return;
+        if (!filtro_entrada) {
+            Toast.fire({
+                icon: "error",
+                title: "Por favor, rellene el campo",
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            return;
+        }
+
+        this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.tipos.includes(filtro_entrada));
+        if (this.listaPokemonsFiltro.length === 0) {
+            Toast.fire({
+                icon: "error",
+                title: "No se econtraron pokemons del tipo "+ filtro_entrada,
+            });
+            this.listaPokemonsFiltro = [...this.listaPokemon];
+            document.getElementById('filtro-input').value='';
+            return;
+        }
+        document.getElementById('filtro-input').value='';
+        this.actualizarPokedex();
     }
 
-    this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.tipos.includes(filtro_entrada));
-    if (this.listaPokemonsFiltro.length === 0) {
-        mensaje_error.textContent = 'No se encontró ningún Pokémon con ese tipo.';
-        mensaje_error.style.display = 'block';
-        return;
+    // Método para limpiar filtros
+    #limpiarFiltro()
+    {
+        this.listaPokemonsFiltro = [...this.listaPokemon]; // Restablecer lista de filtrados a la lista completa
+        const limpiar = document.getElementById('filtro-input');
+        limpiar.value = '';
+        this.actualizarPokedex();
+
     }
-    this.actualizarPokedex();
-}
 
-// Método para limpiar filtros
-#limpiarFiltro()
-{
-    this.listaPokemonsFiltro = [...this.listaPokemon]; // Restablecer lista de filtrados a la lista completa
-    const limpiar = document.getElementById('filtro-input');
-    limpiar.value = '';
-    this.actualizarPokedex();
-
-}
-
-       // Método para actualizar la Pokedex
-       actualizarPokedex() {
+        // Método para actualizar la Pokedex
+    actualizarPokedex() {
         const Elemento_pokedex = document.getElementById('pokedex');
         Elemento_pokedex.innerHTML = '';
-        
-        // Añadir event listeners para los botones
-        document.getElementById('filtrar-id').addEventListener('click', () => this.#filtroPorId());
-        document.getElementById('filtrar-tipo').addEventListener('click', () => this.#filtroPorTipo());
-        document.getElementById('limpiar-filtro').addEventListener('click', () => this.#limpiarFiltro());
 
         // Dibujar cada Pokémon
         if (Array.isArray(this.listaPokemonsFiltro)) {
@@ -555,10 +454,7 @@ export class Pokedex
         } else {
             console.error('listaPokemonsFiltro no es un array');
         }   
-     }
+    }
 
-   
 }
 
-/*tambien faltaria en el diseño ponerle lo que seria el coraxon blanco y la flecha tambien
-,tambien toma en cuenta que fata calcular el total content_stats ahi le das un diseño xd*/
