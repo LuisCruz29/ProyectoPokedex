@@ -188,7 +188,6 @@ export class Pokedex
         document.getElementById('limpiar-filtro').addEventListener('click', () => this.#limpiarFiltro());
 
         //dibujar cada pokemon
-       
         this.listaPokemon.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
     }
 
@@ -206,6 +205,11 @@ export class Pokedex
             this.#crearCardPokemon(id);
         });
         
+        //audio pokemon
+        var audio = document.getElementById("poke_audi");
+        audio.play().catch(error => {
+            alert("Error: ",error);
+        })
     }
 
     /*este metodo lo que ase es que funcione el evento click*/
@@ -336,6 +340,8 @@ export class Pokedex
             let tarjetaCerrar=elemento_html.lastChild;
             elemento_html.removeChild(tarjetaCerrar);
         });
+
+
     }
 
 
@@ -363,6 +369,7 @@ export class Pokedex
         }
         document.getElementById('filtro-input').value='';
         this.actualizarPokedex();
+
     }
 
     //metodo para filtrar pokemon por id
