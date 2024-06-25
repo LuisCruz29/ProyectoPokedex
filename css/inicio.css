@@ -1,0 +1,208 @@
+body {
+    background-color: white; /* Fondo blanco */
+    color: black; /* Texto negro */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    background-color: red; /* Color rojo para el nav */
+    padding: 1rem;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+    vertical-align: middle;
+}
+
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 1rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.welcome-section {
+    position: relative;
+    height: 70vh; /* La imagen cubre la mitad de la pantalla */
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+.welcome-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
+    filter: brightness(50%); /* Oscurece la imagen */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Superposición negra semi-transparente */
+}
+
+.welcome-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.pokemon {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.pokemon-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.pokemon-item {
+    width: 240px; /* Ancho fijo para todas las tarjetas */
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.pokemon-item img {
+    width: 200px; /* Ancho de la imagen */
+    height: 200px; /* Altura de la imagen */
+    object-fit: cover; /* Ajusta la imagen para llenar el espacio sin deformación */
+    border-radius: 8px; /* Borde redondeado */
+    display: block; /* Para centrar la imagen */
+    margin: 0 auto; /* Para centrar la imagen */
+}
+
+.pokemon-item p {
+    margin-top: 10px; /* Espacio superior */
+    font-weight: bold;
+}
+
+
+
+footer {
+    background-color: #333; /* Color de fondo oscuro */
+    color: #fff; /* Texto blanco */
+    padding: 20px 0; /* Espaciado interno */
+    text-align: center; /* Alineación centrada */
+    width: 100%; /* Ancho completo */
+    position: relative; /* Posición relativa */
+    margin-top: auto; /* Margen superior automático para empujarlo al fondo */
+}
+
+.footer-container {
+    max-width: 1200px; /* Ancho máximo del contenido */
+    margin: 0 auto; /* Centrado horizontal */
+    padding: 0 20px; /* Espaciado interno */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    flex: 1; /* Toma el espacio restante */
+}
+
+.footer-right {
+    flex: 1; /* Toma el espacio restante */
+    text-align: right; /* Alineación a la derecha */
+}
+
+.footer-right a {
+    margin-left: 10px; /* Espacio entre los íconos de redes sociales */
+}
+
+.footer-right a img {
+    width: 30px; /* Tamaño de los íconos */
+    height: auto; /* Altura automática */
+    border-radius: 50%; /* Borde redondeado */
+    transition: transform 0.3s ease; /* Transición suave */
+}
+
+.footer-right a:hover img {
+    transform: scale(1.2); /* Agrandar ligeramente al pasar el ratón */
+}
+
+.articulo{
+    display: flex;
+    margin-top: 10px;
+}
+
+.item{
+    margin: 20px;
+    height: auto;
+    width: auto;
+}
+
+.imagen1{
+    width: 800px;
+    height: 370px;
+}
+
+footer {
+    background-color: #333; /* Fondo gris oscuro */
+    color: #fff; /* Texto blanco */
+    padding: 20px 0; /* Espaciado interno */
+    text-align: center; /* Alineación centrada del texto */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centrar en la página */
+}
+
+.footer-left {
+    flex: 1; /* Ocupa el espacio restante */
+}
+
+.footer-right {
+    flex: 1; /* Ocupa el espacio restante */
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer-right a {
+    margin-left: 10px; /* Espacio entre los íconos */
+}
+
+/* Estilos para los íconos del footer */
+.footer-right img {
+    width: 24px; /* Tamaño de los íconos */
+    height: 24px;
+    border-radius: 50%; /* Borde redondeado */
+}
