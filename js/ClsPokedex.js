@@ -19,25 +19,6 @@ export class Pokedex
     //Creamos un metodo privado para obtener los datos de los pokemones
     async #getDatosPk()
     {
-        //recorremos del valor 1 al 150 para obtener los primeros 150 pokemones
-        // for (let i = 1; i <=150; i++) 
-        // {
-        //     try 
-        //     {
-        //         //realizamos una peticion a nuestra api para obtener los datos correspondientes al pk con el id actual
-        //         let peticionDatos = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`).then(data=>data.json());
-        //         let dato_Especie = await fetch(peticionDatos.species.url).then(data=>data.json()); 
-        //         let dato_Evolucion = await fetch(dato_Especie.evolution_chain.url ).then(data=>data.json());
-        //         let danios= await fetch(peticionDatos.types[0].type.url).then(datos=>datos.json());
-        //         this.#crearPk(peticionDatos, dato_Especie, dato_Evolucion,danios);
-                
-        //     }
-        //     catch (error) {
-        //         console.error(`Error en el fetch para el Pokemon ID ${i}:`, error);
-        //     }
-
-        // }
-
         try {
             let datos=await fetch('http://localhost:3000/pokemones').then(data=>data.json());
             this.#crearPk(datos);
@@ -47,141 +28,17 @@ export class Pokedex
     }
 
     // creamos un metodo privado para crear un objeto pokemon y poderlo agregarlo a la lista
-    //dato, especie, evolucion,danios
     #crearPk(datos)
     {
-     
-        // //obtenemos el id del pokemon
-        // const id = dato.id;
-
-        // //obtenemos el nombre del pokemon
-        // const nombre = dato.name;
-
-        // // obtenemos los tipos del pokemon como un array de nombres de tipos
-        // const tipos = dato.types.map( x => x.type.name);
-
-        // //obtnemos las estadisticas base del pokemin y las organizamos como un objeto
-        // const Estadisticas_Base = 
-        // {
-        //     vida: dato.stats.find(estadistica => estadistica.stat.name === "hp").base_stat,
-        //     ataque: dato.stats.find(estadistica => estadistica.stat.name === "attack").base_stat,
-        //     defensa: dato.stats.find(estadistica => estadistica.stat.name === "defense").base_stat,
-        //     Ataque_Especial: dato.stats.find(estadistica => estadistica.stat.name === "special-attack").base_stat,
-        //     Defensa_Especial: dato.stats.find(estadistica => estadistica.stat.name === "special-defense").base_stat,
-        //     velocidad: dato.stats.find(estadistica => estadistica.stat.name === "speed").base_stat
-        // };
-        // //calcula el porcentaje de machos 
-        // const macho = especie.gender_rate === 0 ? 0:
-        //               especie.gender_rate === 8 ? 100:
-        //               especie.gender_rate * 12.5;
-
-        // //calcula el porcentaje de hembra 
-        // const hembra = especie.gender_rate === 0 ? 0:
-        //               especie.gender_rate === 8 ? 100:
-        //               (8 - especie.gender_rate) * 12.5;
-
-        // //obtenemos informacion adicional sobre el pokemon y la organiza en un objeto
-        // const sobrePk = 
-        // {
-        //     //obtiene una descripcion del pk en español 
-        //     descripcion: especie.flavor_text_entries.find( l => l.language.name === "es").flavor_text,
-
-        //     //obtiene el habitat del pokemon (si esta disponible , de lo contrario se establece como desconocido)
-        //     habitat: especie.habitat ? especie.habitat.name : "Desconocido",
-
-        //     //obtenemos la generacion
-        //     generacion: especie.generation.name,
-
-        //     //obtenemos el color 
-        //     color: especie.color.name,
-
-        //     //obtenemos la forma
-        //     forma: especie.shape.name,
-
-        //     //obtenemos la altura del pokemon como esta en decimetros es necesario aplicar la conversion a metros
-        //     altura: dato.height / 10,
-
-        //     //obtenemos el peso en hectogramas y convertimos a kg
-        //     peso: dato.weight / 10,
-
-        //     // obtiene las habilidades de un pokemon 
-        //     habilidades: dato.abilities ? dato.abilities.map(h => h.ability.name) : [],
-           
-        //     // obtiene el genero del pokemon  y su porcentaje (si esta disponible)
-        //     genero:
-        //     {
-        //         macho: macho.toFixed(2) + "%", 
-        //         hembra: hembra.toFixed(2) + "%"
-        //     }
-        // }
-
-        
-       
-        // // obtiene la cadena de evoluciones del pokemon utilizando el metodo obtener evoluciones 
-        // const evoluciones = this.#getEvoluciones(evolucion.chain);
-
-        // // obtenemos la url de la imagen del pokemon
-        // const imagen =
-        // {
-        //     backDefault: dato.sprites.back_default,
-        //     backShiny: dato.sprites.back_shiny,
-        //     frontDefault: dato.sprites.front_default,
-        //     frontShiny: dato.sprites.front_shiny,
-        //     otroDW: dato.sprites.other.dream_world.front_default,
-        //     otroHomeFD: dato.sprites.other.home.front_default,
-        //     otroHomeFS: dato.sprites.other.home.front_shiny,
-        //     otroOficialArtworkFD: dato.sprites.other['official-artwork'].front_default,
-        //     otroOficialArtworkFS: dato.sprites.other['official-artwork'].front_shiny,
-        //     otroShowdownBD: dato.sprites.other.showdown.back_default,
-        //     otroShowdownBS: dato.sprites.other.showdown.back_shiny,
-        //     otroShowdownFD: dato.sprites.other.showdown.front_default,
-        //     otroShowdownFS: dato.sprites.other.showdown.front_shiny
-        // };
-
-       
-        // const relaciones_danio={
-        //     double_damage_from:danios.damage_relations.double_damage_from.length!==0 ? danios.damage_relations.double_damage_from.map(d=>d.name):['Ninguno'],
-        //     double_damage_to:danios.damage_relations.double_damage_to.length!==0 ? danios.damage_relations.double_damage_to.map(d=>d.name):['Ninguno'],
-        //     half_damage_from:danios.damage_relations.half_damage_from.length!==0 ? danios.damage_relations.half_damage_from.map(d=>d.name):['Ninguno'],
-        //     half_damage_to:danios.damage_relations.half_damage_to.length!==0 ? danios.damage_relations.half_damage_to.map(d=>d.name):['Ninguno'],
-        //     no_damage_from:danios.damage_relations.no_damage_from.length!==0 ? danios.damage_relations.no_damage_from.map(d=>d.name):['Ninguno'],
-        //     no_damage_to:danios.damage_relations.no_damage_to.length!==0 ? danios.damage_relations.no_damage_to.map(d=>d.name):['Ninguno'],
-        // }
-
-       
         for (const dato of datos) {
             const pk = new Pokemon(dato.idP, dato.nombreP, dato.tipoP, dato.estadistica, dato.evolucion, dato.about, dato.img,dato.relaciones);
             this.listaPokemon.push(pk);
             this.listaPokemonsFiltro.push(pk);
         }
-        // creamos un objeto de pokemon con la informacion obtenida
+        
         
     }
 
-    // creamos un metodo privado  para obtener la cadena de evoluciones del pokemon
-    // #getEvoluciones(cadena_evolucion)
-    // {
-    //     // inicializamos un array vacio para almacenar los nombre de los especies de la cadena de la evolucion
-    //     let evoluciones = [];
-
-    //     // inicializa cadena actual con el objeto de evolucion  recibida como argumento
-    //     let cadena_actual = cadena_evolucion;
-
-    //     //  vamos iterar mientras exista una cadena de evolucion actual
-    //     while (cadena_actual) 
-    //     {
-    //         // agrega el nombre de la especie actual al array de evoluciones
-    //         evoluciones.push(cadena_actual.species.name);
-
-    //         //avanza a la siguiente evolucion en la cadena (si existe)
-    //         cadena_actual = cadena_actual.evolves_to[0];//accediendo primer elemento de evolves_to y se utiliza para avanzar la siguiente evolucion en la cadena de evolucion hasta que no haya evoluciones (null)
-    //     }
-
-    //     // retorna el array de evoluciones que contiene los nombres de las especies en la cadena de evolucion
-    //     return evoluciones;
-    // }
-
-  
     async dibujarPokedex()
     {
        
