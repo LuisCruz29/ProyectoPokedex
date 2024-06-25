@@ -1,0 +1,20 @@
+{
+  "name": "proyectopokedex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "server": "json-server --watch db.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuisCruz29/ProyectoPokedex.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuisCruz29/ProyectoPokedex/issues"
+  },
+  "homepage": "https://github.com/LuisCruz29/ProyectoPokedex#readme"
+}
