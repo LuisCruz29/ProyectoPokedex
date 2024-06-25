@@ -172,6 +172,7 @@
     top: 50px; /* Ajusta la posición verticalmente */
     left: 50%; /* Centra horizontalmente */
     transform: translateX(-50%); /* Ajusta el centrado horizontal */
+    height: 130px;
 }
 /*********************************************************/
 .container{
