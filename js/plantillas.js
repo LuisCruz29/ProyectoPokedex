@@ -89,14 +89,14 @@ function cardAbout(pokemon) {
     aboutContent.classList.add('content');
 
     aboutContent.innerHTML = `
-        <p><span class="title">Descripcion</span> ${pokemon.sobrePk.descripcion}</p>
-        <p><span class="title">Altura</span> ${pokemon.sobrePk.altura} m</p>
-        <p><span class="title">Peso</span> ${pokemon.sobrePk.peso} kg</p>
-        <p><span class="title">Habilidades</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
-        <p><span class="title">Genero</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
-        <p><span class="title">Habitat</span>  ${pokemon.sobrePk.habitat}</p>
-        <p><span class="title">Evolucion</span>  ${pokemon.evoluciones}</p>
-        <p><span class="title">Forma</span> ${pokemon.sobrePk.forma} </p>
+        <p class="poke_parrafo"><span class="">Descripcion</span> ${pokemon.sobrePk.descripcion}</p>
+        <p class="poke_parrafo"><span class="title">Altura</span> ${pokemon.sobrePk.altura} m</p>
+        <p class="poke_parrafo"><span class="title">Peso</span> ${pokemon.sobrePk.peso} kg</p>
+        <p class="poke_parrafo"><span class="title">Habilidades</span> ${pokemon.sobrePk.habilidades.join(', ')}</p>
+        <p class="poke_parrafo"><span class="title">Genero</span> ♂ ${pokemon.sobrePk.genero.macho} ♀ ${pokemon.sobrePk.genero.hembra}</p>
+        <p class="poke_parrafo"><span class="title">Habitat</span>  ${pokemon.sobrePk.habitat}</p>
+        <p class="poke_parrafo"><span class="title">Evolucion</span>  ${pokemon.evoluciones}</p>
+        <p class="poke_parrafo"><span class="title">Forma</span> ${pokemon.sobrePk.forma} </p>
         <br>
         <br>
     `;
