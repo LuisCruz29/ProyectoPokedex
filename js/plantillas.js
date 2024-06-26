@@ -116,27 +116,27 @@ function cardStats(pokemon) {
     
         <p class="title">HP: ${pokemon.Estadisticas_Base.vida}</p>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.vida}%;" aria-valuenow="${pokemon.Estadisticas_Base.vida}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.vida}%</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${pokemon.Estadisticas_Base.vida}%;" aria-valuenow="${pokemon.Estadisticas_Base.vida}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.vida}%</div>
         </div>
         <p class="title">Attack: ${pokemon.Estadisticas_Base.ataque}</p>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.ataque}%;" aria-valuenow="${pokemon.Estadisticas_Base.ataque}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.ataque}%</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${pokemon.Estadisticas_Base.ataque}%;" aria-valuenow="${pokemon.Estadisticas_Base.ataque}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.ataque}%</div>
         </div>
         <p class="title">Defense: ${pokemon.Estadisticas_Base.defensa}</p>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.defensa}%;" aria-valuenow="${pokemon.Estadisticas_Base.defensa}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.defensa}%</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${pokemon.Estadisticas_Base.defensa}%;" aria-valuenow="${pokemon.Estadisticas_Base.defensa}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.defensa}%</div>
         </div>
         <p class="title">Sp. Atk: ${pokemon.Estadisticas_Base.Ataque_Especial}</p>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.Ataque_Especial}%;" aria-valuenow="${pokemon.Estadisticas_Base.Ataque_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Ataque_Especial}%</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${pokemon.Estadisticas_Base.Ataque_Especial}%;" aria-valuenow="${pokemon.Estadisticas_Base.Ataque_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Ataque_Especial}%</div>
         </div>
         <p class="title">Sp. Def: ${pokemon.Estadisticas_Base.Defensa_Especial}</p>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width:  ${pokemon.Estadisticas_Base.Defensa_Especial}%;" aria-valuenow=" ${pokemon.Estadisticas_Base.Defensa_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Defensa_Especial}%</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:  ${pokemon.Estadisticas_Base.Defensa_Especial}%;" aria-valuenow=" ${pokemon.Estadisticas_Base.Defensa_Especial}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.Defensa_Especial}%</div>
         </div>
         <p class="title">Speed:  ${pokemon.Estadisticas_Base.velocidad}</p>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: ${pokemon.Estadisticas_Base.velocidad}%;" aria-valuenow="${pokemon.Estadisticas_Base.velocidad}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.velocidad}%</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated role="progressbar" style="width: ${pokemon.Estadisticas_Base.velocidad}%;" aria-valuenow="${pokemon.Estadisticas_Base.velocidad}" aria-valuemin="0" aria-valuemax="100">${pokemon.Estadisticas_Base.velocidad}%</div>
         </div>
                               
     `;
@@ -152,12 +152,12 @@ function cardDanio(pokemon) {
     danio.classList.add('content');
 
     danio.innerHTML = `
-       <p><span class="title">Recibe doble daño de:</span> ${pokemon.relaciones_danio.double_damage_from}</p>
-       <p><span class="title">Realiza doble daño a:</span> ${pokemon.relaciones_danio.double_damage_to} m</p>
-       <p><span class="title">Recibe medio daño de:</span> ${pokemon.relaciones_danio.half_damage_from} kg</p>
-       <p><span class="title">Realiza medio daño a:</span> ${pokemon.relaciones_danio.half_damage_to}</p>
-       <p><span class="title">NO recibe daño de:</span> ${pokemon.relaciones_danio.no_damage_from} </p>
-       <p><span class="title">NO realiza daño a:</span> ${pokemon.relaciones_danio.no_damage_to}</p>
+       <p class="poke_parrafo"><span class="title">Recibe doble daño de:</span> ${pokemon.relaciones_danio.double_damage_from}</p>
+       <p  class="poke_parrafo"><span class="title">Realiza doble daño a:</span> ${pokemon.relaciones_danio.double_damage_to} m</p>
+       <p  class="poke_parrafo"><span class="title">Recibe medio daño de:</span> ${pokemon.relaciones_danio.half_damage_from} kg</p>
+       <p  class="poke_parrafo"><span class="title">Realiza medio daño a:</span> ${pokemon.relaciones_danio.half_damage_to}</p>
+       <p  class="poke_parrafo"><span class="title">NO recibe daño de:</span> ${pokemon.relaciones_danio.no_damage_from} </p>
+       <p  class="poke_parrafo"><span class="title">NO realiza daño a:</span> ${pokemon.relaciones_danio.no_damage_to}</p>
        <br>
        <br>
     `;
