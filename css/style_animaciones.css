@@ -1,0 +1,154 @@
+/* Definimos las variables de color */
+:root {
+    --color-nombre: #f00;
+    --color-nombre-hover: #c00;
+    --color-id: green;
+    --color-id-hover: #006400;
+    --color-tipo: #00bfff; 
+    --color-tipo-hover: #009acd; 
+    --color-limpiar: #ffd700;
+    --color-limpiar-hover: #ffc700;
+}
+
+button{
+    border: 1px solid;
+    overflow: hidden;
+    position: relative;
+    transition: background-color 0.5s, border-color 0.5s, color 0.5s, transform 0.3s, box-shadow 0.3s;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+}
+  
+button span {
+    z-index: 20;
+    transition: color 0.5s;
+}
+  
+button:after {
+    background: #fff;
+    content: "";
+    height: 155px;
+    left: -75px;
+    opacity: .2;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    width: 50px;
+    z-index: -10;
+}
+  
+button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+  
+button:hover:after {
+    left: 120%;
+    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+  
+/* Estilo específico para #filtrar-nombre */
+#filtrar-nombre {
+    background-color: var(--color-nombre);
+    border-color: var(--color-nombre);
+}
+  
+#filtrar-nombre:hover {
+    background-color: var(--color-nombre-hover);
+    border-color: var(--color-nombre-hover);
+}
+  
+/* Estilo específico para #filtrar-id */
+#filtrar-id {
+    background-color: var(--color-id);
+    border-color: var(--color-id);
+}
+  
+#filtrar-id:hover {
+    background-color: var(--color-id-hover);
+    border-color: var(--color-id-hover);
+}
+  
+/* Estilo específico para #filtrar-tipo */
+#filtrar-tipo {
+    background-color: var(--color-tipo);
+    border-color: var(--color-tipo);
+}
+  
+#filtrar-tipo:hover {
+    background-color: var(--color-tipo-hover);
+    border-color: var(--color-tipo-hover);
+}
+  
+/* Estilo específico para #limpiar-filtro */
+#limpiar-filtro {
+    background-color: var(--color-limpiar);
+    border-color: var(--color-limpiar);
+    color: #000;
+}
+  
+#limpiar-filtro:hover {
+    background-color: var(--color-limpiar-hover);
+    border-color: var(--color-limpiar-hover);
+}
+   
+
+#filtro-input {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Estilos para el foco (cuando se hace clic o se selecciona) */
+#filtro-input:focus {
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+    background-color: #f0f8ff;
+    outline: none; 
+}
+
+@media (max-width: 299px) {
+    #filtro-input {
+        padding: 6px 14px;
+        font-size: 13px;
+        width: 190px;
+    }
+}
+
+@media (max-width: 599px) {
+    button, #filtro-input {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+    button {
+        font-size: 18px;
+        padding: 12px 24px;
+    }
+
+    #filtro-input {
+        padding: 12px 24px;
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 900px) {
+    button {
+        font-size: 20px;
+        padding: 14px 28px;
+    }
+
+    #filtro-input {
+        padding: 14px 28px;
+        font-size: 20px;
+    }
+}
