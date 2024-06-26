@@ -1,0 +1,53 @@
+
+nav {
+    background-color: red; /* Color rojo para el nav */
+    padding: 1rem;
+}
+
+.logo {
+    height: 50px;
+}
+
+.links{
+    color: #FFFFFF; 
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: 3px solid transparent; 
+    transition: border-color 0.3s; 
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.links:hover{
+    background-color: transparent; 
+    color: #FFFFFF; 
+    border-color: #FFCB05; 
+}
+
+
+.agregar{
+    background-color: #2196F3; /* Azul */
+    color: white;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.agregar:hover{
+    background-color: white;
+    color: black;
+    border: 3px solid #2196F3;
+}
+
+.modificar{
+    color: #4CAF50;
+}
+
+.eliminar{
+    color: #f44336;
+}
+
+.entrenador-container{
+    width: 80%;
+    
+}

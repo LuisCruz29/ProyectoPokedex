@@ -140,7 +140,10 @@ function crearObjeto(dato, especie, evolucion,danios){
 
 function crearJson(){
   const fs=require("fs");
-  fs.writeFileSync("db.json",JSON.stringify(listaPokemons,null,4));
+  const objeto={
+    pokemones:listaPokemons
+  }
+  fs.writeFileSync("db.json",JSON.stringify(objeto,null,4));
 }
 
 async function programa(){
