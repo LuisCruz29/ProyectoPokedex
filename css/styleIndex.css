@@ -1,12 +1,12 @@
 body {
-    background-color: white; /* Fondo blanco */
-    color: black; /* Texto negro */
+    background-color: white;
+    color: black;
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
 nav {
-    background-color: red; /* Color rojo para el nav */
+    background-color: red;
     padding: 1rem;
 }
 
@@ -44,7 +44,7 @@ nav {
 
 .welcome-section {
     position: relative;
-    height: 70vh; /* La imagen cubre la mitad de la pantalla */
+    height: 70vh;
     text-align: center;
     color: white;
     overflow: hidden;
@@ -53,8 +53,8 @@ nav {
 .welcome-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
-    filter: brightness(50%); /* Oscurece la imagen */
+    object-fit: cover;
+    filter: brightness(50%);
 }
 
 .overlay {
@@ -63,7 +63,7 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Superposición negra semi-transparente */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .welcome-text {
@@ -88,7 +88,7 @@ nav {
 }
 
 .pokemon-item {
-    width: 240px; /* Ancho fijo para todas las tarjetas */
+    width: 240px;
     padding: 10px;
     background-color: #f0f0f0;
     border-radius: 8px;
@@ -97,112 +97,76 @@ nav {
 }
 
 .pokemon-item img {
-    width: 200px; /* Ancho de la imagen */
-    height: 200px; /* Altura de la imagen */
-    object-fit: cover; /* Ajusta la imagen para llenar el espacio sin deformación */
-    border-radius: 8px; /* Borde redondeado */
-    display: block; /* Para centrar la imagen */
-    margin: 0 auto; /* Para centrar la imagen */
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
 }
 
 .pokemon-item p {
-    margin-top: 10px; /* Espacio superior */
+    margin-top: 10px;
     font-weight: bold;
 }
 
-
-
 footer {
-    background-color: #333; /* Color de fondo oscuro */
-    color: #fff; /* Texto blanco */
-    padding: 20px 0; /* Espaciado interno */
-    text-align: center; /* Alineación centrada */
-    width: 100%; /* Ancho completo */
-    position: relative; /* Posición relativa */
-    margin-top: auto; /* Margen superior automático para empujarlo al fondo */
-}
-
-.footer-container {
-    max-width: 1200px; /* Ancho máximo del contenido */
-    margin: 0 auto; /* Centrado horizontal */
-    padding: 0 20px; /* Espaciado interno */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-left {
-    flex: 1; /* Toma el espacio restante */
-}
-
-.footer-right {
-    flex: 1; /* Toma el espacio restante */
-    text-align: right; /* Alineación a la derecha */
-}
-
-.footer-right a {
-    margin-left: 10px; /* Espacio entre los íconos de redes sociales */
-}
-
-.footer-right a img {
-    width: 30px; /* Tamaño de los íconos */
-    height: auto; /* Altura automática */
-    border-radius: 50%; /* Borde redondeado */
-    transition: transform 0.3s ease; /* Transición suave */
-}
-
-.footer-right a:hover img {
-    transform: scale(1.2); /* Agrandar ligeramente al pasar el ratón */
-}
-
-.articulo{
-    display: flex;
-    margin-top: 10px;
-}
-
-.item{
-    margin: 20px;
-    height: auto;
-    width: auto;
-}
-
-.imagen1{
-    width: 800px;
-    height: 370px;
-}
-
-footer {
-    background-color: #333; /* Fondo gris oscuro */
-    color: #fff; /* Texto blanco */
-    padding: 20px 0; /* Espaciado interno */
-    text-align: center; /* Alineación centrada del texto */
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    margin-top: auto;
 }
 
 .footer-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px; /* Ancho máximo del contenedor */
-    margin: 0 auto; /* Centrar en la página */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .footer-left {
-    flex: 1; /* Ocupa el espacio restante */
+    flex: 1;
 }
 
 .footer-right {
-    flex: 1; /* Ocupa el espacio restante */
+    flex: 1;
     display: flex;
     justify-content: flex-end;
 }
 
 .footer-right a {
-    margin-left: 10px; /* Espacio entre los íconos */
+    margin-left: 10px;
 }
 
-/* Estilos para los íconos del footer */
+.footer-right a img,
 .footer-right img {
-    width: 24px; /* Tamaño de los íconos */
+    width: 24px;
     height: 24px;
-    border-radius: 50%; /* Borde redondeado */
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.footer-right a:hover img {
+    transform: scale(1.2);
+}
+
+.articulo {
+    display: flex;
+    margin-top: 10px;
+}
+
+.item {
+    margin: 20px;
+    height: auto;
+    width: auto;
+}
+
+.imagen1 {
+    width: 800px;
+    height: 370px;
 }
