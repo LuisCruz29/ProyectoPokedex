@@ -3,7 +3,6 @@
     height: auto;
 }
 
-
 .img-container {
     height: 100%;
 }
@@ -12,6 +11,8 @@
     object-fit: cover;
     width: 1000px;
 }
+
+
 
 .footer {
     background-color: #333;
