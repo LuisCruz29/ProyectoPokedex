@@ -14,6 +14,22 @@
     <link rel="stylesheet" href="../css/styleEntrenadores.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style_carrucel.css">
+    <style>
+        .fixed-width-img {
+            width: 100%;
+            height: auto;
+        }
+
+
+        .img-container {
+            height: 100%;
+        }
+        .img-container img {
+            max-height: 540px;
+            object-fit: cover;
+            width: 1000px;
+        }
+    </style>
 </head>
 <body>
     
@@ -82,73 +98,82 @@
         </div>
         
         <br>
-        <div class="pokemon" data-aos="fade-up">
-            <h2>Pokémon Destacados</h2>
-            <div class="pokemon-list">
-                <div class="pokemon-item" data-aos="zoom-in">
-                    <img src="https://img.pokemondb.net/artwork/large/pikachu.jpg" alt="Pikachu">
-                    <p>Pikachu</p>
+        <div class="container-fluid  mx-auto">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="text-center my-4">Pokémones Iniciales</h1>
                 </div>
-                <div class="pokemon-item" data-aos="zoom-in">
-                    <img src="https://img.pokemondb.net/artwork/large/charmander.jpg" alt="Charmander">
-                    <p>Charmander</p>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card text-center">
+                        <img src="https://i.pinimg.com/564x/81/0b/0f/810b0f1d71945e844fdd6ac02d20e48e.jpg" class="card-img-top img-fluid fixed-width-img" alt="Pikachu">
+                        <div class="card-body">
+                            <p class="card-text">Pikachu</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="pokemon-item" data-aos="zoom-in">
-                    <img src="https://img.pokemondb.net/artwork/large/bulbasaur.jpg" alt="Bulbasaur">
-                    <p>Bulbasaur</p>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card text-center">
+                        <img src="https://i.pinimg.com/564x/73/20/bb/7320bb8d135eb77268c9336e0ba3bea9.jpg" class="card-img-top img-fluid fixed-width-img" alt="Charmander">
+                        <div class="card-body">
+                            <p class="card-text">Charmander</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="pokemon-item" data-aos="zoom-in">
-                    <img src="https://img.pokemondb.net/artwork/large/squirtle.jpg" alt="Squirtle">
-                    <p>Squirtle</p>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card text-center">
+                        <img src="https://i.pinimg.com/564x/2b/39/de/2b39de52aaeb64f622bd3aacd69e7d3a.jpg" class="card-img-top img-fluid fixed-width-img" alt="Bulbasaur">
+                        <div class="card-body">
+                            <p class="card-text">Bulbasaur</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card text-center">
+                        <img src="https://i.pinimg.com/736x/24/76/d4/2476d44052c91b966aa528c3666c23bf.jpg" class="card-img-top img-fluid fixed-width-img" alt="Squirtle">
+                        <div class="card-body">
+                            <p class="card-text">Squirtle</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <br>
-        <br>
-        <br>
-        <div class="articulo">
-            <div class="item " data-aos="fade-down">
-                <center><h1>Historia</h1></center>
-                <p>
-                    Pokémon es una franquicia que ha dejado una marca indeleble en la cultura pop desde su debut en 1996. 
-                    Creado por Satoshi Tajiri y Ken Sugimori, Pokémon comenzó como un juego de RPG para la consola Game Boy de Nintendo. 
-                    En este mundo ficticio, los jugadores asumen el papel de entrenadores Pokémon, cuyo objetivo es capturar, 
-                    entrenar y enfrentar a estas criaturas en batallas estratégicas. La premisa fundamental es la conexión entre 
-                    entrenador y Pokémon, destacando valores de amistad, perseverancia y superación de desafíos. A medida que los 
-                    juegos se expandieron con Pokémon Red y Blue, la popularidad creció exponencialmente, llevando a la creación de una serie 
-                    animada de televisión, películas, juguetes y una serie de juegos de cartas coleccionables. La serie animada sigue las aventuras 
-                    del joven entrenador Ash Ketchum y su fiel compañero Pikachu, mientras viajan por diferentes regiones, enfrentan 
-                    gimnasios y se enfrentan a la organización criminal Team Rocket. Con cada nueva generación de juegos, se introducen nuevos 
-                    Pokémon, regiones y mecánicas de juego, manteniendo fresca la experiencia para los nuevos y antiguos fanáticos por igual. 
-                    Hoy en día, Pokémon continúa siendo una fuerza cultural, con millones de seguidores en todo el mundo que siguen 
-                    disfrutando de sus juegos, anime, películas y eventos globales.</p>
-            </div>
-            <div class="item" data-aos="fade-left">
-                <img src="../img/imagen1.webp" alt="" class="imagen1">
-            </div>
-        </div>
-
-        <br>
-        <br>
-        <br>
-        <div class="articulo">
-            <div class="item" data-aos="fade-left">
-                <img src="../img/2024-worlds-banner.webp" alt="" class="imagen1">
-            </div>
-            <div class="item" data-aos="fade-up-right">
-                <center><h1>Torneo de pokemon</h1></center>
-                <p>Los torneos de Pokémon son competencias oficiales que se celebran a nivel regional, nacional e internacional, 
-                    abarcando tanto los videojuegos como el juego de cartas coleccionables. En estos eventos, los 
-                    jugadores se dividen en categorías por edad (Junior, Senior y Masters) y compiten en formatos específicos, 
-                    como combates dobles para los videojuegos y mazos construidos para el juego de cartas. Los torneos 
-                    comienzan a nivel local y culminan en el Campeonato Mundial, donde los mejores jugadores de todo el mundo se enfrentan 
-                    por el título de campeón. Además de la gloria, los ganadores pueden obtener premios como becas educativas y productos 
-                    exclusivos de Pokémon.</p>
+       <div class="container mt-5">
+            <div class="row align-items-stretch">
+                <div class="col-md-6 mb-4">
+                    <div class="articulo p-4 border rounded h-100" data-aos="fade-down">
+                        <h1 class="text-center mb-4">Historia</h1>
+                        <p class="text-justify">
+                            Pokémon es una franquicia que ha dejado una marca indeleble en la cultura pop desde su debut en 1996. 
+                            Creado por Satoshi Tajiri y Ken Sugimori, Pokémon comenzó como un juego de RPG para la consola Game Boy de Nintendo. 
+                            En este mundo ficticio, los jugadores asumen el papel de entrenadores Pokémon, cuyo objetivo es capturar, 
+                            entrenar y enfrentar a estas criaturas en batallas estratégicas. La premisa fundamental es la conexión entre 
+                            entrenador y Pokémon, destacando valores de amistad, perseverancia y superación de desafíos. A medida que los 
+                            juegos se expandieron con Pokémon Red y Blue, la popularidad creció exponencialmente, llevando a la creación de una serie 
+                            animada de televisión, películas, juguetes y una serie de juegos de cartas coleccionables. La serie animada sigue las aventuras 
+                            del joven entrenador Ash Ketchum y su fiel compañero Pikachu, mientras viajan por diferentes regiones, enfrentan 
+                            gimnasios y se enfrentan a la organización criminal Team Rocket. Con cada nueva generación de juegos, se introducen nuevos 
+                            Pokémon, regiones y mecánicas de juego, manteniendo fresca la experiencia para los nuevos y antiguos fanáticos por igual. 
+                            Hoy en día, Pokémon continúa siendo una fuerza cultural, con millones de seguidores en todo el mundo que siguen 
+                            disfrutando de sus juegos, anime, películas y eventos globales.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4 d-flex">
+                    <div class="articulo p-4 border rounded img-container h-100" data-aos="fade-left">
+                        <img src="https://i.pinimg.com/originals/d3/0a/4a/d30a4a4701a30cd5a939b215d8b3ae3a.jpg" alt="Pokémon" class="img-fluid rounded">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <footer class="footer">
+            
+    </main>
+
+    <br>
+     <footer class="footer">
             <div class="footer-container" >
                 <div class="footer-left">
                     <p>Derechos reservados © 2024</p>
@@ -161,8 +186,6 @@
                 </div>
             </div>
         </footer>
-
-    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
