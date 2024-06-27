@@ -41,4 +41,10 @@ function crearCol2(nombre,id){
     return col;
 }
 
-export {crearRow,crearCol,crearCol2};
+function contenedorPokemones(){
+    let div=document.createElement('div');
+    div.classList('container','d-flex','justify-content-center','flex-wrap','p-2','border','border-warning-subtle','border-3','rounded','mb-3');
+    div.setAttribute('id','pokemones');
+}
+
+export {crearRow,crearCol,crearCol2,contenedorPokemones};
