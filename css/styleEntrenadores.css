@@ -1,4 +1,6 @@
-
+body{
+    background-color: #fff;
+}
 nav {
     background-color: red; /* Color rojo para el nav */
     padding: 1rem;

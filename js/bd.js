@@ -1,4 +1,5 @@
 import { crearEntrenador } from "./entrenador.js";
+import { rellenoDiv } from "./administracionPokemones.js";
 let db;
 const openDB=window.indexedDB.open("db_Pokedex");
 
@@ -14,6 +15,13 @@ openDB.onsuccess=(event)=>{
     }).catch(error => {
         console.error('Error al mostrar los entrenadores:', error);
     });
+
+    mostrarPokemones().then(lista => {
+        rellenoDiv(lista);
+    }).catch(error => {
+        console.error('Error al mostrar los pokemones:', error);
+    });
+
 };
 
 openDB.onupgradeneeded=(event)=>{
@@ -22,6 +30,7 @@ openDB.onupgradeneeded=(event)=>{
     const bd=event.target.result;
 
     const almacen=bd.createObjectStore("tbl_entrenadores",{keyPath:'id',autoIncrement:true});
+    const alamcen2=bd.createObjectStore("tbl_pokemones",{keyPath:'id'});
     almacen.transaction.oncomplete=(event)=>{
         const datosDefecto=bd.transaction("tbl_entrenadores","readwrite").objectStore("tbl_entrenadores");
         lista.forEach(elemento=>{
@@ -104,6 +113,7 @@ function mostrar(){
    
 }
 
+
 function eliminarEntrenador(idE){
     const transaction=db.transaction(["tbl_entrenadores"],"readwrite");
 
@@ -155,7 +165,96 @@ function modificarEntrenador(antiguo,nombreE){
     });
 }
 
+function agregarPokemon(pokemon,idP){
+    const transaction = db.transaction(["tbl_pokemones"], "readwrite");
+   
+    transaction.oncomplete = (event) => {
+        mostrarPokemones().then(lista => {
+            rellenoDiv(lista);
+        }).catch(error => {
+            console.error('Error al mostrar los pokemones:', error);
+        });
+    };
+      
+    transaction.onerror = (event) => {
+        console.log('error');
+    };
+
+    const objectStore = transaction.objectStore("tbl_pokemones");
+    const cuenta=objectStore.count();
+    cuenta.onsuccess=(event)=>{
+        let registros=cuenta.result;
+
+        if (registros<6) {
+            const registro={
+                id:idP,
+                value:pokemon,
+            }
+            const request=objectStore.add(registro);
+        
+            request.onsuccess=(event)=>{
+                
+            }
+        }
+        else{
+            Swal.fire({
+                title: "Maximo permitido!",
+                text: "Ya no seleccionar mas pokemones",
+                icon: "error"
+            });
+        }
+    }
+}
+
+function mostrarPokemones(){
+    let almacen = getObjectStore("tbl_pokemones","readonly");
+    let lista = [];
+
+    return new Promise((resolve, reject) => {
+        let puntero = almacen.openCursor();
+
+        puntero.addEventListener("success", (e) => {
+            let puntero2 = e.target.result;
+            if (puntero2) {
+                const objeto = {
+                    estadisticas: puntero2.value,
+                    idP: puntero2.key
+                };
+                lista.push(objeto);
+                puntero2.continue();
+            } else {
+                
+                resolve(lista);
+            }
+        });
+    });
+}
 
 
-export {agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador};
+function eliminarPokemon(idP){
+    const transaction=db.transaction(["tbl_pokemones"],"readwrite");
+
+    transaction.oncomplete=(event)=>{
+        mostrarPokemones().then(lista => {
+            rellenoDiv(lista);
+        }).catch(error => {
+            console.error('Error al mostrar los pokemones:', error);
+        });
+    };
+
+    const almacen=transaction.objectStore(["tbl_pokemones"]);
+    let request=almacen.delete(Number(idP));
+    request.onsuccess=(event)=>{
+        
+    };
+
+    request.onerror = (event) => {
+        console.error("Error al intentar eliminar el registro:", event.target.error);
+    };
+}
+
+
+
+
+export {agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador,agregarPokemon,eliminarPokemon};
 

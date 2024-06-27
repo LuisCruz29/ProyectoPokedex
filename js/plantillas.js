@@ -31,55 +31,6 @@ function crearCuadro(pokemon) {
     return contenedorPrincipal;
 }
 
-
-function crearCard(pokemon) {
-    let tarjeta = document.createElement('div');
-    tarjeta.classList.add('tarjeta', `pk__container_${pokemon.tipos[0]}`);
-    // tarjeta.setAttribute('id',`pk-${pokemon.id}`);
-    tarjeta.id = `pk-${pokemon.id}`;
-    tarjeta.innerHTML=`
-        <div class="poke__data__principal">
-            <div class="iconos__legendaria__pk">
-                <a href="#" id="cerrarCard">
-                    <i class="bi bi-arrow-left fs-3 arrow"></i>
-                </a>
-                <a href="#" id="icono-agregar_${pokemon.id}">
-                    <i class="bi bi-heart-fill fs-5 heart"></i>
-                </a>
-            </div>
-            <div class="informacion__legendaria__pk">
-                <div class="infor">
-                    <h3 class="Nombre">${pokemon.nombre}</h3>
-                    <div>
-                        ${pokemon.tipos.map(tipo => `<span class="badges">${tipo}</span>`).join('')}
-                    </div>
-                </div>
-                <div class="mostrando__poke__id">
-                    <h2 class="id_pokemon">#${pokemon.id}</h2>
-                </div>
-            </div>
-            <div class="poke__img">
-                <img class="poke__img_mostrar" src="${pokemon.imagen.otroDW}" alt="${pokemon.nombre}" >
-            </div>
-        </div>
-        <div class="poke__data__segundaria container">
-            <div class="tab_box">
-                <button id="about" class="tab_btn">Acerca de </button>
-                <button id="base_stats" class="tab_btn">Estadisticas</button>
-                <button id="relaciones_danio" class="tab_btn">Relaciones Daño</button>
-                <div class="line"></div>
-            </div>
-            <div class="content_box" id="contenedor-info">
-                <div></div>
-            </div>
-        </div>
-
-    `;
-
-    return tarjeta;
-}
-
-
 function cardAbout(pokemon) {
     let contentbox=document.getElementById('contenedor-info');
     let elementoHIjo=contentbox.firstChild;
@@ -163,4 +114,32 @@ function cardDanio(pokemon) {
     contentbox.appendChild(danio);
 }
 
-export{crearCuadro,crearCard,cardAbout,cardStats,cardDanio};
+function crearCuadroSeleccionado(pokemon) {
+    const contenedorTipos=document.createElement('div');
+    contenedorTipos.classList.add('pk__descripcion');
+    pokemon.tipos.forEach(tipo => {
+        contenedorTipos.innerHTML+=`
+            <span class="badges pk_container_${tipo}">${tipo}</span>
+        `;
+    });
+    const contenedorPrincipal=document.createElement('div');
+    contenedorPrincipal.classList.add('contenedor');
+    contenedorPrincipal.innerHTML=`
+        <div class="pk__container_Principal pk__container_${pokemon.tipos[0]}">
+            <div class="pk__complementario">
+                <h3>${pokemon.nombre}</h3>
+                <img src="${pokemon.imagen.otroDW}" alt="${pokemon.nombre}" class="pokemon-image">
+                <h3 class="pk__descripcion__id">#${pokemon.id}</h3>
+            </div>
+            ${contenedorTipos.outerHTML}
+            <div class="w-100 buttons" id="${pokemon.id}"> 
+                <i class="bi bi-x list fs-2" id="eliminarPokemon"></i>
+                <i class="bi bi-person-plus fs-4 list" id="asignarPokemon"></i>
+            </div>
+        </div>
+    
+    `;
+    return contenedorPrincipal;
+}
+
+export{crearCuadro,cardAbout,cardStats,cardDanio,crearCuadroSeleccionado};
