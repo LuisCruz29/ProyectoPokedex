@@ -40,8 +40,17 @@ function rellenoDiv(listaPokemones){
         let eliminarCard=document.querySelectorAll('#eliminarPokemon');
         eliminarCard.forEach(elemento=>{
             elemento.addEventListener('click',(e)=>{
-                let id=e.target.parentElement.id;
-                eliminarPokemon(id);
+                Swal.fire({
+                    title: "¿Desea eliminar este pokemon como acompañante?",
+                    showCancelButton: true,
+                    confirmButtonText: "Eliminar",
+                    cancelButtonText: `Cancelar`
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        let id=e.target.parentElement.id;
+                        eliminarPokemon(id);
+                    }
+                });
             });
         });
     }
