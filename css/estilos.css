@@ -1,9 +1,41 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,100,300,700,100italic,300italic,400italic,700italic,900,900italic");
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 
-body {
+html, body {
   padding: 0;
   margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../img/fondo2.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: bg-scale 6s infinite alternate;
+}
+
+@keyframes bg-scale {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
 }
 
 .container {
@@ -11,53 +43,31 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
-  margin: 50px auto; /* Centra el contenedor y agrega margen superior e inferior */
-  padding: 20px; /* Añade espacio interno al contenedor */
-  border: 1px solid #50514f; /* Borde de 5 píxeles sólido con color gris oscuro */
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con transparencia */
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #50514f;
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 25px;
-  width: 900px;
+  width: 90%;
 }
 
 .img-logo {
-  width: 600px;
-  height: 300px;
-}
-
-.btn-bg {
   width: 100%;
-  height: 100vh;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: url('../img/fondo2.webp'); /* Cambia esto a la URL de tu imagen */
-  background-size: cover;
-  background-position: center;
-  animation: bg-scale 6s infinite alternate;
-}
-
-@keyframes bg-scale {
-  0% {
-    background-size: 100%;
-  }
-  100% {
-    background-size: 110%;
-  }
+  max-width: 600px;
+  height: auto;
 }
 
 @supports (-webkit-appearance:none) {
   .Pokemon .btn-group .ball button {
-    border: 6px solid #50514f; /* Aumenta el tamaño del borde */
-    border-radius: 10px; /* Aumenta el tamaño del borde */
+    border: 6px solid #50514f;
+    border-radius: 10px;
     background: transparent;
     overflow: hidden;
     position: relative;
-    padding: 1.2rem 3.5rem; /* Ajusta el tamaño del relleno */
-    font-size: 1.8em; /* Ajusta el tamaño de la fuente */
-    animation: wave 1s infinite; /* Animación solo para Chrome */
+    padding: 1.2rem 3.5rem;
+    font-size: 1.8em;
+    animation: wave 1s infinite;
   }
 
   .Pokemon .btn-group .ball button:hover {
@@ -125,7 +135,7 @@ body {
   .Pokemon .btn-group .ball button a {
     color: #50514f;
     font-weight: 600;
-    font-size: 1.8em; /* Ajusta el tamaño de la fuente */
+    font-size: 1.8em;
     transition: color 0.5s 0.25s;
     overflow: hidden;
     display: inline-block;
@@ -206,4 +216,48 @@ body {
   font-weight: 600;
   font-size: 3.5em;
   color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .Pokemon .btn-group .ball button {
+    padding: 1rem 2rem;
+    font-size: 1.5em;
+  }
+
+  .Pokemon .btn-group .ball button a {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .Pokemon .btn-group .ball button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2em;
+  }
+
+  .Pokemon .btn-group .ball button a {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .Pokemon .btn-group .ball button {
+    padding: 0.6rem 1rem;
+    font-size: 1em;
+  }
+
+  .Pokemon .btn-group .ball button a {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 146px) {
+  .Pokemon .btn-group .ball button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8em;
+  }
+
+  .Pokemon .btn-group .ball button a {
+    font-size: 0.8em;
+  }
 }
