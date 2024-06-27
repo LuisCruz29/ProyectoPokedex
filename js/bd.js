@@ -1,82 +1,131 @@
-var bd;
-function inciarBD() {
-    var solicitud= indexedDB.open("db_Pokedex");
+import { crearEntrenador } from "./entrenador.js";
+let db;
+const openDB=window.indexedDB.open("db_Pokedex");
 
-    solicitud.addEventListener("error",mostrarError);
-    solicitud.addEventListener("success",comenzar);
-    solicitud.addEventListener("upgradeneeded",crearAlmacen);
+openDB.onerror=(event)=>{
+    console.log('error');
+};
 
-    let agregar=document.getElementById('agregarEntrenador');
-    agregar.addEventListener('click',guardarEntrenador);
-    
-}
+openDB.onsuccess=(event)=>{
+    db=event.target.result;
+    mostrar().then(lista => {
+        crearEntrenador(lista);
+    }).catch(error => {
+        console.error('Error al mostrar los entrenadores:', error);
+    });
+};
 
-function mostrarError(event) {
-    alert("Error");
-}
+openDB.onupgradeneeded=(event)=>{
+    const lista=['luis','kevin','santos','cristian'];   
 
-function comenzar(event) {
-    bd=event.target.result;
-   
-}
+    const bd=event.target.result;
 
-function crearAlmacen(event) {
-    var baseDatos=event.target.result;
-    if (!baseDatos.objectStoreNames.contains('tbl_entrenadores')) { 
-        baseDatos.createObjectStore('tbl_entrenadores', {keypath:'id',autoIncrement:true}); 
-
-        let datos=event.target.transaction;
-        let almacen=datos.objectStore("tbl_entrenadores");
-        let entrenadores=['luis','kevin','santos','cristian'];
-
-        for (const nombreE of entrenadores) {   
-            almacen.add({
-                nombre:nombreE
-            });
-        }
-    }
-
-   
-
-}
-
-function guardarEntrenador() {    
-    var transaccion=bd.transaction(["tbl_entrenadores"],"readwrite");
-    var almacen2= transaccion.objectStore("tbl_entrenadores");
-    let cuenta= almacen2.count();
-    cuenta.onsuccess = async function() {
-        console.log('Número de registros en miAlmacen:', cuenta.result);
-        let registros=cuenta.result;
-
-        if (registros<5) {
-            const { value: nombreE } = await Swal.fire({
-                title: "Nombre entrenador",
-                input: "text",
-                inputLabel: "Nombre",
-                showCancelButton: true,
-                inputValidator: (value) => {
-                    if (!value) {
-                        return "Ingresa un valor!";
-                    }
-                }
-            });
-            almacen2.add({
-                nombre:nombreE
-            });
-        }
-        else{
-            Swal.fire({
-                title: "Maximo permitido!",
-                text: "Ya no puedes crear mas entrenadores!",
-                icon: "error"
-            });
-        }
+    const almacen=bd.createObjectStore("tbl_entrenadores",{keyPath:'id',autoIncrement:true});
+    almacen.transaction.oncomplete=(event)=>{
+        const datosDefecto=bd.transaction("tbl_entrenadores","readwrite").objectStore("tbl_entrenadores");
+        lista.forEach(elemento=>{
+            datosDefecto.add({nombre:elemento});
+        });
     };
-  
+   
+};
 
+function getObjectStore(store_name, mode) {
+    var tx = db.transaction(store_name, mode);
+    return tx.objectStore(store_name);
+}
+
+
+function agregarNuevoEntrenador(nombreE){
+    
+    const transaction = db.transaction(["tbl_entrenadores"], "readwrite");
+   
+    transaction.oncomplete = (event) => {
+        mostrar().then(lista => {
+            crearEntrenador(lista);
+        }).catch(error => {
+            console.error('Error al mostrar los entrenadores:', error);
+        });
+    };
+      
+    transaction.onerror = (event) => {
+        console.log('error');
+    };
+
+    const objectStore = transaction.objectStore("tbl_entrenadores");
+    const request=objectStore.add({
+        nombre:nombreE,
+    });
+
+    request.onsuccess=(event)=>{
+        console.log('guardado');
+    }
+}
+
+
+function mostrar(){
+    let almacen = getObjectStore("tbl_entrenadores","readonly");
+    let lista = [];
+
+    return new Promise((resolve, reject) => {
+        let puntero = almacen.openCursor();
+
+        puntero.addEventListener("success", (e) => {
+            let puntero2 = e.target.result;
+            if (puntero2) {
+                const objeto = {
+                    nombreE: puntero2.value.nombre,
+                    idE: puntero2.key
+                };
+                lista.push(objeto);
+                puntero2.continue();
+            } else {
+                
+                resolve(lista);
+            }
+        });
+    });
    
 }
 
-window.addEventListener("load",inciarBD);
+function eliminarEntrenador(id){
+    const request = db.transaction(["tbl_entrenadores"], "readwrite").objectStore("tbl_entrenadores").delete(id);
+    request.onsuccess = (event) => {
+        console.log('se fue');
+    };
+    console.log(id);
+}
 
+function modificarEntrenador(antiguo,nombreE){
+    var transaccion=db.transaction(["tbl_entrenadores"],"readwrite");
+    var almacen= transaccion.objectStore("tbl_entrenadores");
+    
+    transaccion.addEventListener("complete",()=>{
+        mostrar().then(lista => {
+            crearEntrenador(lista);
+        }).catch(error => {
+            console.error('Error al mostrar los entrenadores:', error);
+        });
+    });
+   
+    let puntero = almacen.openCursor();
+
+    puntero.addEventListener("success", (e) => {
+        let puntero2 = e.target.result;
+        if (puntero2) {
+            if(puntero2.value.nombre===antiguo){
+                puntero2.value.nombre=nombreE;
+
+                let objeto=puntero2.value;
+
+                puntero2.update(objeto);
+            }
+            puntero2.continue();
+        }
+    });
+}
+
+
+
+export {agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador};
 
