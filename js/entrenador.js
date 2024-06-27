@@ -8,7 +8,10 @@ function crearEntrenador(entrenadores){
     while (entrenador_container.firstChild){
         entrenador_container.removeChild(entrenador_container.firstChild);
     };
-   
+    
+    let titulo=document.createElement('h3');
+    titulo.textContent='Entrenadores';
+    entrenador_container.appendChild(titulo);
 
     let rows=Math.ceil(entrenadores.length/2);
     let registros=entrenadores.length;
