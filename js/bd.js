@@ -88,12 +88,26 @@ function mostrar(){
    
 }
 
-function eliminarEntrenador(id){
-    const request = db.transaction(["tbl_entrenadores"], "readwrite").objectStore("tbl_entrenadores").delete(id);
-    request.onsuccess = (event) => {
-        console.log('se fue');
+function eliminarEntrenador(idE){
+    const transaction=db.transaction(["tbl_entrenadores"],"readwrite");
+
+    transaction.oncomplete=(event)=>{
+        mostrar().then(lista => {
+            crearEntrenador(lista);
+        }).catch(error => {
+            console.error('Error al mostrar los entrenadores:', error);
+        });
     };
-    console.log(id);
+
+    const almacen=transaction.objectStore(["tbl_entrenadores"]);
+    let request=almacen.delete(Number(idE));
+    request.onsuccess=(event)=>{
+        console.log("Eliminado");
+    };
+
+    request.onerror = (event) => {
+        console.error("Error al intentar eliminar el registro:", event.target.error);
+    };
 }
 
 function modificarEntrenador(antiguo,nombreE){

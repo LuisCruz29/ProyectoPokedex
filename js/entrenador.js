@@ -81,6 +81,7 @@ function crearEntrenador(entrenadores){
         }).then(async (result) => {
             if (result.isConfirmed) {
                 let id=e.target.parentElement.parentElement.id;
+                console.log(id);
                 eliminarEntrenador(id);
             }
         });
