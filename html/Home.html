@@ -13,10 +13,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link rel="stylesheet" href="../css/styleEntrenadores.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style_carrucel.css">
 </head>
 <body>
+    
     <header>
-        <header>
             <nav class="navbar navbar-expand-lg nav">
                 <div class="container-fluid">
                   <img src="../img/logo.webp" alt="Logo de Pokémon" class="logo">
@@ -40,17 +41,46 @@
                   </div>
                 </div>
               </nav>
-        </header>
-        
     </header>
-
+        
     <main>
-        <section class="welcome-section">
-            <div class="overlay"></div>
-            <img src="../img/fondo.webp" alt="Mundo Pokémon" class="welcome-image">
-            <div class="welcome-text">Bienvenidos al mundo Pokémon</div>
-        </section>
-
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner" style="max-height: 400px;">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="https://wallpapers-clan.com/wp-content/uploads/2024/01/realistic-world-pikachu-desktop-wallpaper-preview.jpg" class="d-block w-100 img-fluid carousel-image" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="carousel-title">Bienvenido a mi pokemundo</h1>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="https://cdn.alfabetajuega.com/alfabetajuega/abj_public_files/multimedia/imagenes/201511/127013..blob" class="d-block w-100 img-fluid carousel-image" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="carousel-title">Bienvenido a mi pokemundo</h1>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://i.pinimg.com/originals/dc/19/e3/dc19e3e2a15d6c30d599c70b4df8fa46.jpg" class="d-block w-100 img-fluid carousel-image" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="carousel-title">Bienvenido a mi pokemundo</h1>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>-->
+        </div>
+        
         <br>
         <div class="pokemon" data-aos="fade-up">
             <h2>Pokémon Destacados</h2>

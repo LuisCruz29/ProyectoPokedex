@@ -1,0 +1,49 @@
+.carousel-image {
+    object-fit: cover;
+    width: 100%;
+    height: 400px;
+}
+/* Estilos para el título dentro del carrusel */
+.carousel-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3em;
+    color: #FFF;
+    text-align: center;
+    text-shadow: 2px 2px 0 #333, 4px 4px 0 #FFCC00, 6px 6px 0 #FF5555;
+    animation: glow 1.5s infinite alternate, bounce 2s infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.carousel-caption:hover .carousel-title {
+    opacity: 1;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* Keyframes para la animación del título */
+@keyframes glow {
+    0% {
+        text-shadow: 2px 2px 0 #333, 4px 4px 0 #FFCC00, 6px 6px 0 #FF5555, 0 0 5px #FFCC00, 0 0 15px #FFCC00, 0 0 20px #FFCC00, 0 0 25px #FFCC00;
+    }
+    100% {
+        text-shadow: 2px 2px 0 #333, 4px 4px 0 #FFCC00, 6px 6px 0 #FF5555, 0 0 20px #FFCC00, 0 0 30px #FFCC00, 0 0 40px #FFCC00, 0 0 50px #FFCC00;
+    }
+}
+
+@keyframes bounce {
+0%, 100% {
+    transform: translateY(0);
+}
+50% {
+    transform: translateY(-20px);
+}
+}
