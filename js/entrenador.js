@@ -81,7 +81,6 @@ function crearEntrenador(entrenadores){
         }).then(async (result) => {
             if (result.isConfirmed) {
                 let id=e.target.parentElement.parentElement.id;
-                console.log(id);
                 eliminarEntrenador(id);
             }
         });
@@ -93,7 +92,7 @@ let agregar=document.getElementById('agregarEntrenador');
 agregar.addEventListener('click',nuevoEntrenador);
 
 async function nuevoEntrenador(){
-    const { value: nombreE } = await Swal.fire({
+    const result= await Swal.fire({
         title: "Nombre entrenador",
         input: "text",
         inputLabel: "Nombre",
@@ -103,9 +102,13 @@ async function nuevoEntrenador(){
                 return "Ingresa un valor!";
             }
         }
+    }).then((result)=>{
+        if (result.isConfirmed) {
+            const {value:nombreE}=result;
+            agregarNuevoEntrenador(nombreE);
+        }
     });
-    console.log(nombreE);
-    agregarNuevoEntrenador(nombreE);
 }
+
 
 export {crearEntrenador};

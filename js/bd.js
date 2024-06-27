@@ -2,6 +2,7 @@ import { crearEntrenador } from "./entrenador.js";
 let db;
 const openDB=window.indexedDB.open("db_Pokedex");
 
+
 openDB.onerror=(event)=>{
     console.log('error');
 };
@@ -53,13 +54,28 @@ function agregarNuevoEntrenador(nombreE){
     };
 
     const objectStore = transaction.objectStore("tbl_entrenadores");
-    const request=objectStore.add({
-        nombre:nombreE,
-    });
+    const cuenta=objectStore.count();
+    cuenta.onsuccess=(event)=>{
+        let registros=cuenta.result;
 
-    request.onsuccess=(event)=>{
-        console.log('guardado');
+        if (registros<6) {
+            const request=objectStore.add({
+                nombre:nombreE,
+            });
+        
+            request.onsuccess=(event)=>{
+                
+            }
+        }
+        else{
+            Swal.fire({
+                title: "Maximo permitido!",
+                text: "Ya no puedes crear mas entrenadores!",
+                icon: "error"
+            });
+        }
     }
+   
 }
 
 
@@ -102,7 +118,7 @@ function eliminarEntrenador(idE){
     const almacen=transaction.objectStore(["tbl_entrenadores"]);
     let request=almacen.delete(Number(idE));
     request.onsuccess=(event)=>{
-        console.log("Eliminado");
+        
     };
 
     request.onerror = (event) => {
