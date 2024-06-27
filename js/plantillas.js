@@ -23,7 +23,7 @@ function crearCuadro(pokemon) {
             ${contenedorTipos.outerHTML}
             <div class="w-100 buttons" id="${pokemon.id}"> 
                 <i class="bi bi-list list fs-3" id="icono-card_${pokemon.id}"></i>
-                <i class="bi bi-heart-fill heart fs-4" id="icono-agregar_${pokemon.id}"></i>
+                <i class="bi bi-heart-fill heart fs-4" id="agregar"></i>
             </div>
         </div>
     

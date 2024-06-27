@@ -253,8 +253,26 @@ function eliminarPokemon(idP){
     };
 }
 
+function verificarExistencia(idP){
+    
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(["tbl_pokemones"], "readonly");
+        const almacen = transaction.objectStore("tbl_pokemones");
+        let request = almacen.get(Number(idP));
+
+        request.onsuccess = (event) => {
+            if (request.result) {
+                console.log('encontrado');
+                resolve(true);
+            } else {
+                console.log('no encontrado');
+                resolve(false);
+            }
+        };
+    });
+}
 
 
 
-export {agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador,agregarPokemon,eliminarPokemon};
+export {agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador,agregarPokemon,eliminarPokemon,verificarExistencia};
 
