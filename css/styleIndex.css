@@ -18,6 +18,23 @@ nav {
     align-items: center;
 }
 
+.links{
+    color: #FFFFFF; 
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: 3px solid transparent; 
+    transition: border-color 0.3s; 
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.links:hover{
+    background-color: transparent; 
+    color: #FFFFFF; 
+    border-color: #FFCB05; 
+}
+
 .logo {
     height: 50px;
     vertical-align: middle;
