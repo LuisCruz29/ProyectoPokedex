@@ -1,7 +1,8 @@
 // Importa la clase Pokemon del archivo ClsPokemon.js.
 import { Pokemon } from "./ClsPokemon.js";
 import {Toast} from "./alertas.js";
-import { crearCuadro,crearCard,cardAbout,cardStats,cardDanio } from "./plantillas.js";
+import { crearCuadro,cardAbout,cardStats,cardDanio } from "./plantillas.js";
+import { agregarPokemon } from "./bd.js";
 export class Pokedex
 {
     //constructor de la clase pokedex
@@ -13,7 +14,6 @@ export class Pokedex
         //Creamos una lista para almacenar los pokemones filtrados
         this.listaPokemonsFiltro= [];
 
-        
     }
 
     //Creamos un metodo privado para obtener los datos de los pokemones
@@ -207,7 +207,11 @@ export class Pokedex
             elemento_html.removeChild(tarjetaCerrar);
         });
 
-
+        let agregarP=document.getElementById('addPokemon');
+        agregarP.addEventListener('click',(evt)=>{
+           let pokemonS=JSON.stringify(pokemon);
+           agregarPokemon(pokemonS,pokemon.id);
+        });
     }
 
 

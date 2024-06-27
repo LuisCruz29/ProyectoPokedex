@@ -4,95 +4,100 @@ import { agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador } from ".
 function crearEntrenador(entrenadores){
     let cuenta=0;
     let entrenador_container=document.getElementById('entrenadores');
-
-    while (entrenador_container.firstChild){
-        entrenador_container.removeChild(entrenador_container.firstChild);
-    };
+    if (entrenador_container!=null) {
+        while (entrenador_container.firstChild){
+            entrenador_container.removeChild(entrenador_container.firstChild);
+        };
+        
+        let titulo=document.createElement('h3');
+        titulo.textContent='Entrenadores';
+        entrenador_container.appendChild(titulo);
     
-    let titulo=document.createElement('h3');
-    titulo.textContent='Entrenadores';
-    entrenador_container.appendChild(titulo);
-
-    let rows=Math.ceil(entrenadores.length/2);
-    let registros=entrenadores.length;
-
-   while (rows!==0) {
-        let fila=crearRow();
-
-        if (registros===1) {
-            let columna=crearCol(entrenadores[cuenta].nombreE,entrenadores[cuenta].idE);
-            fila.appendChild(columna);
-            cuenta++;
-            registros--;
-        }
-        else{
-            let col1=crearCol2(entrenadores[cuenta].nombreE,entrenadores[cuenta].idE);
-            cuenta++;
-            registros--;
-            let col2=crearCol2(entrenadores[cuenta].nombreE,entrenadores[cuenta].idE);
-            cuenta++;
-            registros--;
-            fila.appendChild(col1);
-            fila.appendChild(col2);
-        }
-
-        rows--;
-        entrenador_container.appendChild(fila);
-   }
-
-   let modificar=document.querySelectorAll('.modificar');
-
-   modificar.forEach(elemento=>{
+        let rows=Math.ceil(entrenadores.length/2);
+        let registros=entrenadores.length;
+    
+       while (rows!==0) {
+            let fila=crearRow();
+    
+            if (registros===1) {
+                let columna=crearCol(entrenadores[cuenta].nombreE,entrenadores[cuenta].idE);
+                fila.appendChild(columna);
+                cuenta++;
+                registros--;
+            }
+            else{
+                let col1=crearCol2(entrenadores[cuenta].nombreE,entrenadores[cuenta].idE);
+                cuenta++;
+                registros--;
+                let col2=crearCol2(entrenadores[cuenta].nombreE,entrenadores[cuenta].idE);
+                cuenta++;
+                registros--;
+                fila.appendChild(col1);
+                fila.appendChild(col2);
+            }
+    
+            rows--;
+            entrenador_container.appendChild(fila);
+       }
+    
+       let modificar=document.querySelectorAll('.modificar');
+    
+       modificar.forEach(elemento=>{
+            elemento.addEventListener('click',(e)=>{
+                Swal.fire({
+                    title: "¿Modificar Nombre?",
+                    showCancelButton: true,
+                    confirmButtonText: "Modificar",
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        let antiguo=e.target.parentElement.previousElementSibling.innerText;
+                        const resultado = await Swal.fire({
+                            title: "Modificar Nombre Entrenador",
+                            input: "text",
+                            inputLabel: "Nuevo Nombre",
+                            showCancelButton: true,
+                            inputValidator: (value) => {
+                              if (!value) {
+                                return "You need to write something!";
+                              }
+                              
+                            }
+                        }).then(resultado=>{
+                            if (resultado.isConfirmed) {
+                                const { value: nombreN } = resultado; 
+                                modificarEntrenador(antiguo,nombreN);
+                            }
+                        });
+                    }
+                });
+            });
+       });
+    
+    
+       let eliminar=document.querySelectorAll('.eliminar');
+       eliminar.forEach(elemento=>{
         elemento.addEventListener('click',(e)=>{
             Swal.fire({
-                title: "¿Modificar Nombre?",
+                title: "Eliminar Entrenador?",
                 showCancelButton: true,
-                confirmButtonText: "Modificar",
+                confirmButtonText: "Eliminar",
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    let antiguo=e.target.parentElement.previousElementSibling.innerText;
-                    const resultado = await Swal.fire({
-                        title: "Modificar Nombre Entrenador",
-                        input: "text",
-                        inputLabel: "Nuevo Nombre",
-                        showCancelButton: true,
-                        inputValidator: (value) => {
-                          if (!value) {
-                            return "You need to write something!";
-                          }
-                          
-                        }
-                    }).then(resultado=>{
-                        if (resultado.isConfirmed) {
-                            const { value: nombreN } = resultado; 
-                            modificarEntrenador(antiguo,nombreN);
-                        }
-                    });
+                    let id=e.target.parentElement.parentElement.id;
+                    eliminarEntrenador(id);
                 }
             });
         });
-   });
-
-
-   let eliminar=document.querySelectorAll('.eliminar');
-   eliminar.forEach(elemento=>{
-    elemento.addEventListener('click',(e)=>{
-        Swal.fire({
-            title: "Eliminar Entrenador?",
-            showCancelButton: true,
-            confirmButtonText: "Eliminar",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                let id=e.target.parentElement.parentElement.id;
-                eliminarEntrenador(id);
-            }
-        });
-    });
-   });
+       });
+    }
+ 
 }
 
 let agregar=document.getElementById('agregarEntrenador');
-agregar.addEventListener('click',nuevoEntrenador);
+if (agregar!==null) {
+    agregar.addEventListener('click',nuevoEntrenador);
+}
+
 
 async function nuevoEntrenador(){
     const result= await Swal.fire({

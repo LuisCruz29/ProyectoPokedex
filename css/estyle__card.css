@@ -121,6 +121,10 @@
     color:#ff0410;
 }
 
+.activo{
+    color:#ff0410;
+}
+
 .informacion__legendaria__pk{
     display: flex;
     flex-direction: row;
