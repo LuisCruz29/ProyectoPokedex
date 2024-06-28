@@ -142,4 +142,31 @@ function crearCuadroSeleccionado(pokemon) {
     return contenedorPrincipal;
 }
 
-export{crearCuadro,cardAbout,cardStats,cardDanio,crearCuadroSeleccionado};
+function crearCuadroAsignado(pokemon) {
+    const contenedorTipos=document.createElement('div');
+    contenedorTipos.classList.add('pk__descripcion');
+    pokemon.tipos.forEach(tipo => {
+        contenedorTipos.innerHTML+=`
+            <span class="badges pk_container_${tipo}">${tipo}</span>
+        `;
+    });
+    const contenedorPrincipal=document.createElement('div');
+    contenedorPrincipal.classList.add('contenedor');
+    contenedorPrincipal.innerHTML=`
+        <div class="pk__container_Principal pk__container_${pokemon.tipos[0]}">
+            <div class="pk__complementario">
+                <h3>${pokemon.nombre}</h3>
+                <img src="${pokemon.imagen.otroDW}" alt="${pokemon.nombre}" class="pokemon-image">
+                <h3 class="pk__descripcion__id">#${pokemon.id}</h3>
+            </div>
+            ${contenedorTipos.outerHTML}
+            <div class="w-100 buttons" id="${pokemon.id}"> 
+                <i class="bi bi-x list fs-2" id="eliminarAsignacion"></i>
+               
+            </div>
+        </div>
+    
+    `;
+    return contenedorPrincipal;
+}
+export{crearCuadro,cardAbout,cardStats,cardDanio,crearCuadroSeleccionado,crearCuadroAsignado};

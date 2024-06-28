@@ -1,5 +1,5 @@
 import { crearRow,crearCol,crearCol2 } from "./plantillasEntrenador.js";
-import { agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador } from "./bd.js";
+import { agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador,verificarEntrenadorAsignaciones } from "./bd.js";
 
 function crearEntrenador(entrenadores){
     let cuenta=0;
@@ -58,7 +58,7 @@ function crearEntrenador(entrenadores){
                             showCancelButton: true,
                             inputValidator: (value) => {
                               if (!value) {
-                                return "You need to write something!";
+                                return "Ingresa un valor!";
                               }
                               
                             }
@@ -76,17 +76,27 @@ function crearEntrenador(entrenadores){
     
        let eliminar=document.querySelectorAll('.eliminar');
        eliminar.forEach(elemento=>{
-        elemento.addEventListener('click',(e)=>{
-            Swal.fire({
-                title: "Eliminar Entrenador?",
-                showCancelButton: true,
-                confirmButtonText: "Eliminar",
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                    let id=e.target.parentElement.parentElement.id;
-                    eliminarEntrenador(id);
-                }
-            });
+        elemento.addEventListener('click',async (e)=>{
+            let id=e.target.parentElement.id;
+            let existe=await verificarEntrenadorAsignaciones(id);
+            if (!existe) {
+                Swal.fire({
+                    title: "¿Eliminar Entrenador?",
+                    showCancelButton: true,
+                    confirmButtonText: "Eliminar",
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        eliminarEntrenador(id);
+                    }
+                });
+            }
+            else{
+                Swal.fire({
+                    text: "No puedes eliminar este entrenador, ya que, tiene pokemones asignados.",
+                    icon: "error"
+                });
+            }
+            
         });
        });
     }

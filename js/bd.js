@@ -1,5 +1,5 @@
 import { crearEntrenador } from "./entrenador.js";
-import { rellenoDiv } from "./administracionPokemones.js";
+import { rellenoDiv,mostrarPokemonesAsignados } from "./administracionPokemones.js";
 let db;
 const openDB=window.indexedDB.open("db_Pokedex");
 
@@ -10,18 +10,16 @@ openDB.onerror=(event)=>{
 
 openDB.onsuccess=(event)=>{
     db=event.target.result;
-    mostrar().then(lista => {
+    mostrar().then(lista=>{
         crearEntrenador(lista);
-    }).catch(error => {
-        console.error('Error al mostrar los entrenadores:', error);
     });
-
-    mostrarPokemones().then(lista => {
+   
+    
+    mostrarPokemones().then(lista=>{
         rellenoDiv(lista);
-    }).catch(error => {
-        console.error('Error al mostrar los pokemones:', error);
     });
-
+  
+   mostrarAsignacines();
 };
 
 openDB.onupgradeneeded=(event)=>{
@@ -29,32 +27,38 @@ openDB.onupgradeneeded=(event)=>{
 
     const bd=event.target.result;
 
-    const almacen=bd.createObjectStore("tbl_entrenadores",{keyPath:'id',autoIncrement:true});
-    const alamcen2=bd.createObjectStore("tbl_pokemones",{keyPath:'id'});
-    almacen.transaction.oncomplete=(event)=>{
-        const datosDefecto=bd.transaction("tbl_entrenadores","readwrite").objectStore("tbl_entrenadores");
-        lista.forEach(elemento=>{
-            datosDefecto.add({nombre:elemento});
-        });
-    };
-   
+    if(!bd.objectStoreNames.contains("tbl_entrenadores")){
+        const almacen=bd.createObjectStore("tbl_entrenadores",{keyPath:'id',autoIncrement:true});
+        almacen.transaction.oncomplete=(event)=>{
+            const datosDefecto=bd.transaction("tbl_entrenadores","readwrite").objectStore("tbl_entrenadores");
+            lista.forEach(elemento=>{
+                datosDefecto.add({nombre:elemento});
+            });
+        };
+       
+    }
+    
+    if(!bd.objectStoreNames.contains("tbl_pokemones")){
+        const alamcen2=bd.createObjectStore("tbl_pokemones",{keyPath:'id'});
+    }
+    
+    if(!bd.objectStoreNames.contains("tbl_asignaciones")){
+        const almacen3=bd.createObjectStore("tbl_asignaciones",{keyPath:'id'});
+        almacen3.createIndex('idIDX','idE',{unique:false});
+    }
+  
+
 };
 
-function getObjectStore(store_name, mode) {
-    var tx = db.transaction(store_name, mode);
-    return tx.objectStore(store_name);
-}
 
-
+//Funcionalidad tbl_entrenadores
 function agregarNuevoEntrenador(nombreE){
     
     const transaction = db.transaction(["tbl_entrenadores"], "readwrite");
    
     transaction.oncomplete = (event) => {
-        mostrar().then(lista => {
+        mostrar().then(lista=>{
             crearEntrenador(lista);
-        }).catch(error => {
-            console.error('Error al mostrar los entrenadores:', error);
         });
     };
       
@@ -73,7 +77,7 @@ function agregarNuevoEntrenador(nombreE){
             });
         
             request.onsuccess=(event)=>{
-                
+                mostrarAsignacines();
             }
         }
         else{
@@ -89,7 +93,9 @@ function agregarNuevoEntrenador(nombreE){
 
 
 function mostrar(){
-    let almacen = getObjectStore("tbl_entrenadores","readonly");
+    const transaction = db.transaction("tbl_entrenadores", "readonly");
+    const almacen=transaction.objectStore("tbl_entrenadores");
+
     let lista = [];
 
     return new Promise((resolve, reject) => {
@@ -118,17 +124,15 @@ function eliminarEntrenador(idE){
     const transaction=db.transaction(["tbl_entrenadores"],"readwrite");
 
     transaction.oncomplete=(event)=>{
-        mostrar().then(lista => {
+        mostrar().then(lista=>{
             crearEntrenador(lista);
-        }).catch(error => {
-            console.error('Error al mostrar los entrenadores:', error);
         });
     };
 
     const almacen=transaction.objectStore(["tbl_entrenadores"]);
     let request=almacen.delete(Number(idE));
     request.onsuccess=(event)=>{
-        
+        mostrarAsignacines();
     };
 
     request.onerror = (event) => {
@@ -141,10 +145,8 @@ function modificarEntrenador(antiguo,nombreE){
     var almacen= transaccion.objectStore("tbl_entrenadores");
     
     transaccion.addEventListener("complete",()=>{
-        mostrar().then(lista => {
+        mostrar().then(lista=>{
             crearEntrenador(lista);
-        }).catch(error => {
-            console.error('Error al mostrar los entrenadores:', error);
         });
     });
    
@@ -165,14 +167,14 @@ function modificarEntrenador(antiguo,nombreE){
     });
 }
 
+
+//Funcionalidad tbl_pokemones
 function agregarPokemon(pokemon,idP){
     const transaction = db.transaction(["tbl_pokemones"], "readwrite");
    
     transaction.oncomplete = (event) => {
-        mostrarPokemones().then(lista => {
+        mostrarPokemones().then(lista=>{
             rellenoDiv(lista);
-        }).catch(error => {
-            console.error('Error al mostrar los pokemones:', error);
         });
     };
       
@@ -207,7 +209,8 @@ function agregarPokemon(pokemon,idP){
 }
 
 function mostrarPokemones(){
-    let almacen = getObjectStore("tbl_pokemones","readonly");
+    const transaction = db.transaction("tbl_pokemones", "readonly");
+    const almacen=transaction.objectStore("tbl_pokemones");
     let lista = [];
 
     return new Promise((resolve, reject) => {
@@ -234,20 +237,14 @@ function mostrarPokemones(){
 function eliminarPokemon(idP){
     const transaction=db.transaction(["tbl_pokemones"],"readwrite");
 
-    transaction.oncomplete=(event)=>{
-        mostrarPokemones().then(lista => {
+    transaction.oncomplete= (event)=>{
+        mostrarPokemones().then(lista=>{
             rellenoDiv(lista);
-        }).catch(error => {
-            console.error('Error al mostrar los pokemones:', error);
         });
     };
 
     const almacen=transaction.objectStore(["tbl_pokemones"]);
     let request=almacen.delete(Number(idP));
-    request.onsuccess=(event)=>{
-        
-    };
-
     request.onerror = (event) => {
         console.error("Error al intentar eliminar el registro:", event.target.error);
     };
@@ -262,17 +259,122 @@ function verificarExistencia(idP){
 
         request.onsuccess = (event) => {
             if (request.result) {
-                console.log('encontrado');
+               
                 resolve(true);
             } else {
-                console.log('no encontrado');
+                
                 resolve(false);
             }
         };
     });
 }
 
+function obtenerPokemon(idP){
+    
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(["tbl_pokemones"], "readonly");
+        const almacen = transaction.objectStore("tbl_pokemones");
+        let request = almacen.get(Number(idP));
+
+        request.onsuccess = (event) => {
+            resolve(request.result)
+            
+        };
+    });
+}
+
+//Funcionalidad tbl_asignaciones
+
+function agregarAsignacion(idP,idEntrenador){
+    const transaccion=db.transaction("tbl_asignaciones","readwrite");
+    const almacen=transaccion.objectStore("tbl_asignaciones");
+
+    const objeto={
+        id:Number(idP),
+        idE:Number(idEntrenador)
+    };
+    const request=almacen.add(objeto);
+
+    request.onerror= (evt)=>{
+        console.log('Error');
+    }
+}
+
+function verificarAsignacion(idP){
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(["tbl_asignaciones"], "readonly");
+        const almacen = transaction.objectStore("tbl_asignaciones");
+        let request = almacen.get(Number(idP));
+
+        request.onsuccess = (event) => {
+            if (request.result) {
+               
+                resolve(true);
+            } else {
+                
+                resolve(false);
+            }
+        };
+    });
+}
+
+function verificarEntrenadorAsignaciones(id){
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(["tbl_asignaciones"], "readonly");
+        const almacen = transaction.objectStore("tbl_asignaciones");
+        const idx=almacen.index('idIDX');
+        let request = idx.get(Number(id));
+
+        request.onsuccess = (event) => {
+            if (request.result) {
+               
+                resolve(true);
+            } else {
+                
+                resolve(false);
+            }
+        };
+    });
+}
+
+function eliminarAsignaciones(id){
+    const transaccion=db.transaction("tbl_asignaciones","readwrite");
+    const almacen=transaccion.objectStore("tbl_asignaciones");
+    let request=almacen.delete(Number(id));
+    location.reload();
+   
+}
+
+async function mostrarAsignacines(){
+    const datos=await mostrar();
+
+    datos.forEach(async (elemento)=>{
+        const pokemones=await  traerAsignacionesxEntrenador(elemento.idE);
+        pokemones.forEach(elemento2=>{
+            mostrarPokemonesAsignados(elemento2.idE,elemento2.id)
+        });
+    });
+    
+  
+}
+
+function traerAsignacionesxEntrenador(idE){
+   
+    return new Promise((resolve,reject)=>{
+        const transaccion=db.transaction("tbl_asignaciones","readonly");
+        const almacen=transaccion.objectStore("tbl_asignaciones");
+        const range=IDBKeyRange.only(idE);
+        const idx=almacen.index('idIDX');
+
+        const peticion=idx.getAll(range);
+
+        peticion.onsuccess=(evt)=>{
+            const resultado=evt.target;
+            resolve(resultado.result);
+        }
+    })
+}
 
 
-export {agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador,agregarPokemon,eliminarPokemon,verificarExistencia};
+export {agregarNuevoEntrenador,eliminarEntrenador,modificarEntrenador,agregarPokemon,obtenerPokemon,eliminarPokemon,verificarExistencia,mostrar,agregarAsignacion,verificarAsignacion,verificarEntrenadorAsignaciones,mostrarAsignacines,eliminarAsignaciones};
 
