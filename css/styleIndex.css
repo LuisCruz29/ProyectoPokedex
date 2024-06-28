@@ -11,6 +11,25 @@ html, body {
     height: auto;
 }
 
+
+.textpkinicial
+{
+    font-family: 'UnifrakturCook', cursive;
+      font-size: 50px;
+      color: #ffffff; /* Color del texto */
+      text-shadow: 
+        1px 1px 0 #000000, 
+        2px 2px 0 #000000, 
+        3px 3px 0 #000000, 
+        4px 4px 0 #000000, 
+        5px 5px 0 #000000;
+}
+
+.text{
+    font-family: 'UnifrakturCook', cursive;
+    font-weight: bold;
+}
+
 .img-container {
     height: 100%;
 }
