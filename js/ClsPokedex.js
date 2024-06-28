@@ -77,6 +77,10 @@ export class Pokedex
                         if (result.isConfirmed) {
                             let pokemonS=JSON.stringify(pokemon);
                             agregarPokemon(pokemonS,pokemon.id);
+                            Swal.fire({
+                                text: "Pokemon Seleccionado",
+                                icon: "success"
+                            });
                         } 
                     });
                 }
@@ -255,6 +259,10 @@ export class Pokedex
                     if (result.isConfirmed) {
                         let pokemonS=JSON.stringify(pokemon);
                         agregarPokemon(pokemonS,pokemon.id);
+                        Swal.fire({
+                            text: "Pokemon Seleccionado",
+                            icon: "success"
+                        });
                     } 
                 });
             }

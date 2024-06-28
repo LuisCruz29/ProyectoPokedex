@@ -78,6 +78,8 @@ function agregarNuevoEntrenador(nombreE){
         
             request.onsuccess=(event)=>{
                 mostrarAsignacines();
+                location.reload();
+
             }
         }
         else{
@@ -126,6 +128,7 @@ function eliminarEntrenador(idE){
     transaction.oncomplete=(event)=>{
         mostrar().then(lista=>{
             crearEntrenador(lista);
+            location.reload();
         });
     };
 
@@ -161,6 +164,7 @@ function modificarEntrenador(antiguo,nombreE){
                 let objeto=puntero2.value;
 
                 puntero2.update(objeto);
+                location.reload();
             }
             puntero2.continue();
         }
