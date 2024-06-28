@@ -5,14 +5,16 @@ import { crearCuadro,cardAbout,cardStats,cardDanio } from "./plantillas.js";
 import { agregarPokemon,verificarExistencia } from "./bd.js";
 export class Pokedex
 {
+    #listaPokemon;
+    #listaPokemonsFiltro;
     //constructor de la clase pokedex
     constructor() 
     {
         //inicializamos un array vacio para almacenar la lista de pokemon
-        this.listaPokemon = [];
+        this.#listaPokemon = [];
 
         //Creamos una lista para almacenar los pokemones filtrados
-        this.listaPokemonsFiltro= [];
+        this.#listaPokemonsFiltro= [];
 
     }
 
@@ -32,8 +34,8 @@ export class Pokedex
     {
         for (const dato of datos) {
             const pk = new Pokemon(dato.idP, dato.nombreP, dato.tipoP, dato.estadistica, dato.evolucion, dato.about, dato.img,dato.relaciones);
-            this.listaPokemon.push(pk);
-            this.listaPokemonsFiltro.push(pk);
+            this.#listaPokemon.push(pk);
+            this.#listaPokemonsFiltro.push(pk);
         }
         
         
@@ -54,14 +56,14 @@ export class Pokedex
         document.getElementById('limpiar-filtro').addEventListener('click', () => this.#limpiarFiltro());
 
         //dibujar cada pokemon
-        this.listaPokemon.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
+        this.#listaPokemon.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
 
         let add=document.querySelectorAll('#agregar');
         
         add.forEach(agregarP=>{
             agregarP.addEventListener('click',async (evt)=>{
                 let id=evt.target.parentElement.id;
-                 let pokemon=this.listaPokemon[id-1];
+                 let pokemon=this.#listaPokemon[id-1];
                 let existe=await verificarExistencia(pokemon.id);
 
                 if (existe) {
@@ -104,20 +106,13 @@ export class Pokedex
             this.#crearCardPokemon(id);
         });
 
-        
-        
-        // //audio pokemon
-        // var audio = document.getElementById("poke_audi");
-        // audio.play().catch(error => {
-        //     alert("Error: ",error);
-        // })
     }
 
     /*este metodo lo que ase es que funcione el evento click*/
    
 
     /*este otro lo que hhace que funcione lo que es el nav bar de la targeta*/
-    poke_nav_movimiento(tarjeta){
+    #poke_nav_movimiento(tarjeta){
         const tabs = tarjeta.querySelectorAll(".tab_btn");
         tabs.forEach((tab, index) => {
             tab.addEventListener('click', (e) => {
@@ -134,7 +129,7 @@ export class Pokedex
 
     #crearCardPokemon(idPokemon){
         const elemento_html=document.getElementById('pokedex');
-        const pokemon=this.listaPokemon[idPokemon-1];
+        const pokemon=this.#listaPokemon[idPokemon-1];
 
         // // //dibujando la targetas
         const tarjeta = document.createElement('div');
@@ -233,7 +228,7 @@ export class Pokedex
         });
         
        
-        this.poke_nav_movimiento(tarjeta);
+        this.#poke_nav_movimiento(tarjeta);
         cardAbout(pokemon);
 
         let cerrarTarjeta=document.getElementById('cerrarCard');
@@ -280,23 +275,23 @@ export class Pokedex
                 icon: "error",
                 title: "Por favor, rellene el campo",
             });
-            this.listaPokemonsFiltro = [...this.listaPokemon];
+            this.#listaPokemonsFiltro = [...this.#listaPokemon];
             document.getElementById('filtro-input').value='';
             return;
         }
 
-        this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.nombre.includes(filtro));
-        if (this.listaPokemonsFiltro.length === 0) {
+        this.#listaPokemonsFiltro = this.#listaPokemon.filter(pk => pk.nombre.includes(filtro));
+        if (this.#listaPokemonsFiltro.length === 0) {
             Toast.fire({
                 icon: "error",
                 title: "No se econtró pokemon con el nombre "+ filtro,
             });
-            this.listaPokemonsFiltro = [...this.listaPokemon];
+            this.#listaPokemonsFiltro = [...this.#listaPokemon];
             document.getElementById('filtro-input').value='';
             return;
         }
         document.getElementById('filtro-input').value='';
-        this.actualizarPokedex();
+        this.#actualizarPokedex();
 
     }
 
@@ -310,7 +305,7 @@ export class Pokedex
                 icon: "error",
                 title: "Por favor, rellene el campo",
             });
-            this.listaPokemonsFiltro = [...this.listaPokemon];
+            this.#listaPokemonsFiltro = [...this.#listaPokemon];
             document.getElementById('filtro-input').value='';
             return;
         }
@@ -319,7 +314,7 @@ export class Pokedex
                 icon: "error",
                 title: "Solo puede ingresar numeros",
             });
-            this.listaPokemonsFiltro = [...this.listaPokemon];
+            this.#listaPokemonsFiltro = [...this.#listaPokemon];
             document.getElementById('filtro-input').value='';
             return;
         }
@@ -328,16 +323,16 @@ export class Pokedex
                 icon: "error",
                 title: `El ID ${filtro_entrada} no existe`,
             });
-            this.listaPokemonsFiltro = [...this.listaPokemon];
+            this.#listaPokemonsFiltro = [...this.#listaPokemon];
             document.getElementById('filtro-input').value='';
             return;
         }
         else{
             document.getElementById('filtro-input').value='';
-            this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.id == filtro_entrada);
+            this.#listaPokemonsFiltro = this.#listaPokemon.filter(pk => pk.id == filtro_entrada);
         }
         
-        this.actualizarPokedex();
+        this.#actualizarPokedex();
     }
 
     // Método para filtrar Pokémon por tipo
@@ -350,48 +345,48 @@ export class Pokedex
                 icon: "error",
                 title: "Por favor, rellene el campo",
             });
-            this.listaPokemonsFiltro = [...this.listaPokemon];
+            this.#listaPokemonsFiltro = [...this.#listaPokemon];
             return;
         }
 
-        this.listaPokemonsFiltro = this.listaPokemon.filter(pk => pk.tipos.includes(filtro_entrada));
-        if (this.listaPokemonsFiltro.length === 0) {
+        this.#listaPokemonsFiltro = this.#listaPokemon.filter(pk => pk.tipos.includes(filtro_entrada));
+        if (this.#listaPokemonsFiltro.length === 0) {
             Toast.fire({
                 icon: "error",
                 title: "No se econtraron pokemons del tipo "+ filtro_entrada,
             });
-            this.listaPokemonsFiltro = [...this.listaPokemon];
+            this.#listaPokemonsFiltro = [...this.#listaPokemon];
             document.getElementById('filtro-input').value='';
             return;
         }
         document.getElementById('filtro-input').value='';
-        this.actualizarPokedex();
+        this.#actualizarPokedex();
     }
 
     // Método para limpiar filtros
     #limpiarFiltro()
     {
-        this.listaPokemonsFiltro = [...this.listaPokemon]; // Restablecer lista de filtrados a la lista completa
+        this.#listaPokemonsFiltro = [...this.#listaPokemon]; // Restablecer lista de filtrados a la lista completa
         const limpiar = document.getElementById('filtro-input');
         limpiar.value = '';
-        this.actualizarPokedex();
+        this.#actualizarPokedex();
 
     }
 
         // Método para actualizar la Pokedex
-    actualizarPokedex() {
+    #actualizarPokedex() {
         const Elemento_pokedex = document.getElementById('pokedex');
         Elemento_pokedex.innerHTML = '';
 
         // Dibujar cada Pokémon
-        if (Array.isArray(this.listaPokemonsFiltro)) {
-            this.listaPokemonsFiltro.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
+        if (Array.isArray(this.#listaPokemonsFiltro)) {
+            this.#listaPokemonsFiltro.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
             let add=document.querySelectorAll('#agregar');
         
             add.forEach(agregarP=>{
                 agregarP.addEventListener('click',async (evt)=>{
                     let id=evt.target.parentElement.id;
-                     let pokemon=this.listaPokemon[id-1];
+                     let pokemon=this.#listaPokemon[id-1];
                     let existe=await verificarExistencia(pokemon.id);
     
                     if (existe) {
@@ -421,6 +416,4 @@ export class Pokedex
             console.error('listaPokemonsFiltro no es un array');
         }   
     }
-
 }
-
