@@ -386,6 +386,37 @@ export class Pokedex
         // Dibujar cada Pokémon
         if (Array.isArray(this.listaPokemonsFiltro)) {
             this.listaPokemonsFiltro.forEach(x => this.#dibujarPk(Elemento_pokedex, x));
+            let add=document.querySelectorAll('#agregar');
+        
+            add.forEach(agregarP=>{
+                agregarP.addEventListener('click',async (evt)=>{
+                    let id=evt.target.parentElement.id;
+                     let pokemon=this.listaPokemon[id-1];
+                    let existe=await verificarExistencia(pokemon.id);
+    
+                    if (existe) {
+                        Swal.fire('Ya has seleccionado este pokemon como acompañante');
+                    }
+                    else{
+                        Swal.fire({
+                            title: "¿Desea agregar este pokemon como acompañante?",
+                            showCancelButton: true,
+                            confirmButtonText: "Agregar",
+                            cancelButtonText: `Cancelar`
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                                let pokemonS=JSON.stringify(pokemon);
+                                agregarPokemon(pokemonS,pokemon.id);
+                                Swal.fire({
+                                    text: "Pokemon Seleccionado",
+                                    icon: "success"
+                                });
+                            } 
+                        });
+                    }
+                });
+            });
+
         } else {
             console.error('listaPokemonsFiltro no es un array');
         }   

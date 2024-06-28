@@ -59,7 +59,7 @@ function rellenoDiv(listaPokemones){
                 }
                 else{
                     Swal.fire({
-                        text: "No puedes eliminar este pokemon, ya que esta asignado a un entrenador",
+                        text: "No puedes eliminar este pokemon, ya que, esta asignado a un entrenador.",
                         icon: "error"
                     });
                 }
