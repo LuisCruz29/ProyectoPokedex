@@ -93,13 +93,22 @@ function rellenoDiv(listaPokemones){
                         if (result.isConfirmed) {
                             
                             const {value:entrendorID}=result;
-                            agregarAsignacion(id,entrendorID);
+                            if (entrendorID!=='') {
+                                agregarAsignacion(id,entrendorID);
                             
-                            Swal.fire({
-                                text: "Pokemon Asignado Correctamente",
-                                icon: "success"
-                            });
-                            mostrarAsignacines();   
+                                Swal.fire({
+                                    text: "Pokemon Asignado Correctamente",
+                                    icon: "success"
+                                });
+                                mostrarAsignacines(); 
+                            }
+                            else{
+                                Swal.fire({
+                                    text: "Selecciona una opcion",
+                                    icon: "error"
+                                });
+                            }
+                              
                         }
                     });
                 }
