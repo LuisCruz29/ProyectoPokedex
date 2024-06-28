@@ -88,7 +88,6 @@
 #limpiar-filtro {
     background-color: var(--color-limpiar);
     border-color: var(--color-limpiar);
-    color: #000;
 }
   
 #limpiar-filtro:hover {
